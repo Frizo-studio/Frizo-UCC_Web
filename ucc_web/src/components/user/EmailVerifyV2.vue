@@ -138,6 +138,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: default;
 }
 .verifyCodeFont {
   grid-row: 4/5;
@@ -145,6 +146,7 @@ export default {
   justify-content: flex-start;
   margin-left: 25%;
   font-size: 20px;
+  cursor: default;
 }
 .verifyCodeArea {
   grid-row: 5/6;
@@ -171,6 +173,10 @@ export default {
   background-color: white;
   color: rgb(165, 101, 42);
   margin-left: 5px;
+  transition: all 0.1s ease;
+}
+.sendBtn:hover {
+  font-weight: 550;
 }
 .sendBtn:focus {
   outline: none;
@@ -195,7 +201,9 @@ export default {
   justify-content: flex-start;
   margin-left: 25%;
   align-items: center;
+  cursor: default;
 }
+
 .submit {
   grid-row: 8/12;
   display: flex;
@@ -239,11 +247,13 @@ export default {
 .TipsFont {
   font-size: 23px;
   color: black;
+  cursor: default;
 }
 .TipsFont2 {
   font-size: 18px;
   margin-top: -12px;
   color: black;
+  cursor: default;
 }
 .line {
   height: 1.5px;
@@ -260,5 +270,6 @@ export default {
   color: rgb(165, 101, 42);
   font-weight: bold;
   margin-top: 5px;
+  cursor: default;
 }
 </style>
