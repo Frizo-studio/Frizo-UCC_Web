@@ -36,36 +36,31 @@ export default new VueRouter({
             redirect: '/',
             component: resolve => require(['@/pages/User.vue'], resolve),
             children: [
-                { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) },
+                { path: 'info', component: resolve => require(['@/components/user/userinfo/Info.vue'], resolve) },
                 { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) },
                 { path: 'newActivity', component: resolve => require(['@/components/user/PostActivity.vue'], resolve) }
             ]
         },
 
+        // test區塊
         {
             path: '/test',
             name: 'test',
-            component: resolve => require(['@/components/test.vue'], resolve),
+            component: resolve => require(['@/components/test/test.vue'], resolve),
         },
+
+        {
+            path: '/testPhoto',
+            name: 'test',
+            component: resolve => require(['@/components/test/testPhotoCroppie.vue'], resolve),
+        },
+        // test區塊
 
         {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),
         },
-
-        {
-            path: '/event',
-            name: 'event',
-            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
-        },
-
-        {
-            path: '/Event',
-            name: 'event',
-            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
-        },
-
 
         {
             path: '/findEvent',
