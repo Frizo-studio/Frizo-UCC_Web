@@ -2,13 +2,13 @@
   <!-- <div class="register"> -->
   <div class="registerDiv">
     <div class="goBack">
-      <img @click.prevent="goBack" class="img100" src="@/assets/loginGroup/left-arrow.png" />
+      <img @click.prevent="goBack" class="imgGoBack" src="@/assets/loginGroup/left-arrow.png" />
     </div>
     <div class="UCCLogo">
       <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
     </div>
     <div class="goClose">
-      <img class="img100" src="@/assets/loginGroup/close.png" />
+      <img class="imgClose" src="@/assets/loginGroup/close.png" />
     </div>
     <div class="UCCTitle">立即加入UCC</div>
     <div class="nicknameText titleText">稱謂</div>
@@ -171,21 +171,30 @@ export default {
 }
 
 .goBack {
+  position: relative;
+  left: 5px;
+  top: 5px;
   grid-row: 1/2;
   grid-column: 1/2;
 }
 
+.imgGoBack {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
 .goClose {
   position: relative;
-  top: 7px;
+  top: 10px;
   left: -7px;
   grid-row: 1/2;
   grid-column: 10/11;
 }
 
-.img100 {
-  height: 100%;
-  width: 100%;
+.imgClose {
+  height: 70%;
+  width: 70%;
   cursor: pointer;
 }
 

@@ -1,312 +1,264 @@
 <template>
-  <div class="info">
-    <div class="userinfo">
-      <div class="photoGroup">
-        <div class="userBackgroundPhoto">
-          <!-- <img :src="userInfo.backgroundUrl" class="PhotoSize" /> -->
-          <img :src="testUserBackgroundPhoto" class="PhotoSize" />
-        </div>
-        <div class="userBackgroundPhotoBtn">
-          <label>
-            <input
-              id="upload_img"
-              style="display:none;"
-              type="file"
-              v-on:change="onBackgroundChange($event)"
-            />
-            封面照片
-          </label>
-        </div>
-        <div class="userPhoto">
-          <el-avatar :size="130" :src="userInfo.imgUrl"></el-avatar>
-        </div>
-        <div class="userPhotoBtn">
-          <label>
-            <input
-              id="upload_img"
-              style="display:none;"
-              type="file"
-              v-on:change="onAvatarChange($event)"
-            />
-            換
-          </label>
-        </div>
-        <div class="photoUserName">{{userInfo.name}}</div>
+  <div class="emailVerifyPage">
+    <div class="container">
+      <div class="title">
+        <h3>信箱認證</h3>
       </div>
-      <div class="userInfoContnet">
-        <div class="sideBar">
-          <div class="userInfoUpDataBtn">
-            <span
-              :class="{active:view=='changeInfo'}"
-              @click.prevent="changeView('changeInfo')"
-            >個人檔案</span>
-          </div>
-          <div class="userChangePwBtn">
-            <span :class="{active:view=='changePw'}" @click.prevent="changeView('changePw')">修改密碼</span>
-          </div>
-        </div>
-        <div class="infoShow">
-          <keep-alive>
-            <component :is="view"></component>
-          </keep-alive>
-        </div>
+      <div class="verifyCodeFont">
+        <span>驗證碼</span>
+      </div>
+      <div class="verifyCodeArea">
+        <input class="verifyCodeInput" type="text" />
+        <button class="sendBtn" @click.prevent="sendVerifyCodeEmail">寄信</button>
+      </div>
+      <div class="tipsBtn">
+        <button
+          style="border:none;background-color:white;color:rgb(165, 101, 42)"
+          @click="openCloseTips"
+        >
+          <font-awesome-icon icon="info-circle" size="lg" class="tipsIcon" />
+        </button>
+      </div>
+      <div class="note">
+        <span>驗證後可立即啟用發布活動、消息等功能</span>
+      </div>
+      <div class="submit">
+        <button type="submit" class="submitBtn" @click.native="sendCode">送出</button>
       </div>
     </div>
+    <!-- Focus tips 背景 -->
+    <div class="background" v-if="isTipsOpen" @click="openCloseTips"></div>
+
+    <!------------- 提示視窗 ------------->
+    <div class="tips" v-if="isTipsOpen">
+      <div class="closeTips">
+        <font-awesome-icon
+          icon="info-circle"
+          size="lg"
+          style="color:rgb(165, 101, 42);margin-left:10px;"
+        />
+        <button
+          style="border:none;background-color:white;color:rgb(165, 101, 42);margin-right:10px;"
+          @click="openCloseTips"
+        >
+          <font-awesome-icon icon="times-circle" size="lg" class="tipsIcon" />
+        </button>
+      </div>
+      <div class="TipsFont">
+        <span>信箱驗證</span>
+      </div>
+      <div class="line"></div>
+      <div class="TipsFont2">
+        <span>在驗證過後你可以擁有額外的功能：</span>
+      </div>
+      <div class="TipsFontMain">
+        <span>發布貼文</span>
+      </div>
+      <div class="TipsFontMain">
+        <span>和好友私訊聊天</span>
+      </div>
+      <div class="TipsFontMain">
+        <span>調整網頁配色</span>
+      </div>
+    </div>
+
+    <!-- <el-button type="primary" class="mb-4" @click.native="sendVerifyCodeEmail">寄信</el-button>
+    <el-button type="primary" class="mt-4" @click.native="sendCode">送出</el-button>-->
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { authenticated } from "@/utils/AuthStore";
-import { updateUserAvatar, updateProfileBackground } from "@/api/user";
-// import changeInfo from "@/components/test/test2";
-import changePw from "@/components/user/userinfo/changePw";
+import { sendVerifyCodeEmail, checkVerifyCodeEmail } from "@/api/user";
 
 export default {
-  name: "Info",
-
-  components: {
-    // changeInfo,
-    changePw
-  },
-
   data() {
     return {
-      respond: "",
-      phoneNumber: "",
-      view: "changeInfo",
-
-      testUserBackgroundPhoto:
-        "https://png.pngtree.com/thumb_back/fh260/back_pic/03/71/59/3557b810e06df32.jpg"
+      verifyCode: "",
+      isTipsOpen: false
     };
   },
 
   methods: {
-    ...mapActions({
-      updateUserState: "user/setUserInfoFromObj"
-    }),
-
-    // 切換components的功能
-    changeView(viewName) {
-      this.view = viewName;
-    },
-
-    onAvatarChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      alert(files[0].name);
-      var imgBuffer = files[0];
-      updateUserAvatar(imgBuffer)
+    sendVerifyCodeEmail,
+    checkVerifyCodeEmail,
+    sendCode() {
+      this.checkVerifyCodeEmail(this.verifyCode)
         .then(resp => {
           console.log(resp.data);
-          if (resp.data.success) {
-            let userInfo = {
-              imageUrl: resp.data.result
-            };
-            this.updateUserState(userInfo);
-          }
         })
-        .catch(error => {
-          console.log(error);
+        .catch(err => {
+          console.log(err);
         });
     },
-
-    onBackgroundChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      alert(files[0].name);
-      var imgBuffer = files[0];
-      updateProfileBackground(imgBuffer)
-        .then(resp => {
-          console.log(resp.data);
-          if (resp.data.success) {
-            let userInfo = {
-              backgroundUrl: resp.data.result.message
-            };
-            this.updateUserState(userInfo);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    // 打開提示訊息
+    openCloseTips() {
+      if (this.isTipsOpen === false) {
+        this.isTipsOpen = true;
+      } else {
+        this.isTipsOpen = false;
+      }
     }
-  },
-
-  beforeRouteEnter(to, from, next) {
-    if (authenticated()) {
-      next();
-    } else {
-      next("/");
-    }
-  },
-
-  computed: {
-    ...mapGetters({
-      userInfo: "user/userInfo"
-    })
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.info {
-  background-color: #b2702f;
-  height: 830px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-.userinfo {
-  position: relative;
-  width: 800px;
-  height: 750px;
-  margin: auto;
-}
-
-.photoGroup {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  height: 250px;
-}
-
-.userBackgroundPhoto {
-  grid-row: 1/5;
-  grid-column: 1/6;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border: 0.5px #3b3b3b solid;
-}
-
-.userPhoto {
-  grid-row: 3/5;
-  grid-column: 3/4;
-}
-
-.userBackgroundPhotoBtn {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  grid-row: 4/5;
-  grid-column: 5/6;
-  padding-right: 20px;
-  padding-bottom: 5px;
-}
-
-.userBackgroundPhotoBtn label {
-  background-color: #dddddd;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 4px;
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-.userPhotoBtn {
-  grid-column: 3/4;
-  grid-row: 5/6;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin-right: 20px;
-}
-
-.userPhotoBtn label {
-  border-radius: 35px;
-  background-color: #dddddd;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.8;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.photoUserName {
-  position: relative;
-  grid-row: 5/6;
-  grid-column: 3/4;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-weight: bold;
-  color: #fff;
-  top: 5px;
-}
-
-.PhotoSize {
+.background {
+  position: absolute;
   height: 100%;
   width: 100%;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.8;
+  z-index: 0;
 }
-
-.userInfoContnet {
-  background-color: #ffffff;
-  height: 550px;
-  margin-top: 20px;
-  border-radius: 15px;
-  border: 0.5px #3b3b3b solid;
-  display: grid;
-  grid-template-columns: 15% 85%;
-  grid-template-rows: 100%;
+.emailVerifyPage {
+  height: 100vh;
+  width: 100vw;
+  padding-top: 70px;
 }
-
-.marginTop-100px {
-  margin-top: -100px;
-}
-
-.photoBtn {
-  text-align: right;
-  margin-top: -70px;
-}
-
-.infoBar {
+.container {
+  margin: auto;
+  height: 400px;
+  width: 55%;
   position: relative;
-  top: 40px;
-  height: 500px;
-  border: 1px solid #dddddd;
-  box-shadow: 0px 0px 1px #000000;
-  width: 100%;
-  background-color: #ffffff;
-}
-
-.sideBar {
-  position: relative;
-  height: 100px;
-  grid-column: 1/2;
-  grid-row: 1/2;
+  background-color: #fff;
+  border-radius: 10px;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: 100%;
-  top: 30px;
+  grid-template-rows: repeat(12, 1fr);
 }
-
-.sideBar div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sideBar div span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  width: 100%;
-  height: 70%;
-}
-
-.active {
-  border-left: 2px #000000 solid;
+.title {
   font-weight: bold;
+  grid-row: 1/4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.infoShow {
+.verifyCodeFont {
+  grid-row: 4/5;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25%;
+  font-size: 20px;
+}
+.verifyCodeArea {
+  grid-row: 5/6;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25%;
+  align-items: center;
+}
+.verifyCodeInput {
+  height: 78%;
+  width: 25vw;
+  min-width: 150px;
+  padding: 3px;
+  border-radius: 5px;
+  border: 0.8px rgb(128, 128, 128) solid;
+  transition: all 0.2s ease;
+}
+.verifyCodeInput:focus {
+  outline: none;
+  border: 1.2px rgb(165, 101, 42) solid;
+}
+.sendBtn {
+  border: none;
+  background-color: white;
+  color: rgb(165, 101, 42);
+  margin-left: 5px;
+}
+.sendBtn:focus {
+  outline: none;
+}
+.tipsBtn {
+  grid-row: 6/7;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25%;
+  align-items: center;
+  color: rgb(165, 101, 42);
+}
+.tipsBtn button:focus,
+.closeTips button:focus {
+  outline: none;
+}
+.tipsIcon {
+  cursor: pointer;
+}
+.note {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25%;
+  align-items: center;
+}
+.submit {
+  grid-row: 8/12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submitBtn {
+  border: none;
+  background-color: rgb(165, 101, 42);
+  width: 28.5vw;
+  color: white;
+  border-radius: 5px;
+  height: 30px;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+}
+.submitBtn:hover {
+  background-color: rgb(107, 67, 30);
+}
+/* ------------------ tips CSS ------------------ */
+.tips {
+  height: 250px;
+  width: 35vw;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: -325px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  position: absolute;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+}
+.closeTips {
   grid-row: 1/2;
-  grid-column: 2/3;
-  border-left: 2px #3b3b3b solid;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+/* 提視窗裡的信箱驗證字樣 */
+.TipsFont {
+  font-size: 23px;
+  color: black;
+}
+.TipsFont2 {
+  font-size: 18px;
+  margin-top: -12px;
+  color: black;
+}
+.line {
+  height: 1.5px;
+  width: 30vw;
+  display: flex;
+  background-color: gray;
+  margin: 5px auto;
+}
+.TipsFontMain {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(165, 101, 42);
+  font-weight: bold;
+  margin-top: 5px;
 }
 </style>
