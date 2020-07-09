@@ -1,10 +1,7 @@
 <template>
   <div class="initiateActivity">
-    <button class="openModel" @click="openCloseModel">發布活動</button>
-    <!-- Focus Model 背景 -->
-    <div class="background" v-if="isModelOpen" @click="openCloseModel"></div>
     <!-- Model 主體 -->
-    <div class="Model" v-if="isModelOpen">
+    <div class="Model">
       <div :class="isActivityPage?'stateLine':'stateLine2'"></div>
       <!-------------------------- 發起活動頁面 -------------------------->
       <div class="initialActivityPage" v-if="isActivityPage">
@@ -20,11 +17,7 @@
         <!-- 活動標題 -->
         <input type="text" class="activityTitle" placeholder="標題" />
         <!-- 活動描述 -->
-        <textarea
-          class="activityDescription"
-          style="width:300px;height:180px;"
-          placeholder="活動描述..."
-        ></textarea>
+        <textarea class="activityDescription" style="width:97%;height:200px;" placeholder="活動描述..."></textarea>
         <!-- 上傳活動照片 -->
         <div class="dm">
           <label :class="isAddPic ? 'havePic' : 'noPic' ">
@@ -122,11 +115,7 @@
         </div>
         <div class="line"></div>
         <!-- 消息描述 -->
-        <textarea
-          class="messageDescription"
-          style="width:280px;height:280px;"
-          placeholder="有什麼消息..."
-        ></textarea>
+        <textarea class="messageDescription" style="width:97%;height:200px;" placeholder="有什麼消息..."></textarea>
         <!-- 上傳消息照片 -->
         <div class="msgPic">
           <label :class="isAddMsgPic ? 'haveMsgPic' : 'noMsgPic' ">
@@ -155,7 +144,6 @@ export default {
   name: "InitiateActivity",
   data() {
     return {
-      isModelOpen: false,
       isActivityPage: true,
       // 發布活動的照片
       isAddPic: false,
@@ -196,15 +184,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-    },
-    // 打開發起模組
-    openCloseModel() {
-      if (this.isModelOpen === false) {
-        this.isActivityPage = true;
-        this.isModelOpen = true;
-      } else {
-        this.isModelOpen = false;
-      }
     },
     // 進入發起活動頁
     gotoActivityPage() {
@@ -305,26 +284,17 @@ export default {
   box-sizing: border-box;
   list-style: none;
 }
-.background {
-  position: absolute;
+.initiateActivity {
   height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: black;
-  opacity: 0.8;
-  z-index: 0;
-}
-.openModel {
-  height: 50px;
-  width: 100px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 /* 發起模組 */
 .Model {
   position: relative;
   padding: 15px 25px;
   margin: auto;
-  height: 500px;
+  height: 800px;
   width: 600px;
   background-color: #fff;
   border-radius: 10px;
@@ -377,15 +347,13 @@ export default {
 
 .initialActivityPage {
   display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  height: 470px;
+  grid-template-rows: repeat(18, 1fr);
+  height: 770px;
 }
 /* 活動標題CSS */
 .activityTitle {
   font-size: 20px;
   grid-row: 2/3;
-  grid-column: 1/3;
   border: none;
   border-bottom: 1px lightgray solid;
   width: 97%;
@@ -398,20 +366,23 @@ export default {
 }
 /* 活動描述CSS */
 .activityDescription {
-  margin-top: 5px;
+  margin-top: 10px;
   grid-row: 3/6;
-  border: none;
+  border: 1px lightgray solid;
+  border-radius: 5px;
   transition: all 0.1s ease;
   padding: 5px;
+  margin-left: 5px;
 }
 .activityDescription:focus {
-  outline: 1.5px rgb(165, 101, 42) solid;
+  border: 1px rgb(165, 101, 42) solid;
+  outline: none;
 }
+
 /* 活動圖片CSS */
 .dm {
   position: relative;
-  grid-row: 3/8;
-  float: left;
+  grid-row: 8/13;
   max-width: 240px;
   max-height: 200px;
   overflow: hidden;
@@ -449,7 +420,7 @@ export default {
 }
 /* 活動人數 & 地點CSS */
 .people {
-  grid-row: 8/9;
+  grid-row: 13/14;
   display: flex;
   margin-left: 72px;
   font-size: 14px;
@@ -475,8 +446,7 @@ export default {
   border: 1px rgb(165, 101, 42) solid;
 }
 .location {
-  grid-row: 9/10;
-  grid-column: 1/3;
+  grid-row: 14/15;
   display: flex;
   height: 25px;
   margin-left: 44px;
@@ -491,11 +461,11 @@ export default {
 }
 /* 報名截止時間 */
 .deadline {
-  grid-row: 10/11;
+  grid-row: 15/16;
 }
 /* 活動時間 */
 .time {
-  grid-row: 11/12;
+  grid-row: 16/17;
 }
 .deadline,
 .time {
@@ -537,8 +507,7 @@ export default {
 }
 /* 標籤 */
 .tag {
-  grid-row: 12/13;
-  grid-column: 1/3;
+  grid-row: 17/18;
   display: flex;
   width: 70%;
   overflow: hidden;
@@ -609,26 +578,28 @@ export default {
 
 .initialMessagePage {
   display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  height: 470px;
+  grid-template-rows: repeat(18, 1fr);
+  height: 770px;
 }
 /* 消息描述CSS */
 .messageDescription {
-  grid-row: 2/13;
+  grid-row: 3/9;
   display: flex;
-  border: none;
+  border: 1px lightgray solid;
+  border-radius: 5px;
   transition: all 0.1s ease;
   padding: 5px;
+  margin-left: 5px;
 }
 .messageDescription:focus {
-  outline: 1.5px rgb(165, 101, 42) solid;
+  border: 1px rgb(165, 101, 42) solid;
+  outline: none;
 }
+
 /* 活動圖片CSS */
 .msgPic {
   position: relative;
-  grid-row: 2/13;
-  grid-column: 2/3;
+  grid-row: 9/15;
   float: left;
   max-width: 240px;
   max-height: 200px;

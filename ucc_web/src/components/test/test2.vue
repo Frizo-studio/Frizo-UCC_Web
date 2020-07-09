@@ -8,6 +8,10 @@
       <div class="phoneLabel">電話</div>
       <div class="addressLabel">地址</div>
       <div class="collageLabel">大學資訊</div>
+      <div>
+        <!-- 填充用div -->
+      </div>
+      <div class="openFollowedLabel">公開帳號</div>
     </div>
     <!-- 右側input -->
     <div class="inputGroup">
@@ -51,6 +55,9 @@
           <option v-for="index in gradeOptions" :key="index">{{index.value}}</option>
         </select>
         <!-- <input class="rightInput90p" v-model="userInfo.grade" type="text" /> -->
+      </div>
+      <div class="openFollowed">
+        <input type="checkbox" name="isOpen" value="open" />
       </div>
       <div class="updataBtn">
         <button @click.prevent="sendUserInfo">更新</button>
@@ -207,7 +214,7 @@ export default {
   grid-row: 1/2;
   grid-column: 1/2;
   display: grid;
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   grid-template-columns: 100%;
 }
 
@@ -221,7 +228,7 @@ export default {
   grid-row: 1/2;
   grid-column: 2/3;
   display: grid;
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   grid-template-columns: 70% 30%;
 }
 
@@ -237,23 +244,31 @@ export default {
 .input100p {
   width: 100%;
   height: 35px;
+  border-style: none none solid;
+  border-bottom: 1px #7a7a7a solid;
+}
+
+select {
+  cursor: pointer;
 }
 
 .rightInput90p-10 {
   width: 90%-10px;
   margin-left: 10px;
-}
-
-.inputGroup div input {
   border-style: none none solid;
   border-bottom: 1px #7a7a7a solid;
 }
 
-.inputGroup div select {
+/* .inputGroup div input {
+  border-style: none none solid;
+  border-bottom: 1px #7a7a7a solid;
+} */
+
+/* .inputGroup div select {
   border-style: none none solid;
   border-bottom: 1px #7a7a7a solid;
   cursor: pointer;
-}
+} */
 
 .name {
   grid-row: 1/2;
@@ -332,8 +347,22 @@ export default {
   grid-template-rows: 100%;
 }
 
-.updataBtn {
+.openFollowed {
   grid-row: 8/9;
+  grid-column: 1/2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.openFollowed input {
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+}
+
+.updataBtn {
+  grid-row: 9/10;
   grid-column: 1/2;
 }
 
@@ -346,7 +375,7 @@ export default {
   color: #ffffff;
 }
 .respond {
-  grid-row: 8/9;
+  grid-row: 9/10;
   grid-column: 1/2;
   display: flex;
   justify-content: flex-end;
