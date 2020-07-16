@@ -8,7 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 
 // fontawesomeIcon
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faComment, faUserCircle, faUserFriends, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 //ElementUI
@@ -24,7 +24,7 @@ Vue.use(ElementUI);
 Vue.use(BootstrapVue);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-library.add(faComment, faUserCircle, faUserFriends, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle)
+library.add(faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart)
 
 Vue.config.productionTip = false;
 

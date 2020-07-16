@@ -1,4 +1,3 @@
-
 <template>
   <div class="content">
     <div class="banner mt-3">
@@ -42,7 +41,7 @@
 
 <script>
 import Banner from "@/components/Banner";
-import hotList from "@/components/test/testHotlist";
+import hotList from "@/components/listGroup/hotList";
 import newList from "@/components/listGroup/newList";
 import followList from "@/components/listGroup/followList";
 
