@@ -35,6 +35,6 @@ export default {
   position: relative;
   top: 50px;
   background-color: #b2702f;
-  height: 100vh;
+  height: 100%;
 }
 </style>
