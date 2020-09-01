@@ -54,6 +54,12 @@ export default new VueRouter({
             name: 'test',
             component: resolve => require(['@/components/test/testPhotoCroppie.vue'], resolve),
         },
+
+        {
+            path: '/testForRoger',
+            name: 'test',
+            component: resolve => require(['@/components/test/rogerTest.vue'], resolve),
+        },
         // test區塊
 
         {
