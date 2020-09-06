@@ -60,6 +60,12 @@ export default new VueRouter({
             name: 'test',
             component: resolve => require(['@/components/test/rogerTest.vue'], resolve),
         },
+
+        {
+            path: '/testForRoger2',
+            name: 'test',
+            component: resolve => require(['@/components/test/rogerTest2.vue'], resolve),
+        },
         // test區塊
 
         {
