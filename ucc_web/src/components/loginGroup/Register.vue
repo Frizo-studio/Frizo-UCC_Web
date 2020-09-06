@@ -2,10 +2,13 @@
   <!-- <div class="register"> -->
   <div class="registerDiv">
     <div class="goBack">
-      <img @click.prevent="goBack" class="img100" src="@/assets/loginGroup/left-arrow.png" />
+      <img @click.prevent="goBack" class="imgGoBack" src="@/assets/loginGroup/left-arrow.png" />
     </div>
     <div class="UCCLogo">
       <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
+    </div>
+    <div class="goClose">
+      <img class="imgClose" src="@/assets/loginGroup/close.png" />
     </div>
     <div class="UCCTitle">立即加入UCC</div>
     <div class="nicknameText titleText">稱謂</div>
@@ -168,13 +171,30 @@ export default {
 }
 
 .goBack {
+  position: relative;
+  left: 5px;
+  top: 5px;
   grid-row: 1/2;
   grid-column: 1/2;
 }
 
-.img100 {
+.imgGoBack {
   height: 100%;
   width: 100%;
+  cursor: pointer;
+}
+
+.goClose {
+  position: relative;
+  top: 10px;
+  left: -7px;
+  grid-row: 1/2;
+  grid-column: 10/11;
+}
+
+.imgClose {
+  height: 70%;
+  width: 70%;
   cursor: pointer;
 }
 
@@ -276,7 +296,7 @@ export default {
   grid-row: 11/12;
   align-self: flex-start;
   justify-self: end;
-  font-size: 10px;
+  font-size: 14px;
   color: red;
   font-weight: bold;
 }
@@ -294,9 +314,14 @@ export default {
   width: 100%;
   border-radius: 15px;
   border: none;
+  outline: none;
   background-color: #a1662a;
   color: #fff;
   font-size: 18px;
+}
+
+.buttonCSS:hover {
+  background-color: #be854c;
 }
 
 /* 初版------------------------------------------------------------------------------- */
