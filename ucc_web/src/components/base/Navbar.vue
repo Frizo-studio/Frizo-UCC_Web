@@ -20,8 +20,14 @@
           </router-link>
         </el-menu-item>
         <el-menu-item id="inputArea">
-          <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input
+            class="searchInput"
+            v-model="search"
+            @focus="searchOnfocus"
+            @blur="searchOnblur"
+            clearable
+          >
+            <el-button class="searchBtn" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-menu-item>
 
@@ -110,6 +116,8 @@
 <script>
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
+import $ from "jquery";
+
 // 採用測試檔案
 import Login from "@/components/loginGroup/Login";
 import Register from "@/components/loginGroup/Register";
@@ -128,7 +136,7 @@ export default {
       search: "搜尋社團/活動",
       token: {
         tokenType: "",
-        accessToken: ""
+        accessToken: "",
       },
       activeIndex: "1",
       activeIndex2: "1",
@@ -143,7 +151,7 @@ export default {
       // 確認有無點擊登入按鈕
       isGoToLogin: false,
       // 二版data
-      view: "Login"
+      view: "Login",
     };
   },
 
@@ -151,11 +159,11 @@ export default {
     Login,
     Register,
     Menubar,
-    ForgetPassword
+    ForgetPassword,
   },
 
   methods: {
-    viewValue: function(viewValue) {
+    viewValue: function (viewValue) {
       // viewValue就是子元件傳過來的值
       this.view = viewValue;
     },
@@ -170,9 +178,15 @@ export default {
     // 判斷使用者是否點擊登入按鈕
     openModal() {
       this.isGoToLogin = true;
+      // 打開login 模組 鎖定scrollbar
+      var html = $("html");
+      html.css("overflow", "hidden");
     },
     closeModal() {
       this.isGoToLogin = false;
+      // 關閉 login 模組 解鎖scrollbar
+      var html = $("html");
+      html.css("overflow-y", "scroll");
     },
     // 判斷使用者是否點擊登入按鈕
 
@@ -217,8 +231,8 @@ export default {
     // },
 
     ...mapActions({
-      logout: "auth/logout"
-    })
+      logout: "auth/logout",
+    }),
   },
 
   mounted() {
@@ -239,7 +253,7 @@ export default {
     //偵測卷軸滾動
     // window.addEventListener("scroll", this.handleScroll, true);
   },
-  created() {}
+  created() {},
 };
 </script>
 
@@ -283,12 +297,17 @@ export default {
   width: 400px;
   z-index: 5;
 }
+
 /* Navbar CSS downbelow */
 .el-menu {
   background-color: #4f3f2f;
 }
 .el-submenu__title:hover {
   background-color: rgb(53, 33, 4) !important;
+}
+.searchInput,
+.searchBtn {
+  height: 40px;
 }
 .el-menu--horizontal > .el-menu-item:hover,
 .el-menu-item:hover {
@@ -365,6 +384,7 @@ export default {
 
 .navbar {
   z-index: 6;
+  padding: 0;
 }
 .nav-show,
 .nav-show .el-menu.el-menu--horizontal {
@@ -485,6 +505,9 @@ export default {
   height: 3px;
   background-color: orange;
   margin: 5px;
+}
+.el-input--suffix .el-input__inner {
+  height: 40px;
 }
 
 @media screen and (max-width: 980px) {

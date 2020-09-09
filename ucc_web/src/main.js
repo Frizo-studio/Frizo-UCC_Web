@@ -5,6 +5,7 @@ import store from '@/store'
 import 'bootstrap'; // Import js file
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import css file
 import BootstrapVue from 'bootstrap-vue'
+import jquery from "jquery"
 
 // fontawesomeIcon
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -22,6 +23,7 @@ import '../node_modules/croppie/croppie.css' // import the croppie css manually
 Vue.use(VueCroppie);
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
+Vue.use(jquery);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 library.add(faComment, faUserCircle, faUserFriends, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle)

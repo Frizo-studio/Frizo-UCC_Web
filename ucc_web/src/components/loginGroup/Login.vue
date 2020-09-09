@@ -81,17 +81,17 @@ export default {
       password: "",
       token: {
         tokenType: "",
-        accessToken: ""
+        accessToken: "",
       },
       alertDiv: {
         emailAlertText: "",
-        passwdAlertText: ""
+        passwdAlertText: "",
       },
       inputIsError: false,
       loginBtnIsClick: false,
       // 切換至註冊頁面或忘記密碼頁面
       register: "Register",
-      forgetPassword: "ForgetPassword"
+      forgetPassword: "ForgetPassword",
     };
   },
 
@@ -99,7 +99,6 @@ export default {
     closeModal() {
       jquery("#Login").modal("toggle");
     },
-
     noGoToLogin() {
       this.loginBtnIsClick = false;
     },
@@ -108,11 +107,11 @@ export default {
       this.isLoading = "true";
       var userInfo = {
         email: this.email,
-        password: this.password
+        password: this.password,
       };
       var jsonData = userInfo;
       signin(jsonData)
-        .then(resp => {
+        .then((resp) => {
           if (resp.data.success) {
             this.token.tokenType = resp.data.result.tokenType;
             this.token.accessToken = resp.data.result.accessToken;
@@ -126,7 +125,7 @@ export default {
             this.alertDiv.alertText = resp.data.message;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.response);
           this.isLoading = "false";
           this.inputIsError = true;
@@ -145,7 +144,7 @@ export default {
     },
 
     ...mapActions({
-      storeToken: "auth/login"
+      storeToken: "auth/login",
     }),
 
     goRegister() {
@@ -158,10 +157,10 @@ export default {
       // viewValue是在父元件on監聽的方法
       // 第二個引數this.viewValue是需要傳的值
       this.$emit("viewValue", this.forgetPassword);
-    }
+    },
   },
 
-  name: "loginGroup"
+  name: "loginGroup",
 };
 </script>
 

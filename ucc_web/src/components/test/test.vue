@@ -1,7 +1,7 @@
 <template>
   <div class="initiateActivity">
     <!-- Model 主體 -->
-    <div class="Model">
+    <div :class="isActivityPage?'ModelForActivity':'ModelForMessage'">
       <div :class="isActivityPage?'stateLine':'stateLine2'"></div>
       <!-------------------------- 發起活動頁面 -------------------------->
       <div class="initialActivityPage" v-if="isActivityPage">
@@ -15,9 +15,20 @@
         </div>
         <div class="line"></div>
         <!-- 活動標題 -->
-        <input type="text" class="activityTitle" placeholder="標題" />
+        <input
+          type="text"
+          class="activityTitle"
+          v-model="event.title"
+          placeholder="標題"
+          maxlength="20"
+        />
         <!-- 活動描述 -->
-        <textarea class="activityDescription" style="width:97%;height:200px;" placeholder="活動描述..."></textarea>
+        <textarea
+          class="activityDescription"
+          v-model="event.description"
+          style="width:97%;height:200px;"
+          placeholder="活動描述..."
+        ></textarea>
         <!-- 上傳活動照片 -->
         <div class="dm">
           <label :class="isAddPic ? 'havePic' : 'noPic' ">
@@ -26,6 +37,13 @@
             <span>上傳照片</span>
           </label>
           <img :src="this.picPreview" class="dmImg" :class="isAddPic ? 'noPic' : 'havePic'" />
+          <button
+            style="border:none;background-color:white;color:rgb(165, 101, 42);"
+            @click="deleteDmImg"
+            :class="isAddPic ? 'haveDeleteIcon' : 'noDeleteIcon'"
+          >
+            <font-awesome-icon icon="times-circle" size="lg" class="closeIcon" />
+          </button>
         </div>
         <!-- 活動人數 -->
         <div class="people">
@@ -122,7 +140,7 @@
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             />
           </div>
-          <span>{{userInfo.name}}</span>
+          <span class="userName">{{userInfo.name}}</span>
         </div>
         <!-- 消息描述 -->
         <textarea class="messageDescription" style="width:97%;height:200px;" placeholder="有什麼消息..."></textarea>
@@ -211,7 +229,6 @@ export default {
     },
     // 活動照片匯入
     selectDM(e) {
-      // 圖片上傳後端
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       alert(files[0].name);
@@ -229,9 +246,13 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
     },
+    // 刪除預覽活動照片
+    deleteDmImg() {
+      this.picPreview = null;
+      this.isAddPic = false;
+    },
     // 訊息照片匯入
     selectMsgPic(e) {
-      // 圖片上傳後端
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       alert(files[0].name);
@@ -306,12 +327,23 @@ export default {
   padding-top: 30px;
   padding-bottom: 30px;
 }
-/* 發起模組 */
-.Model {
+/* 發起活動模組 */
+.ModelForActivity {
   position: relative;
   padding: 15px 25px;
   margin: auto;
   height: 800px;
+  width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 5;
+}
+/* 發起消息模組 */
+.ModelForMessage {
+  position: relative;
+  padding: 15px 25px;
+  margin: auto;
+  height: 550px;
   width: 600px;
   background-color: #fff;
   border-radius: 10px;
@@ -435,6 +467,21 @@ export default {
 .noPic {
   display: block;
 }
+.noDeleteIcon {
+  display: none;
+}
+.haveDeleteIcon {
+  position: absolute;
+  right: 2px;
+  z-index: 5;
+  border-radius: 50%;
+  box-shadow: 1px 1px 2px 1px black;
+  height: 22px;
+  width: 22px;
+  display: grid;
+  place-items: center;
+}
+
 /* 活動人數 & 地點CSS */
 .people {
   grid-row: 13/14;
@@ -595,14 +642,16 @@ export default {
 
 .initialMessagePage {
   display: grid;
-  grid-template-rows: repeat(18, 1fr);
-  height: 770px;
+  grid-template-rows: repeat(15, 1fr);
+  height: 500px;
 }
 /* 頭像&姓名 CSS */
 .avatar {
   grid-row: 2/3;
   display: flex;
   position: relative;
+  align-items: center;
+  margin-left: 7px;
 }
 .userImgFrame {
   height: 30px;
@@ -611,11 +660,15 @@ export default {
   border-radius: 50%;
   border: 1px black solid;
   object-fit: contain;
+  margin-right: 8px;
 }
 .userImg {
-  position: absolute;
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+.userName:hover {
+  cursor: default;
 }
 /* 消息描述CSS */
 .messageDescription {
@@ -626,21 +679,22 @@ export default {
   transition: all 0.1s ease;
   padding: 5px;
   margin-left: 5px;
+  margin-top: 5px;
 }
 .messageDescription:focus {
   border: 1px rgb(165, 101, 42) solid;
   outline: none;
 }
 
-/* 活動圖片CSS */
+/* 消息圖片CSS */
 .msgPic {
   position: relative;
-  grid-row: 9/15;
+  grid-row: 9/16;
   float: left;
   max-width: 240px;
   max-height: 200px;
   overflow: hidden;
-  margin-top: 6px;
+  margin-top: 20px;
 }
 
 .msgPic label {
