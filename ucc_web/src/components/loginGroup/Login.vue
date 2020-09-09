@@ -6,7 +6,7 @@
         <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
       </div>
       <div class="goClose">
-        <img class="img100" src="@/assets/loginGroup/close.png" />
+        <img class="imgClose" src="@/assets/loginGroup/close.png" />
       </div>
       <div class="UCCTitle">登入UCC</div>
       <div class="emailText titleText">E-mail信箱</div>
@@ -177,15 +177,15 @@ export default {
 
 .goClose {
   position: relative;
-  top: 7px;
+  top: 10px;
   left: -7px;
   grid-row: 1/2;
   grid-column: 10/11;
 }
 
-.img100 {
-  height: 100%;
-  width: 100%;
+.imgClose {
+  height: 70%;
+  width: 70%;
   cursor: pointer;
 }
 

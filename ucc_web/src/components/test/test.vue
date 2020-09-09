@@ -1,4 +1,6 @@
+
 <template>
+<<<<<<< HEAD
   <div class="initiateActivity">
     <!-- Model 主體 -->
     <div :class="isActivityPage?'ModelForActivity':'ModelForMessage'">
@@ -160,49 +162,75 @@
         <!-- 提交消息至後端 -->
         <div class="messagePush">
           <button class="pushMessageBtn">發布</button>
+=======
+  <div class="content">
+    <div class="banner mt-3">
+      <Banner></Banner>
+    </div>
+    <div class="activityList">
+      <div class="selectList" ref="selectList4Event">
+        <!-- <el-radio-group v-model="radio" @change="changeList" style="display:none;">
+          <el-radio :label="1">
+            <b>熱門</b>
+          </el-radio>
+          <el-radio :label="2">
+            <b>最新</b>
+          </el-radio>
+          <el-radio :label="3">
+            <b>追蹤</b>
+          </el-radio>
+        </el-radio-group>-->
+        <!-- {{this.radio}} -->
+        <div class="listBtnGroup">
+          <div class="listBtn" :class="{active:radio==1}">
+            <span @click.prevent="changeList(1)">熱門</span>
+          </div>
+          <div class="listBtn" :class="{active:radio==2}">
+            <span @click.prevent="changeList(2)">最新</span>
+          </div>
+          <div class="listBtn" :class="{active:radio==3}">
+            <span @click.prevent="changeList(3)">追蹤</span>
+          </div>
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
         </div>
+      </div>
+      <keep-alive>
+        <component :is="listPrint"></component>
+      </keep-alive>
+      <div class="mt-3">
+        <el-button type="primary" round class="mb-3">更多</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { createEvent } from "@/api/event";
-import { mapGetters } from "vuex";
+import Banner from "@/components/Banner";
+import hotList from "@/components/test/testHotlist";
+import newList from "@/components/listGroup/newList";
+import followList from "@/components/listGroup/followList";
 
 export default {
-  name: "InitiateActivity",
+  name: "Content",
+
+  components: {
+    Banner,
+    hotList,
+    newList,
+    followList
+  },
+
   data() {
     return {
-      isActivityPage: true,
-      // 發布活動的照片
-      isAddPic: false,
-      picPreview: null,
-      dmPicture: null,
-      // 發布訊息的照片
-      isAddMsgPic: false,
-      msgPicPreview: null,
-      msgPicture: null,
-
-      people: "請選擇",
-      // 活動資料
-      event: {
-        title: "",
-        description: "",
-        dmPicture: null,
-        maxNumberOfPeople: 10,
-        registrationDeadline: new Date().toISOString().substr(0, 10),
-        eventStartTime: new Date().toISOString().substr(0, 10),
-        place: "",
-        fee: 0,
-        labelNameList: []
-      },
-      // 標籤資料
-      tagsNumber: 0,
-      inputVisible: false,
-      inputValue: ""
+      listPrint: "hotList",
+      radio: 1,
+      selectListHeight: "",
+      curHeight: "",
+      Height: "",
+      changeHeight: ""
     };
   },
+<<<<<<< HEAD
   methods: {
     // 送出活動發起請求
     sendCreateRequest() {
@@ -258,86 +286,88 @@ export default {
       alert(files[0].name);
       this.msgPicture = files[0];
       this.isAddMsgPic = true;
+=======
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
 
-      // 訊息圖片預覽
-      var input = event.target;
-      if (input.files) {
-        var reader = new FileReader();
-        reader.onload = e => {
-          this.msgPicPreview = e.target.result;
-        };
-        this.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
+  methods: {
+    changeList(val) {
+      if (val == 1) {
+        this.radio = 1;
+        this.listPrint = "hotList";
+      } else if (val == 2) {
+        this.radio = 2;
+        this.listPrint = "newList";
+      } else if (val == 3) {
+        this.radio = 3;
+        this.listPrint = "followList";
       }
     },
-    // 活動截止日期
-    deadlineDateChange() {
-      this.event.registrationDeadline = this.event.registrationDeadline
-        .toISOString()
-        .substr(0, 10);
-    },
-    // 活動開始日期
-    startTimeDateChange() {
-      this.event.eventStartTime = this.event.eventStartTime
-        .toISOString()
-        .substr(0, 10);
-    },
-    // 刪除標籤方法
-    handleClose(tag) {
-      this.event.labelNameList.splice(this.event.labelNameList.indexOf(tag), 1);
-      console.log("標籤被移除");
-      this.tagsNumber = this.tagsNumber - 1;
-    },
-    // 新增標籤方法
-    newTag() {
-      this.inputVisible = true;
-      // eslint-disable-next-line no-unused-vars
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    // 輸入完畢將標籤推送至標籤集合
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.event.labelNameList.push(inputValue);
-        this.tagsNumber = this.tagsNumber + 1;
+    // selectList Function
+    selectListFix() {
+      this.curHeight = window.pageYOffset;
+      if (this.curHeight > this.changeHeight) {
+        this.selectList.classList.add("selectFix");
+      } else {
+        this.selectList.classList.remove("selectFix");
       }
-      this.inputVisible = false;
-      this.inputValue = "";
     }
   },
-  computed: {
-    ...mapGetters({
-      userInfo: "user/userInfo"
-    })
+  mounted() {
+    window.addEventListener("scroll", this.selectListFix, true);
+    this.selectList = this.$refs.selectList4Event;
+
+    // 偵測selectList 物件高度
+    this.selectListHeight = this.selectList.offsetTop;
+    // 計算selectList與使用者窗口的高度
+    this.Height = this.selectListHeight - this.curHeight;
+    // 計算要Fixed的高
+    this.changeHeight = this.Height - 62;
   }
+
+  // mounted() {
+  //   if (this.radio === 1) {
+  //     this.listPrint = hotList;
+  //   } else if (this.radio === 2) {
+  //     this.listPrint = newList;
+  //   }
+  // }
 };
 </script>
 
-<style>
-* {
-  padding: 0;
-  margin: 0;
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.content {
+  position: relative;
+  top: 50px;
+  margin: auto;
+  width: 900px;
   box-sizing: border-box;
-  list-style: none;
+  background-color: #ffffff;
+  border-radius: 15px;
 }
-.initiateActivity {
-  height: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+<<<<<<< HEAD
 /* 發起活動模組 */
 .ModelForActivity {
+=======
+.banner {
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
   position: relative;
-  padding: 15px 25px;
-  margin: auto;
-  height: 800px;
-  width: 600px;
-  background-color: #fff;
-  border-radius: 10px;
-  z-index: 5;
+  padding-top: 7px;
 }
+/* .activityList {
+  margin: auto;
+  width: 900px;
+  box-sizing: border-box;
+} */
+.selectList {
+  text-align: right;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: auto auto 200px;
+  grid-template-rows: 100%;
+  /* height: 35px; */
+}
+<<<<<<< HEAD
 /* 發起消息模組 */
 .ModelForMessage {
   position: relative;
@@ -350,79 +380,22 @@ export default {
   z-index: 5;
 }
 .switchPage {
+=======
+.listBtnGroup {
+  position: relative;
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
   grid-row: 1/2;
-  display: flex;
-}
-.switchBtn {
-  display: inline;
-  margin-right: 10px;
-  cursor: pointer;
-}
-#activityBtn {
-  font-weight: 900;
-}
-#messageBtn {
-  font-weight: 900;
-}
-.stateLine {
-  position: absolute;
-  z-index: 1;
-  top: 40px;
-  left: 25px;
-  height: 2px;
-  width: 64px;
-  background-color: rgb(165, 101, 42);
-  transition: all 0.3s ease;
-}
-.stateLine2 {
-  position: absolute;
-  z-index: 1;
-  top: 40px;
-  left: 99px;
-  height: 2px;
-  width: 64px;
-  background-color: rgb(165, 101, 42);
-  transition: all 0.3s ease;
-}
-.line {
-  height: 1.5px;
-  width: 90%;
-  overflow: hidden;
-  position: absolute;
-  background-color: rgb(156, 156, 156);
-  margin-top: 26px;
-}
-/* ---------------發布活動CSS--------------- */
-
-.initialActivityPage {
+  grid-column: 3/4;
   display: grid;
-  grid-template-rows: repeat(18, 1fr);
-  height: 770px;
+  grid-template-columns: auto auto auto 20px;
+  grid-template-rows: 100%;
+  margin-top: 5px;
 }
-/* 活動標題CSS */
-.activityTitle {
+.listBtn {
+  text-align: center;
   font-size: 20px;
-  grid-row: 2/3;
-  border: none;
-  border-bottom: 1px lightgray solid;
-  width: 97%;
-  transition: all 0.2s ease;
-  margin-left: 5px;
 }
-.activityTitle:focus {
-  outline: none;
-  border-bottom: 1px rgb(165, 101, 42) solid;
-}
-/* 活動描述CSS */
-.activityDescription {
-  margin-top: 10px;
-  grid-row: 3/6;
-  border: 1px lightgray solid;
-  border-radius: 5px;
-  transition: all 0.1s ease;
-  padding: 5px;
-  margin-left: 5px;
-}
+<<<<<<< HEAD
 .activityDescription:focus {
   border: 1px rgb(165, 101, 42) solid;
   outline: none;
@@ -526,120 +499,34 @@ export default {
 /* 報名截止時間 */
 .deadline {
   grid-row: 15/16;
+=======
+.listBtn span:hover {
+  cursor: pointer;
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
 }
-/* 活動時間 */
-.time {
-  grid-row: 16/17;
+.active {
+  border-bottom: 2px rgb(255, 155, 23) solid;
 }
-.deadline,
-.time {
-  display: flex;
-  height: 25px;
-  font-size: 14px;
+/* .selectFix {
   text-align: right;
-}
-.demonstration {
-  width: 100px;
-  line-height: 25px;
-}
-/* 更改選擇日期套件CSS */
-.el-input__icon {
-  line-height: 25px;
-  margin-left: 5px;
-}
-.el-input--suffix .el-input__inner {
-  width: 220px;
-  height: 25px;
-  background-color: #ddd;
-  margin-left: 8px;
-  border-radius: 5px;
-}
-.el-input.is-active .el-input__inner,
-.el-input__inner:focus {
-  border: 1px rgb(165, 101, 42) solid;
-  outline: none;
-}
-.el-date-table td.today span {
-  color: rgb(165, 101, 42);
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3px #000000;
+  height: 35px;
+  padding-top: 8px;
+  padding-right: 10px;
+  position: fixed;
+  width: 900px;
+  top: 62px;
+  z-index: 5;
+} */
+
+@media (max-width: 995px) {
+  .activityList {
+    width: 750px;
+  }
 }
 
-.el-date-table td:hover span {
-  color: rgb(165, 101, 42);
-}
-.el-date-table td.current:not(.disabled) span {
-  background-color: rgb(165, 101, 42);
-}
-/* 標籤 */
-.tag {
-  grid-row: 17/18;
-  display: flex;
-  width: 70%;
-  overflow: hidden;
-}
-.tag:hover {
-  overflow: scroll;
-}
-/* scroll樣式 */
-::-webkit-scrollbar {
-  width: 0px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-}
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background: #bbb;
-}
-.el-button,
-.el-tag {
-  height: 30px;
-  margin-left: 10px;
-}
-.el-button {
-  line-height: 5px;
-}
-.el-tag {
-  line-height: 28px;
-  color: rgb(165, 101, 42);
-  background-color: white;
-  border: 1px rgb(165, 101, 42) solid;
-}
-.input-new-tag {
-  width: 80px;
-  margin-left: 10px;
-}
-.el-button:focus,
-.el-button:hover {
-  color: rgb(165, 101, 42);
-  background-color: white;
-  border: 1px rgb(165, 101, 42) solid;
-}
-.activityPush {
-  position: absolute;
-  right: 50px;
-  bottom: 20px;
-}
-.pushActivityBtn {
-  width: 60px;
-  height: 30px;
-  border: none;
-  background-color: rgb(165, 101, 42);
-  color: white;
-  font-size: 14px;
-  border-radius: 5px;
-  transition: all 0.2s ease;
-}
-.pushActivityBtn:focus,
-.pushActivityBtn:hover {
-  outline: none;
-  background-color: rgb(110, 70, 33);
-}
-/* ---------------發布消息CSS--------------- */
-
+<<<<<<< HEAD
 .initialMessagePage {
   display: grid;
   grid-template-rows: repeat(15, 1fr);
@@ -695,59 +582,23 @@ export default {
   max-height: 200px;
   overflow: hidden;
   margin-top: 20px;
+=======
+@media (max-width: 837px) {
+  .activityList {
+    width: 100%;
+  }
 }
 
-.msgPic label {
-  height: 25px;
-  width: 100px;
-  position: absolute;
-  left: 0;
-  top: 0px;
-  margin: 0;
+/* @media (max-width: 650px) {
+  .activityList {
+    width: 450px;
+  }
+>>>>>>> 375ebd68b00d52811f869f78fa0600ff3a2dd204
 }
-.msgPic label span,
-.imageIcon {
-  transition: color 0.2s;
-  margin-left: 3px;
-}
-.msgPic label:hover span,
-.msgPic label:hover .imageIcon {
-  color: rgb(165, 101, 42);
-}
-.msgPicImg {
-  position: absolute;
-  width: 250px;
-  height: 200px;
-  object-fit: contain;
-  margin-left: 10px;
-}
-.haveMsgPic {
-  display: none;
-}
-.noMsgPic {
-  display: block;
-}
-li {
-  height: 40px;
-}
-.messagePush {
-  position: absolute;
-  right: 50px;
-  bottom: 20px;
-}
-.pushMessageBtn {
-  width: 60px;
-  height: 30px;
-  border: none;
-  background-color: rgb(165, 101, 42);
-  color: white;
-  font-size: 14px;
-  border-radius: 5px;
-  transition: all 0.2s ease;
-}
-.pushMessageBtn:focus,
-.pushMessageBtn:hover {
-  outline: none;
-  background-color: rgb(110, 70, 33);
-}
+
+@media (max-width: 450px) {
+  .activityList {
+    width: 300px;
+  }
+} */
 </style>
