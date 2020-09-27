@@ -22,12 +22,17 @@
         <el-menu-item id="inputArea">
           <el-input
             class="searchInput"
-            v-model="search"
+            v-model="searchSpec.keywords"
             @focus="searchOnfocus"
             @blur="searchOnblur"
             clearable
           >
-            <el-button class="searchBtn" slot="append" icon="el-icon-search"></el-button>
+            <el-button
+              class="searchBtn"
+              slot="append"
+              icon="el-icon-search"
+              @click.prevent="sendQuery"
+            ></el-button>
           </el-input>
         </el-menu-item>
 
@@ -116,6 +121,7 @@
 <script>
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
+import { findEvent } from "@/api/event";
 import $ from "jquery";
 
 // 採用測試檔案
@@ -133,7 +139,7 @@ export default {
       toggleIsFalse: false,
       email: "",
       password: "",
-      search: "搜尋社團/活動",
+      // search: "搜尋社團/活動",
       token: {
         tokenType: "",
         accessToken: "",
@@ -152,6 +158,20 @@ export default {
       isGoToLogin: false,
       // 二版data
       view: "Login",
+
+      //搜尋資料用的model
+      searchSpec: {
+        keywords: "",
+        pageNumber: 0,
+        createTimeA: null,
+        createTimeB: null,
+        startTimeA: null,
+        startTimeB: null,
+        registrationDeadlineA: null,
+        registrationDeadlineB: null,
+        direction: "DESC",
+        sortBy: "createdAt",
+      },
     };
   },
 
@@ -233,6 +253,36 @@ export default {
     ...mapActions({
       logout: "auth/logout",
     }),
+
+    sendQuery() {
+      //搜尋按鈕按下時，查詢資料並將資料攜帶跳轉至顯示頁面。
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          // var query = resp.data.result;
+          // console.log(query);
+          if (resp.data.success) {
+            this.searchResult = resp.data.result;
+            //
+            this.$router.push({
+              path: "/testForRoger2",
+              // name: 'mallList',
+              query: {
+                result: resp.data.result,
+              },
+            });
+            //
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
   },
 
   mounted() {
