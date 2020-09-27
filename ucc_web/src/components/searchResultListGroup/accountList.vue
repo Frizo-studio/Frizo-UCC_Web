@@ -1,7 +1,7 @@
 <template>
-  <div class="followList">
+  <div class="accountList">
     <div class="activity">
-      <div class="item" v-for="index in followList" :key="index">
+      <div class="item" v-for="index in accountList" :key="index">
         <div class="imgBox">
           <img :src="index.img" class="itemImg" />
         </div>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "followList",
+  name: "accountList",
   data() {
     return {
       tags: [
@@ -48,10 +48,10 @@ export default {
         { type: "info", label: "朵茉莉扣" },
         { type: "info", label: "kn44" },
       ],
-      followList: [
+      accountList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(followList)",
+          title: "聯網未來挑戰賽(accountList)",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
           deadline: "8月8號",

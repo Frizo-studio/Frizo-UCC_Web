@@ -1,7 +1,7 @@
 <template>
-  <div class="followList">
+  <div class="comprehensiveList">
     <div class="activity">
-      <div class="item" v-for="index in followList" :key="index">
+      <div class="item" v-for="index in comprehensiveList" :key="index">
         <div class="imgBox">
           <img :src="index.img" class="itemImg" />
         </div>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "followList",
+  name: "comprehensiveList",
   data() {
     return {
       tags: [
@@ -48,10 +48,10 @@ export default {
         { type: "info", label: "朵茉莉扣" },
         { type: "info", label: "kn44" },
       ],
-      followList: [
+      comprehensiveList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(followList)",
+          title: "聯網未來挑戰賽(comprehensiveList)",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
           deadline: "8月8號",
@@ -140,18 +140,6 @@ export default {
   padding-left: 1%;
   padding-right: 1%;
 }
-/* .item:nth-child(odd) {
-  margin-right: 10px;
-}
-.item:nth-child(even) {
-  margin-left: 10px;
-} */
-
-/* .item:hover {
-  box-shadow: 0 0 15px #2e2e2e;
-  transition: all 0.2s ease-in;
-  transform: scale(1.01);
-} */
 
 .imgBox {
   padding: 5px;

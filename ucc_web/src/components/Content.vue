@@ -126,6 +126,7 @@ export default {
   position: relative;
   padding-top: 7px;
 }
+
 /* .activityList {
   margin: auto;
   width: 900px;
