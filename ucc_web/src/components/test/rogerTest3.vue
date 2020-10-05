@@ -1,5 +1,6 @@
 <template>
   <div class="comprehensiveList">
+    <Navbar></Navbar>
     <div class="activity">
       <div class="item" v-for="index in comprehensiveList" :key="index">
         <div class="imgBox">
@@ -23,7 +24,7 @@
           <div class="place">地 台北商業大學</div>
           <div class="activityDate">時{{ index.deadline }}</div>
           <div class="message">訊 30</div>
-          <div class="like">愛 15{{ childUserName }}</div>
+          <div class="like">愛 15</div>
         </div>
         <div class="divider"></div>
       </div>
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import navbar from "@/components/base/Navbar";
 export default {
   name: "comprehensiveList",
   data() {
@@ -108,8 +110,10 @@ export default {
           img: "/def",
         },
       ],
-      childUserName: this.userName,
     };
+  },
+  components: {
+    Navbar: navbar,
   },
 };
 </script>
