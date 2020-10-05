@@ -42,6 +42,11 @@ export default new VueRouter({
             ]
         },
 
+        {
+            path: '/searchResult',
+            name: 'searchResult',
+            component: resolve => require(['@/pages/SearchResult.vue'], resolve),
+        },
         // test區塊
         {
             path: '/test',
