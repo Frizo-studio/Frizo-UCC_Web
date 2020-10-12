@@ -1,8 +1,9 @@
 import * as types from './mutation-types'
 import { getUserInfo } from "@/api/user";
 import { authenticated, cleanAuthStore } from "@/utils/AuthStore";
+import {connectToUserNoticeTopic} from "@/utils/ws";
 
-const setUserInfo = function ({ commit }) {
+const setUserInfo = function ({ commit, dispatch }) {
     if (authenticated()) {
         getUserInfo()
             .then(res => {
@@ -34,7 +35,11 @@ const setUserInfo = function ({ commit }) {
                 } else {
                     alert(res.data.message)
                 }
-
+                connectToUserNoticeTopic((data) => {
+                    console.log("data in user actions: " + data);
+                    let userNotice = JSON.parse(data);
+                    dispatch("notice/updateUserNoticeCount", userNotice, { root: true })
+                });
             })
             .catch(error => {
                 alert(error.response.data.message);
@@ -45,7 +50,7 @@ const setUserInfo = function ({ commit }) {
     }
 };
 
-const setUserInfoFromObj = function ({ commit }, { id, name, imageUrl, backgroundUrl, gender, phoneNumber, address,
+const setUserInfoFromObj = function ({ commit, dispatch }, { id, name, imageUrl, backgroundUrl, gender, phoneNumber, address,
     collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
     if (authenticated()) {
         let userInfo = {
@@ -66,10 +71,14 @@ const setUserInfoFromObj = function ({ commit }, { id, name, imageUrl, backgroun
             imgUrl: imageUrl,
             backgroundUrl: backgroundUrl,
         };
-        commit(types.SET_USER_INFO, userInfo)
+        commit(types.SET_USER_INFO, userInfo);
+        connectToUserNoticeTopic((data) => {
+            console.log("data in user actions: " + data);
+            let userNotice = JSON.parse(data);
+            dispatch("notice/updateUserNoticeCount", userNotice, { root: true })
+        });
     }
 };
-
 
 
 const actions = {
