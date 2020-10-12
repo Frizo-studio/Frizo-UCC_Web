@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <div :class="scrollUpOrDown?'nav-show':'nav-hide'">
+    <div :class="scrollUpOrDown ? 'nav-show' : 'nav-hide'">
       <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
@@ -20,8 +20,19 @@
           </router-link>
         </el-menu-item>
         <el-menu-item id="inputArea">
-          <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input
+            class="searchInput"
+            v-model="searchSpec.keywords"
+            @focus="searchOnfocus"
+            @blur="searchOnblur"
+            clearable
+          >
+            <el-button
+              class="searchBtn"
+              slot="append"
+              icon="el-icon-search"
+              @click.prevent="sendQuery"
+            ></el-button>
           </el-input>
         </el-menu-item>
 
@@ -43,9 +54,13 @@
         </div>
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
-          <router-link to="/chat" style="text-decoration:none;">
+          <router-link to="/chat" style="text-decoration: none">
             <el-menu-item index="4" class="rightBtn">
-              <i class="el-icon-chat-line-square" size="medium" style="color:#A9A9A9"></i>
+              <i
+                class="el-icon-chat-line-square"
+                size="medium"
+                style="color: #a9a9a9"
+              ></i>
               <span class="navFont">Chat</span>
             </el-menu-item>
           </router-link>
@@ -55,30 +70,56 @@
               <font-awesome-icon
                 icon="user-friends"
                 size="lg"
-                style="color:#A9A9A9;margin-right:8px;"
+                style="color: #a9a9a9; margin-right: 8px"
               />
-              <span id="followers" style="font-size:16px;">Followers</span>
+              <span id="followers" style="font-size: 16px">Followers</span>
             </template>
-            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-            <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
+            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn"
+              >追蹤者</el-menu-item
+            >
+            <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn"
+              >追蹤中的社團</el-menu-item
+            >
           </el-submenu>
           <el-submenu index="6" href="#" class="rightBtn" id="userBtn">
             <template slot="title" class="rightBtnDropdown">
-              <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
+              <i class="el-icon-user-solid" style="color: #a9a9a9"></i>
               <span class="navFont">User</span>
             </template>
-            <router-link to="/user/info" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-1" href="#" id="dropDownBtn">個人資料</el-menu-item>
+            <router-link to="/user/info" style="text-decoration: none">
+              <el-menu-item
+                class="rightBtn"
+                index="6-1"
+                href="#"
+                id="dropDownBtn"
+                >個人資料</el-menu-item
+              >
             </router-link>
-            <router-link to="/user/newActivity" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
+            <router-link to="/user/newActivity" style="text-decoration: none">
+              <el-menu-item
+                class="rightBtn"
+                index="6-2"
+                href="#"
+                id="dropDownBtn"
+                >發佈新活動、訊息</el-menu-item
+              >
             </router-link>
-            <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
+            <el-menu-item
+              class="rightBtn"
+              index="6-3"
+              @click.native="logout"
+              id="dropDownBtn"
+              >登出</el-menu-item
+            >
           </el-submenu>
         </div>
       </el-menu>
       <label for="check" @click="animation">
-        <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
+        <div
+          :class="
+            loginState ? (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'
+          "
+        >
           <div class="line1"></div>
           <div class="line2"></div>
           <div class="line3"></div>
@@ -86,18 +127,18 @@
       </label>
 
       <!-- modal區塊從這裡開始 -->
-      <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
+      <div :class="isGoToLogin ? 'modalDivShow' : 'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
         <div class="modalArea">
           <!-- 中間畫面變換區域 -->
           <div class="loginDivCenter">
-            <div v-if="this.view=='Login'">
+            <div v-if="this.view == 'Login'">
               <Login v-on:viewValue="viewValue"></Login>
             </div>
-            <div v-if="this.view=='Register'">
+            <div v-if="this.view == 'Register'">
               <Register v-on:viewValue="viewValue"></Register>
             </div>
-            <div v-if="this.view=='ForgetPassword'">
+            <div v-if="this.view == 'ForgetPassword'">
               <ForgetPassword v-on:viewValue="viewValue"></ForgetPassword>
             </div>
           </div>
@@ -110,6 +151,9 @@
 <script>
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
+import { findEvent } from "@/api/event";
+import $ from "jquery";
+
 // 採用測試檔案
 import Login from "@/components/loginGroup/Login";
 import Register from "@/components/loginGroup/Register";
@@ -125,10 +169,10 @@ export default {
       toggleIsFalse: false,
       email: "",
       password: "",
-      search: "搜尋社團/活動",
+      // search: "搜尋社團/活動",
       token: {
         tokenType: "",
-        accessToken: ""
+        accessToken: "",
       },
       activeIndex: "1",
       activeIndex2: "1",
@@ -143,7 +187,21 @@ export default {
       // 確認有無點擊登入按鈕
       isGoToLogin: false,
       // 二版data
-      view: "Login"
+      view: "Login",
+
+      //搜尋資料用的model
+      searchSpec: {
+        keywords: "",
+        pageNumber: 0,
+        createTimeA: null,
+        createTimeB: null,
+        startTimeA: null,
+        startTimeB: null,
+        registrationDeadlineA: null,
+        registrationDeadlineB: null,
+        direction: "DESC",
+        sortBy: "createdAt",
+      },
     };
   },
 
@@ -151,11 +209,11 @@ export default {
     Login,
     Register,
     Menubar,
-    ForgetPassword
+    ForgetPassword,
   },
 
   methods: {
-    viewValue: function(viewValue) {
+    viewValue: function (viewValue) {
       // viewValue就是子元件傳過來的值
       this.view = viewValue;
     },
@@ -170,9 +228,15 @@ export default {
     // 判斷使用者是否點擊登入按鈕
     openModal() {
       this.isGoToLogin = true;
+      // 打開login 模組 鎖定scrollbar
+      var html = $("html");
+      html.css("overflow", "hidden");
     },
     closeModal() {
       this.isGoToLogin = false;
+      // 關閉 login 模組 解鎖scrollbar
+      var html = $("html");
+      html.css("overflow-y", "scroll");
     },
     // 判斷使用者是否點擊登入按鈕
 
@@ -217,8 +281,38 @@ export default {
     // },
 
     ...mapActions({
-      logout: "auth/logout"
-    })
+      logout: "auth/logout",
+    }),
+
+    sendQuery() {
+      //搜尋按鈕按下時，查詢資料並將資料攜帶跳轉至顯示頁面。
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          // var query = resp.data.result;
+          // console.log(query);
+          if (resp.data.success) {
+            this.searchResult = resp.data.result;
+            //
+            this.$router.push({
+              path: "/testForRoger2",
+              // name: 'mallList',
+              query: {
+                result: resp.data.result,
+              },
+            });
+            //
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
   },
 
   mounted() {
@@ -239,7 +333,7 @@ export default {
     //偵測卷軸滾動
     // window.addEventListener("scroll", this.handleScroll, true);
   },
-  created() {}
+  created() {},
 };
 </script>
 
@@ -283,12 +377,17 @@ export default {
   width: 400px;
   z-index: 5;
 }
+
 /* Navbar CSS downbelow */
 .el-menu {
   background-color: #4f3f2f;
 }
 .el-submenu__title:hover {
   background-color: rgb(53, 33, 4) !important;
+}
+.searchInput,
+.searchBtn {
+  height: 40px;
 }
 .el-menu--horizontal > .el-menu-item:hover,
 .el-menu-item:hover {
@@ -365,6 +464,7 @@ export default {
 
 .navbar {
   z-index: 6;
+  padding: 0;
 }
 .nav-show,
 .nav-show .el-menu.el-menu--horizontal {
@@ -485,6 +585,9 @@ export default {
   height: 3px;
   background-color: orange;
   margin: 5px;
+}
+.el-input--suffix .el-input__inner {
+  height: 40px;
 }
 
 @media screen and (max-width: 980px) {

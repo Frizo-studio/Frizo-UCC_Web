@@ -1,7 +1,7 @@
 <template>
-  <div class="followList">
+  <div class="comprehensiveList">
     <div class="activity">
-      <div class="item" v-for="index in followList" :key="index">
+      <div class="item" v-for="index in comprehensiveList" :key="index">
         <div class="imgBox">
           <img :src="index.img" class="itemImg" />
         </div>
@@ -9,26 +9,21 @@
           <div class="activityOwnUser">● 社團名稱</div>
           <div class="activityCreatedDate">6月10號 20:25</div>
           <div class="itemTitle">
-            <b>{{index.title}}</b>
+            <b>{{ index.title }}</b>
           </div>
           <div class="tag">
-            <!-- <el-tag
-              v-for="tag in tags"
-              :key="tag.label"
-              :type="tag.type"
-              class="ml-2 mt-2"
-            >{{ tag.label }}</el-tag>-->
-            <span v-for="tag in tags" :key="tag.label" :type="tag.type">#{{ tag.label }}</span>
+            <span v-for="tag in tags" :key="tag.label" :type="tag.type"
+              >#{{ tag.label }}</span
+            >
           </div>
           <div class="itemIntroduction mb-4">
-            <div class="description">{{index.message}}</div>
+            <div class="description">{{ index.message }}</div>
           </div>
-          <!-- <div class="divider"></div> -->
-          <div class="maxJoinPeople">人{{index.joinPeople}}人</div>
+          <div class="maxJoinPeople">人{{ index.joinPeople }}人</div>
           <div class="place">地 台北商業大學</div>
-          <div class="activityDate">時{{index.deadline}}</div>
+          <div class="activityDate">時{{ index.deadline }}</div>
           <div class="message">訊 30</div>
-          <div class="like">愛 15</div>
+          <div class="like">愛 15{{ childUserName }}</div>
         </div>
         <div class="divider"></div>
       </div>
@@ -38,7 +33,7 @@
 
 <script>
 export default {
-  name: "followList",
+  name: "comprehensiveList",
   data() {
     return {
       tags: [
@@ -48,10 +43,10 @@ export default {
         { type: "info", label: "朵茉莉扣" },
         { type: "info", label: "kn44" },
       ],
-      followList: [
+      comprehensiveList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(followList)",
+          title: "聯網未來挑戰賽(comprehensiveList)",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
           deadline: "8月8號",
@@ -113,6 +108,7 @@ export default {
           img: "/def",
         },
       ],
+      childUserName: this.userName,
     };
   },
 };
@@ -140,18 +136,6 @@ export default {
   padding-left: 1%;
   padding-right: 1%;
 }
-/* .item:nth-child(odd) {
-  margin-right: 10px;
-}
-.item:nth-child(even) {
-  margin-left: 10px;
-} */
-
-/* .item:hover {
-  box-shadow: 0 0 15px #2e2e2e;
-  transition: all 0.2s ease-in;
-  transform: scale(1.01);
-} */
 
 .imgBox {
   padding: 5px;

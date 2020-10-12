@@ -100,7 +100,7 @@
                     </div>
                     <div>社團名稱</div>
                   </div>
-                  <div class="activityCreatedDate">6月10號 20:25</div>
+                  <div class="activityCreatedDate">{{item.createdAt}}</div>
                   <div class="itemTitle">
                     <b>{{item.title}}</b>
                   </div>
@@ -125,13 +125,14 @@
                     </div>
                     <div class="activityDate">
                       <font-awesome-icon icon="clock" size="lg" class="tipsIcon" />
-                      {{item.registrationDeadline}}
+                      {{item.eventStartTime}}
                     </div>
                     <div class="message">
                       <font-awesome-icon icon="comment" size="lg" class="tipsIcon" />30
                     </div>
                     <div class="like">
-                      <font-awesome-icon icon="heart" size="lg" class="tipsIcon" />15
+                      <font-awesome-icon icon="heart" size="lg" class="tipsIcon" />
+                      {{item.likes}}
                     </div>
                   </div>
                 </div>
@@ -172,8 +173,23 @@ export default {
     sendQuery() {
       findEvent(this.searchSpec)
         .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          var query = resp.data.result;
+          console.log(query);
           if (resp.data.success) {
             this.searchResult = resp.data.result;
+            //
+            this.$router.push({
+              path: "/testForRoger2",
+              // name: 'mallList',
+              query: {
+                result: resp.data.result,
+              },
+            });
+            //
           } else {
             console.log(resp.data.message);
           }

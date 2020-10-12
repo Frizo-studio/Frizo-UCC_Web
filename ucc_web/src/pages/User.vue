@@ -33,7 +33,7 @@ export default {
 <style scoped>
 .user {
   position: relative;
-  top: 50px;
+  top: 65px;
   background-color: #b2702f;
   height: 100%;
 }

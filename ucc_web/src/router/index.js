@@ -42,6 +42,11 @@ export default new VueRouter({
             ]
         },
 
+        {
+            path: '/searchResult',
+            name: 'searchResult',
+            component: resolve => require(['@/pages/SearchResult.vue'], resolve),
+        },
         // test區塊
         {
             path: '/test',
@@ -59,6 +64,12 @@ export default new VueRouter({
             path: '/testForRoger',
             name: 'test',
             component: resolve => require(['@/components/test/rogerTest.vue'], resolve),
+        },
+
+        {
+            path: '/testForRoger2',
+            name: 'test',
+            component: resolve => require(['@/components/test/rogerTest2.vue'], resolve),
         },
         // test區塊
 

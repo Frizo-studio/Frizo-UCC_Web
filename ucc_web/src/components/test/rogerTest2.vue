@@ -1,27 +1,52 @@
 <template>
   <div class="SearchResult">
+    <navbar></navbar>
     <!-- Model 主體 -->
     <div class="Model">
       <div id="statusLine"></div>
       <!-------------------------- 活動頁面(綜合) -------------------------->
-      <div class="Page" id="comprehensiveActivityPage" v-show="PageStatus.isComprehensivePage">
+      <div
+        class="Page"
+        id="comprehensiveActivityPage"
+        v-show="PageStatus.isComprehensivePage"
+      >
         <div class="switchPage">
           <li>
             <div
               class="switchBtn"
               id="comprehensiveBtnInComprehensivePage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >綜合</div>
+              style="font-weight: 900"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInComprehensivePage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInComprehensivePage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInComprehensivePage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
 
           <li class="filter">排序依照</li>
@@ -34,32 +59,87 @@
           </li>
         </div>
         <div class="line"></div>
-        <keep-alive>
-          <component class="searchLists" :is="listPrint"></component>
-        </keep-alive>
+        <!-- 資料顯示區塊 -->
+        <div class="comprehensiveList">
+          <div class="activity">
+            <div class="item" v-for="index in comprehensiveList" :key="index">
+              <div class="imgBox">
+                <img :src="index.img" class="itemImg" />
+              </div>
+              <div class="itemContent">
+                <div class="activityOwnUser">● 社團名稱</div>
+                <div class="activityCreatedDate">{{ index.createdAt }}</div>
+                <div class="itemTitle">
+                  <b>{{ index.title }}</b>
+                </div>
+                <div class="tag">
+                  <span v-for="tag in index.labelNameSet" :key="tag"
+                    >#{{ tag }}</span
+                  >
+                </div>
+                <div class="itemIntroduction mb-4">
+                  <div class="description">{{ index.message }}</div>
+                </div>
+                <div class="maxJoinPeople">
+                  人{{ index.maxNumberOfPeople }}人
+                </div>
+                <div class="place">地 {{ index.place }}</div>
+                <div class="activityDate">時{{ index.eventStartTime }}</div>
+                <div class="message">訊 30</div>
+                <div class="like">愛 {{ index.likes }}</div>
+              </div>
+              <div class="divider"></div>
+            </div>
+          </div>
+        </div>
+        <!-- 資料顯示區塊 -->
         <div class="mt-3">
           <el-button type="primary" round class="mb-3">更多</el-button>
         </div>
       </div>
       <!-------------------------- 活動頁面(追蹤) -------------------------->
-      <div class="Page" id="followActivityPage" v-show="PageStatus.isFollowPage">
+      <div
+        class="Page"
+        id="followActivityPage"
+        v-show="PageStatus.isFollowPage"
+      >
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInFollowPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="followBtnInFollowPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >追蹤</div>
+              style="font-weight: 900"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInFollowPage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInFollowPage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -82,21 +162,41 @@
       <div class="Page" id="ActivityPage" v-show="PageStatus.isActivityPage">
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInActivityPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInActivityPage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="activityBtnInActivityPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >活動</div>
+              style="font-weight: 900"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInActivityPage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -119,21 +219,41 @@
       <div class="Page" id="AccountPage" v-show="PageStatus.isAccountPage">
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInAccountPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInAccountPage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInAccountPage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="accountBtnInAccountPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >用戶</div>
+              style="font-weight: 900"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -158,6 +278,7 @@
 
 <script>
 // import { createEvent } from "@/api/event";
+import navbar from "@/components/base/Navbar";
 import { mapGetters } from "vuex";
 import comprehensiveList from "@/components/searchResultListGroup/comprehensiveList";
 import followList from "@/components/searchResultListGroup/followList";
@@ -171,6 +292,7 @@ export default {
     activityList,
     followList,
     accountList,
+    navbar,
   },
   data() {
     return {
@@ -182,6 +304,7 @@ export default {
         isAccountPage: false,
       },
       listPrint: "comprehensiveList",
+      comprehensiveList: [],
     };
   },
   methods: {
@@ -264,6 +387,16 @@ export default {
         }
       }
     },
+    getParams() {
+      // 取到路由帶過來的引數
+      const routerParams = this.$route.query.result;
+      // 將資料放在當前元件的資料內
+      this.comprehensiveList = routerParams;
+      console.log(routerParams);
+    },
+  },
+  created() {
+    this.getParams();
   },
   computed: {
     ...mapGetters({
@@ -281,6 +414,8 @@ export default {
   list-style: none;
 }
 .SearchResult {
+  position: relative;
+  top: 50px;
   height: 100%;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -344,5 +479,150 @@ export default {
 }
 .searchLists {
   margin-top: 10px;
+}
+/* ------------------------- */
+.comprehensiveList {
+  position: relative;
+  top: 10px;
+}
+
+.activity {
+  width: 100%;
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr); */
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  height: 250px;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 5px;
+  /* border-bottom: 1px solid #707070; */
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.imgBox {
+  padding: 5px;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.itemImg {
+  height: 100%;
+  width: 100%;
+}
+
+.itemContent {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  padding: 0px 15px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.activityOwnUser {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+}
+
+.activityCreatedDate {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+}
+
+.itemTitle {
+  /* font-size: 12px; */
+  grid-column: 1/4;
+  grid-row: 2/3;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.tag {
+  position: relative;
+  top: -5px;
+  grid-column: 4/6;
+  grid-row: 2/3;
+  color: #ea7807;
+  opacity: 0.8;
+}
+
+.itemIntroduction {
+  text-align: left;
+  grid-column: 1/6;
+  grid-row: 3/5;
+  height: 35px;
+}
+
+/* 省略文字 */
+/* 和chat.vue的省略文字寫法有些許差異 */
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.itemTitle b:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.divider {
+  position: relative;
+  border-bottom: 1px #aaaaaa solid;
+  grid-column: 1/4;
+  grid-row: 1/2;
+  width: 100%;
+  height: 1px;
+  top: 100%;
+}
+
+.maxJoinPeople {
+  text-align: left;
+  grid-column: 1/2;
+  grid-row: 5/6;
+}
+
+.activityDate {
+  grid-column: 2/3;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.place {
+  grid-column: 3/4;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.message {
+  grid-column: 4/5;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.like {
+  grid-column: 5/6;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+@media (max-width: 650px) {
+  .itemTitle {
+    font-size: 22px;
+  }
 }
 </style>

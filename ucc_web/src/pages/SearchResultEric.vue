@@ -1,27 +1,52 @@
 <template>
   <div class="SearchResult">
+    <navbar></navbar>
     <!-- Model 主體 -->
     <div class="Model">
       <div id="statusLine"></div>
       <!-------------------------- 活動頁面(綜合) -------------------------->
-      <div class="Page" id="comprehensiveActivityPage" v-show="PageStatus.isComprehensivePage">
+      <div
+        class="Page"
+        id="comprehensiveActivityPage"
+        v-show="PageStatus.isComprehensivePage"
+      >
         <div class="switchPage">
           <li>
             <div
               class="switchBtn"
               id="comprehensiveBtnInComprehensivePage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >綜合</div>
+              style="font-weight: 900"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInComprehensivePage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInComprehensivePage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInComprehensivePage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
 
           <li class="filter">排序依照</li>
@@ -37,29 +62,57 @@
         <keep-alive>
           <component class="searchLists" :is="listPrint"></component>
         </keep-alive>
+        <div id="app">
+          <!-- kebab-case in HTML -->
+          <child-input :user-name="initial_input"></child-input>
+        </div>
         <div class="mt-3">
           <el-button type="primary" round class="mb-3">更多</el-button>
         </div>
       </div>
       <!-------------------------- 活動頁面(追蹤) -------------------------->
-      <div class="Page" id="followActivityPage" v-show="PageStatus.isFollowPage">
+      <div
+        class="Page"
+        id="followActivityPage"
+        v-show="PageStatus.isFollowPage"
+      >
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInFollowPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="followBtnInFollowPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >追蹤</div>
+              style="font-weight: 900"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInFollowPage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInFollowPage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInFollowPage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -82,21 +135,41 @@
       <div class="Page" id="ActivityPage" v-show="PageStatus.isActivityPage">
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInActivityPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInActivityPage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="activityBtnInActivityPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >活動</div>
+              style="font-weight: 900"
+            >
+              活動
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="accountBtnInActivityPage" @click="switchPageFun">用戶</div>
+            <div
+              class="switchBtn"
+              id="accountBtnInActivityPage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -119,21 +192,41 @@
       <div class="Page" id="AccountPage" v-show="PageStatus.isAccountPage">
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="comprehensiveBtnInAccountPage" @click="switchPageFun">綜合</div>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              綜合
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="followBtnInAccountPage" @click="switchPageFun">追蹤</div>
+            <div
+              class="switchBtn"
+              id="followBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
           </li>
           <li>
-            <div class="switchBtn" id="activityBtnInAccountPage" @click="switchPageFun">活動</div>
+            <div
+              class="switchBtn"
+              id="activityBtnInAccountPage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
           </li>
           <li>
             <div
               class="switchBtn"
               id="accountBtnInAccountPage"
               @click="switchPageFun"
-              style="font-weight:900;"
-            >用戶</div>
+              style="font-weight: 900"
+            >
+              用戶
+            </div>
           </li>
           <li class="filter">排序依照</li>
           <li class="selector">
@@ -158,6 +251,7 @@
 
 <script>
 // import { createEvent } from "@/api/event";
+import navbar from "@/components/base/Navbar";
 import { mapGetters } from "vuex";
 import comprehensiveList from "@/components/searchResultListGroup/comprehensiveList";
 import followList from "@/components/searchResultListGroup/followList";
@@ -171,6 +265,7 @@ export default {
     activityList,
     followList,
     accountList,
+    navbar,
   },
   data() {
     return {
