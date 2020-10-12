@@ -71,6 +71,12 @@ export default new VueRouter({
             name: 'test',
             component: resolve => require(['@/components/test/rogerTest2.vue'], resolve),
         },
+
+        {
+            path: '/ws',
+            name: 'ws',
+            component: resolve => require(['@/components/test/ws.vue'], resolve),
+        },
         // test區塊
 
         {
