@@ -51,10 +51,10 @@
 
           <li class="filter">排序依照</li>
           <li class="selector">
-            <select>
-              <option>熱門</option>
-              <option>最新</option>
-              <option>追蹤</option>
+            <select id="sortBy" @change="checkSortBy">
+              <option value="likes">熱門</option>
+              <option value="createdAt">最新</option>
+              <!-- <option>追蹤</option> -->
             </select>
           </li>
         </div>
@@ -284,6 +284,7 @@ import comprehensiveList from "@/components/searchResultListGroup/comprehensiveL
 import followList from "@/components/searchResultListGroup/followList";
 import activityList from "@/components/searchResultListGroup/activityList";
 import accountList from "@/components/searchResultListGroup/accountList";
+import { findEvent } from "@/api/event";
 
 export default {
   name: "SearchPage",
@@ -305,6 +306,24 @@ export default {
       },
       listPrint: "comprehensiveList",
       comprehensiveList: [],
+      selected: "likes",
+      selects: [
+        { value: "likes" },
+        { value: "createdAt" },
+        { value: "eventStartTime" },
+      ],
+      searchSpec: {
+        keywords: "",
+        pageNumber: 0,
+        createTimeA: null,
+        createTimeB: null,
+        startTimeA: null,
+        startTimeB: null,
+        registrationDeadlineA: null,
+        registrationDeadlineB: null,
+        direction: "DESC",
+        sortBy: "likes",
+      },
     };
   },
   methods: {
@@ -392,7 +411,27 @@ export default {
       const routerParams = this.$route.query.result;
       // 將資料放在當前元件的資料內
       this.comprehensiveList = routerParams;
-      console.log(routerParams);
+    },
+    checkSortBy() {
+      this.searchSpec.sortBy = document.getElementById("sortBy").value;
+      console.log(this.searchSpec);
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          console.log(resp);
+          if (resp.data.success) {
+            // console.log(resp.data.result);
+            this.comprehensiveList = resp.data.result;
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     },
   },
   created() {
