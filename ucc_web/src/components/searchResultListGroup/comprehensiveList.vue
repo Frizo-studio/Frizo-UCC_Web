@@ -19,11 +19,18 @@
           <div class="itemIntroduction mb-4">
             <div class="description">{{ index.message }}</div>
           </div>
-          <div class="maxJoinPeople">人{{ index.joinPeople }}人</div>
-          <div class="place">地 台北商業大學</div>
-          <div class="activityDate">時{{ index.deadline }}</div>
-          <div class="message">訊 30</div>
-          <div class="like">愛 15{{ childUserName }}</div>
+          <div class="maxJoinPeople">
+            <i class="el-icon-user-solid"></i>{{ index.joinPeople }}人
+          </div>
+          <div class="place"><i class="el-icon-location"></i> 台北商業大學</div>
+          <div class="activityDate">
+            <i class="el-icon-time"></i>{{ index.deadline }}
+          </div>
+          <div class="message"><i class="el-icon-chat-round"></i> 30</div>
+          <div class="like">
+            <font-awesome-icon icon="heart" size="sm" style="color: #000" />
+            15{{ childUserName }}
+          </div>
         </div>
         <div class="divider"></div>
       </div>
@@ -153,7 +160,7 @@ export default {
   grid-row: 1/2;
   padding: 0px 15px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
   grid-template-rows: repeat(5, 1fr);
 }
 
@@ -165,7 +172,7 @@ export default {
 }
 
 .activityCreatedDate {
-  grid-column: 2/3;
+  grid-column: 2/4;
   grid-row: 1/2;
   display: flex;
   align-items: center;
