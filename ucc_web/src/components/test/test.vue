@@ -1,229 +1,277 @@
 <template>
-  <div class="EventPage">
+  <div class="SearchResult">
     <navbar></navbar>
-    <div class="background"></div>
-    <div class="container">
-      <div class="eventDetails">
-        <div class="eventDesc" id="eventPic"></div>
-        <div class="eventDesc" id="people">
-          人數 <span class="eventData">20人</span>
-        </div>
-        <div class="eventDesc" id="place">
-          活動地點 <span class="eventData">台北商業大學</span>
-        </div>
-        <div class="eventDesc" id="endDate">
-          報名截止日 <span class="eventData">2020年 12月 31 日 </span>
-        </div>
-        <div class="eventDesc" style="color: black">
-          <font-awesome-icon icon="calendar-alt" size="med" />
-          <span id="eventPeriod"
-            >活動時間2020年6月24 12:00 PM 至 2020年6月24日 6:00 PM</span
-          >
-        </div>
-        <div class="signUp"><button>立即報名</button></div>
-        <div class="divideLine"></div>
-      </div>
-      <!---------------------------- 活動內文區塊 ---------------------------->
-      <div class="eventContent">
-        <div class="eventContentHeader">
-          <div class="societiesImgFrame">
-            <img
-              class="societiesImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            />
-          </div>
-          <span class="societiesName">社團名稱</span>
-          <span class="postDate">2020年 10月24號 20:25</span>
-        </div>
-        <div class="eventTitle">
-          <h3>活動標題</h3>
-        </div>
-        <div class="eventContentDesc">
-          <p>活動內文</p>
-        </div>
-        <div class="eventTag">
-          <ul>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-          </ul>
-        </div>
-        <div class="likeAndComment">
-          <button @click="likeEvent" id="heartBtn">
-            <font-awesome-icon icon="heart" size="lg" id="heart" /></button
-          ><span>15</span>
-          <div class="eventComment">
-            <i
-              class="el-icon-chat-line-square"
-              style="color: #gray; font-size: 30px"
-            ></i
-            ><span>6</span>
-          </div>
-        </div>
-        <div class="divideLineForContent"></div>
-      </div>
-      <!---------------------------- 留言區塊 ---------------------------->
-      <div class="commentsArea">
-        <div class="myComment">
-          <div class="myInfo">
-            <img
-              class="myPicImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-            />
-            <span class="myName">莊鈞凱</span>
-          </div>
-          <input class="myCommentDesc" placeholder="留言" />
-          <button>送出</button>
-        </div>
-        <div class="commentTitle">留言</div>
-      </div>
-
-      <div class="commentsGroup">
-        <div class="comments">
-          <div class="userInfo">
-            <img
-              class="userImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-            />
-            <span class="userName">莊鈞凱</span>
-          </div>
-          <div class="userComments">
-            <span>留言留言留言留言留言留言留言留言留言留言</span>
-          </div>
-        </div>
-        <div class="comments">
-          <div class="userInfo">
-            <img
-              class="userImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-            />
-            <span class="userName">莊鈞凱</span>
-          </div>
-          <div class="userComments">
-            <span>留言留言留言留言留言留言留言留言留言留言</span>
-          </div>
-        </div>
-        <div class="comments">
-          <div class="userInfo">
-            <img
-              class="userImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-            />
-            <span class="userName">莊鈞凱</span>
-          </div>
-          <div class="userComments">
-            <span>留言留言留言留言留言留言留言留言留言留言</span>
-          </div>
-        </div>
-
-      <div>
-        <ul>
-          <li v-for="(item, index) in searchResult" :key="item">
-            <div :id="index">
-              <div class="item">
-                <div class="imgBox">
-                  <img :src="item.dmPicture" class="itemImg" />
-                </div>
-                <div class="itemContent">
-                  <div class="activityOwnUser">
-                    <div>
-                      <!-- 圖示 -->
-                    </div>
-                    <div>社團名稱</div>
-                  </div>
-                  <div class="activityCreatedDate">6月10號 20:25</div>
-                  <div class="itemTitle">
-                    <b>{{ item.title }}</b>
-                  </div>
-                  <div class="tagGroup">
-                    <!-- <div class="tag" v-for="tag in tags" :key="tag.label" :type="tag.type"> -->
-                    <div
-                      class="tag"
-                      v-for="tag in tags"
-                      :key="tag.label"
-                      :type="tag.type"
-                    >
-                      <span>{{ item.labelNameList }}</span>
-                    </div>
-                  </div>
-                  <div class="itemIntroduction mb-4">
-                    <div class="description">{{ item.description }}</div>
-                  </div>
-                  <!-- <div class="divider"></div> -->
-                  <div class="bottomGroup">
-                    <div class="maxJoinPeople">
-                      <font-awesome-icon
-                        icon="user"
-                        size="lg"
-                        class="tipsIcon"
-                      />
-                      {{ item.maxNumberOfPeople }}人
-                    </div>
-                    <div class="place">
-                      <font-awesome-icon
-                        icon="map-marker"
-                        size="lg"
-                        class="tipsIcon"
-                      />
-                      {{ item.place }}
-                    </div>
-                    <div class="activityDate">
-                      <font-awesome-icon
-                        icon="clock"
-                        size="lg"
-                        class="tipsIcon"
-                      />
-                      {{ item.registrationDeadline }}
-                    </div>
-                    <div class="message">
-                      <font-awesome-icon
-                        icon="comment"
-                        size="lg"
-                        class="tipsIcon"
-                      />30
-                    </div>
-                    <div class="like">
-                      <font-awesome-icon
-                        icon="heart"
-                        size="lg"
-                        class="tipsIcon"
-                      />15
-                    </div>
-                  </div>
-                </div>
-                <div class="divider"></div>
-              </div>
+    <!-- Model 主體 -->
+    <div class="Model">
+      <div id="statusLine"></div>
+      <!-------------------------- 活動頁面(綜合) -------------------------->
+      <div
+        class="Page"
+        id="comprehensiveActivityPage"
+        v-show="PageStatus.isComprehensivePage"
+      >
+        <div class="switchPage">
+          <li>
+            <div
+              class="switchBtn"
+              id="comprehensiveBtnInComprehensivePage"
+              @click="switchPageFun"
+              style="font-weight: 900"
+            >
+              綜合
             </div>
           </li>
-        </ul>
+          <li>
+            <div
+              class="switchBtn"
+              id="followBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              追蹤
+            </div>
+          </li>
+          <li>
+            <div
+              class="switchBtn"
+              id="activityBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              活動
+            </div>
+          </li>
+          <li>
+            <div
+              class="switchBtn"
+              id="accountBtnInComprehensivePage"
+              @click="switchPageFun"
+            >
+              用戶
+            </div>
+          </li>
+
+          <li class="filter">排序依照</li>
+          <li class="selector">
+            <select id="sortBy" @change="checkSortBy">
+              <option value="likes">熱門</option>
+              <option value="createdAt">最新</option>
+              <!-- <option>追蹤</option> -->
+            </select>
+          </li>
+        </div>
+        <div class="line"></div>
+        <!-- 資料顯示區塊 -->
+        <div class="comprehensiveList">
+          <div class="activity">
+            <div class="item" v-for="index in comprehensiveList" :key="index">
+              <div class="imgBox">
+                <img :src="index.img" class="itemImg" />
+              </div>
+              <div class="itemContent">
+                <div class="activityOwnUser">● 社團名稱</div>
+                <div class="activityCreatedDate">{{ index.createdAt }}</div>
+                <div class="itemTitle">
+                  <b>{{ index.title }}</b>
+                </div>
+                <div class="tag">
+                  <span v-for="tag in index.labelNameSet" :key="tag"
+                    >#{{ tag }}</span
+                  >
+                </div>
+                <div class="itemIntroduction mb-4">
+                  <div class="description">{{ index.message }}</div>
+                </div>
+                <div class="maxJoinPeople">
+                  人{{ index.maxNumberOfPeople }}人
+                </div>
+                <div class="place">地 {{ index.place }}</div>
+                <div class="activityDate">時{{ index.eventStartTime }}</div>
+                <div class="message">訊 30</div>
+                <div class="like">愛 {{ index.likes }}</div>
+              </div>
+              <div class="divider"></div>
+            </div>
+          </div>
+          <div class="itemIntroduction mb-4">
+            <!-- <div class="description">{{ index.message }}</div> -->
+          </div>
+          <div class="maxJoinPeople">
+            <!-- <i class="el-icon-user-solid"></i>{{ index.joinPeople }}人 -->
+          </div>
+          <div class="place"><i class="el-icon-location"></i> 台北商業大學</div>
+          <div class="activityDate">
+            <!-- <i class="el-icon-time"></i>{{ index.deadline }} -->
+          </div>
+          <div class="message"><i class="el-icon-chat-round"></i> 30</div>
+          <div class="like">
+            <font-awesome-icon icon="heart" size="sm" style="color: #000" /> 15
+          </div>
+        </div>
+        <!-- 資料顯示區塊 -->
+        <div class="mt-3">
+          <el-button type="primary" round class="mb-3">更多</el-button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import { createEvent } from "@/api/event";
 import navbar from "@/components/base/Navbar";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+import { findEvent } from "@/api/event";
 
 export default {
-  name: "EventPage",
+  name: "SearchPage",
   components: {
     navbar,
   },
   data() {
-    return {};
+    return {
+      //頁面切換控制項
+      PageStatus: {
+        isComprehensivePage: true,
+        isFollowPage: false,
+        isActivityPage: false,
+        isAccountPage: false,
+      },
+      listPrint: "comprehensiveList",
+      comprehensiveList: [],
+      selected: "likes",
+      selects: [
+        { value: "likes" },
+        { value: "createdAt" },
+        { value: "eventStartTime" },
+      ],
+      searchSpec: {
+        keywords: "",
+        pageNumber: 0,
+        createTimeA: null,
+        createTimeB: null,
+        startTimeA: null,
+        startTimeB: null,
+        registrationDeadlineA: null,
+        registrationDeadlineB: null,
+        direction: "DESC",
+        sortBy: "likes",
+      },
+    };
   },
   methods: {
-    likeEvent() {
-      //活動點讚事件，須加上傳送喜歡之API
-      if (document.getElementById("heartBtn").style.color == "gray") {
-        document.getElementById("heartBtn").style.color = "red";
-      } else {
-        document.getElementById("heartBtn").style.color = "gray";
+    // 切換頁面
+    switchPageFun(e) {
+      var targetId = e.target.id;
+      //先判斷從哪一頁做切換
+      if (
+        targetId.indexOf("ComprehensivePage") != -1 && // 在綜合活動頁
+        targetId != "comprehensiveBtnInComprehensivePage"
+      ) {
+        this.PageStatus.isComprehensivePage = false;
+        //判斷要前往哪一頁
+        if (targetId.indexOf("follow") != -1) {
+          this.PageStatus.isFollowPage = true;
+          this.listPrint = "followList";
+          document.getElementById("statusLine").style.left = "110px";
+        } else if (targetId.indexOf("activity") != -1) {
+          document.getElementById("statusLine").style.left = "175px";
+          this.listPrint = "activityList";
+          this.PageStatus.isActivityPage = true;
+        } else if (targetId.indexOf("account") != 1) {
+          document.getElementById("statusLine").style.left = "240px";
+          this.PageStatus.isAccountPage = true;
+          this.listPrint = "accountList";
+        }
+      } else if (
+        targetId.indexOf("FollowPage") != -1 && //在追蹤活動頁
+        targetId != "followBtnInFollowPage"
+      ) {
+        this.PageStatus.isFollowPage = false;
+        if (targetId.indexOf("comprehensive") != -1) {
+          document.getElementById("statusLine").style.left = "45px";
+          this.PageStatus.isComprehensivePage = true;
+          this.listPrint = "comprehensiveList";
+        } else if (targetId.indexOf("activity") != -1) {
+          document.getElementById("statusLine").style.left = "175px";
+          this.listPrint = "activityList";
+          this.PageStatus.isActivityPage = true;
+        } else if (targetId.indexOf("account") != -1) {
+          document.getElementById("statusLine").style.left = "240px";
+          this.PageStatus.isAccountPage = true;
+          this.listPrint = "accountList";
+        }
+      } else if (
+        targetId.indexOf("ActivityPage") != -1 && //在純顯示活動頁
+        targetId != "activityBtnInActivityPage"
+      ) {
+        this.PageStatus.isActivityPage = false;
+        if (targetId.indexOf("comprehensive") != -1) {
+          document.getElementById("statusLine").style.left = "45px";
+          this.listPrint = "comprehensiveList";
+          this.PageStatus.isComprehensivePage = true;
+        } else if (targetId.indexOf("follow") != -1) {
+          document.getElementById("statusLine").style.left = "110px";
+          this.listPrint = "followList";
+          this.PageStatus.isFollowPage = true;
+        } else if (targetId.indexOf("account") != -1) {
+          document.getElementById("statusLine").style.left = "240px";
+          this.PageStatus.isAccountPage = true;
+          this.listPrint = "accountList";
+        }
+      } else if (
+        targetId.indexOf("AccountPage") != -1 && //在帳號頁
+        targetId != "accountBtnInAccountPage"
+      ) {
+        this.PageStatus.isAccountPage = false;
+        if (targetId.indexOf("comprehensive") != -1) {
+          document.getElementById("statusLine").style.left = "45px";
+          this.listPrint = "comprehensiveList";
+          this.PageStatus.isComprehensivePage = true;
+        } else if (targetId.indexOf("follow") != -1) {
+          document.getElementById("statusLine").style.left = "110px";
+          this.listPrint = "followList";
+          this.PageStatus.isFollowPage = true;
+        } else if (targetId.indexOf("activity") != -1) {
+          document.getElementById("statusLine").style.left = "175px";
+          this.listPrint = "activityList";
+          this.PageStatus.isActivityPage = true;
+        }
       }
     },
+    getParams() {
+      // 取到路由帶過來的引數
+      const routerParams = this.$route.query.result;
+      // 將資料放在當前元件的資料內
+      this.comprehensiveList = routerParams;
+    },
+    checkSortBy() {
+      this.searchSpec.sortBy = document.getElementById("sortBy").value;
+      console.log(this.searchSpec);
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          console.log(resp);
+          if (resp.data.success) {
+            // console.log(resp.data.result);
+            this.comprehensiveList = resp.data.result;
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
+  },
+  created() {
+    this.getParams();
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: "user/userInfo",
+    }),
   },
 };
 </script>
@@ -231,282 +279,220 @@ export default {
 <style>
 * {
   padding: 0;
-  box-sizing: border-box;
   margin: 0;
+  box-sizing: border-box;
+  list-style: none;
 }
-.background {
-  background-color: rgb(165, 101, 42);
-  position: fixed;
+.SearchResult {
+  position: relative;
+  top: 50px;
   height: 100%;
-  width: 100%;
-  z-index: -1;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
-.container {
+/* 活動搜尋頁-綜合 */
+.Model {
   position: relative;
-  min-width: 400px;
-  height: 2000px;
-  background-color: #fff;
-  margin-top: 80px;
-  margin-bottom: 30px;
-  width: 800px;
-  border-radius: 10px;
-  display: grid;
-  grid-template-rows: 500px 700px 250px;
-}
-/* ------------------------活動細項區塊(第一部分)------------------------ */
-.eventDetails {
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(10, 1fr);
-  padding: 30px 40px;
-}
-#eventPic {
-  background-color: #000;
-  width: 500px;
-  height: 240px;
-  grid-row: 1/7;
+  padding: 30px 25px;
   margin: auto;
-  margin-top: 0;
+  height: 100%;
+  width: 900px;
+  background-color: #fff;
+  border-radius: 20px;
+  z-index: 5;
+  /* overflow: hidden; */
 }
-.eventDesc {
-  color: rgb(165, 101, 42);
-  font-weight: bold;
-  text-align: left;
-  margin-left: 90px;
-}
-.eventData {
-  font-weight: 800;
-  position: absolute;
-  left: 250px;
-  color: black;
-}
-#eventPeriod {
-  color: rgb(165, 101, 42);
-  font-size: 12px;
-  position: absolute;
-  left: 160px;
-  margin-top: 4px;
-}
-.signUp {
-  grid-row: 9/11;
-  position: absolute;
-  right: 80px;
-}
-.signUp button {
-  border: none;
-  background-color: rgb(165, 101, 42);
-  padding: 7px;
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 30px;
-  transition: 0.3s ease;
-}
-.signUp button:hover {
-  background-color: rgb(212, 155, 101);
-}
-.divideLine {
-  grid-row: 11/12;
-  height: 1.5px;
-  width: 100%;
-  position: relative;
-  background-color: rgb(70, 70, 70);
-}
-/* ------------------------活動內文區塊------------------------ */
-.eventContent {
-  display: grid;
-  grid-template-rows: repeat(10, 1fr);
-  grid-gap: 10px;
-  padding-left: 35px;
-  padding-right: 35px;
-}
-.eventContentHeader {
+.switchPage {
   grid-row: 1/2;
   display: flex;
-  position: relative;
-  align-items: center;
+  padding-left: 20px;
 }
-.societiesImg {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-.societiesName {
-  margin-left: 20px;
+.switchBtn {
   font-size: 20px;
-  font-weight: bold;
-}
-.postDate {
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 20px;
-}
-.eventTitle {
-  grid-row: 2/3;
-  color: #000;
-  display: flex;
-}
-.eventTitle h3 {
-  font-weight: 900;
-}
-.eventContentDesc {
-  grid-row: 3/9;
-  display: flex;
-  overflow-y: hidden;
-  font-size: 20px;
-  height: 350px;
-}
-.eventContentDesc:hover {
-  overflow-y: scroll;
-}
-
-.eventTag {
-  grid-row: 9/10;
-  display: flex;
-}
-.eventTag ul li:first-child {
-  margin-left: 0;
-}
-.eventTag ul li {
   display: inline;
-  margin-left: 8px;
-  color: rgb(165, 101, 42);
-  font-weight: bold;
-  border: black 1px solid;
-  padding: 5px;
-  border-radius: 7px;
+  margin-right: 25px;
+  cursor: pointer;
 }
-.likeAndComment {
-  grid-row: 10/11;
-  display: flex;
-  align-items: center;
-}
-.likeAndComment span {
-  margin-left: 5px;
-  font-size: 20px;
-}
-.likeAndComment button {
-  border: none;
-  background: none;
-  color: gray;
-  outline: none;
-  font-size: 20px;
-}
-.eventComment {
-  margin-left: 15px;
-  align-items: center;
-  display: flex;
-}
-.divideLineForContent {
-  grid-row: 11/12;
-  height: 1px;
-  width: 100%;
-  position: relative;
-  background-color: rgb(70, 70, 70);
-}
-
-/* ------------------------留言區部分------------------------ */
-.commentsArea {
-  display: grid;
-  grid-template-rows: repeat(5, 1fr);
-  padding: 0 35px;
-  height: 300px;
-}
-.myComment {
-  margin-top: 20px;
-  grid-row: 1/4;
-  padding: 10px 10px;
-  background-color: rgb(97, 60, 25);
-  border-radius: 10px;
-  position: relative;
-  height: 150px;
-}
-.myInfo {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.myPicImg {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-.myName {
-  margin-left: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-}
-.myCommentDesc {
-  display: flex;
-  background: none;
-  border: none;
-  border-bottom: 1px #fff solid;
-  height: 30px;
-  margin-top: 5px;
-  outline: none;
-  color: #fff;
-  font-size: 18px;
-  width: 90%;
-}
-::placeholder {
-  color: #fff;
-}
-.myComment button {
-  border: none;
+.filter {
   position: absolute;
-  right: 15px;
-  margin-top: 10px;
-  padding: 5px;
-  background-color: rgb(165, 101, 42);
-  color: #fff;
-  width: 50px;
+  margin-top: 1px;
+  right: 80px;
+}
+.selector {
+  position: absolute;
+  right: 10px;
   border-radius: 5px;
 }
-.commentTitle {
-  grid-row: 4/5;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px black solid;
-  margin-bottom: 10px;
-}
-.commentsGroup {
-  padding: 0 35px;
-  height: 100%;
-  overflow-y: hidden;
-}
-.commentsGroup:hover {
-  overflow-y: scroll;
-}
-.comments {
-  height: 100px;
-  border-bottom: 1px rgb(138, 136, 136) solid;
-}
-.userInfo {
-  margin-top: 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.userImg {
-  height: 40px;
+#statusLine {
+  position: absolute;
+  z-index: 1;
+  top: 67px;
+  left: 45px;
+  height: 3px;
   width: 40px;
-  border-radius: 50%;
+  background-color: rgb(165, 101, 42);
+  transition: all 0.3s ease;
 }
-.userName {
-  margin-left: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
+.line {
+  height: 1.5px;
+  width: 100%;
+  /* overflow: hidden; */
+  position: absolute;
+  background-color: rgb(156, 156, 156);
+  margin-top: 40px;
+  left: 0px;
 }
-.userComments {
-  display: flex;
+.Page {
+  display: grid;
+  grid-template-rows: repeat(18, 1fr);
+  height: 770px;
+}
+.searchLists {
   margin-top: 10px;
-  font-size: 18px;
-  margin-left: 10px;
-  overflow-y: hidden;
 }
-.userComments:hover {
-  overflow-y: scroll;
+/* ------------------------- */
+.comprehensiveList {
+  position: relative;
+  top: 10px;
+}
+
+.activity {
+  width: 100%;
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr); */
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  height: 250px;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 5px;
+  /* border-bottom: 1px solid #707070; */
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.imgBox {
+  padding: 5px;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.itemImg {
+  height: 100%;
+  width: 100%;
+}
+
+.itemContent {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  padding: 0px 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.activityOwnUser {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+}
+
+.activityCreatedDate {
+  grid-column: 2/4;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+}
+
+.itemTitle {
+  /* font-size: 12px; */
+  grid-column: 1/4;
+  grid-row: 2/3;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.tag {
+  position: relative;
+  top: -5px;
+  grid-column: 4/6;
+  grid-row: 2/3;
+  color: #ea7807;
+  opacity: 0.8;
+}
+
+.itemIntroduction {
+  text-align: left;
+  grid-column: 1/6;
+  grid-row: 3/5;
+  height: 35px;
+}
+
+/* 省略文字 */
+/* 和chat.vue的省略文字寫法有些許差異 */
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.itemTitle b:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.divider {
+  position: relative;
+  border-bottom: 1px #aaaaaa solid;
+  grid-column: 1/4;
+  grid-row: 1/2;
+  width: 100%;
+  height: 1px;
+  top: 100%;
+}
+
+.maxJoinPeople {
+  text-align: left;
+  grid-column: 1/2;
+  grid-row: 5/6;
+}
+
+.activityDate {
+  grid-column: 2/3;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.place {
+  grid-column: 3/4;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.message {
+  grid-column: 4/5;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+.like {
+  grid-column: 5/6;
+  grid-row: 5/6;
+  text-align: left;
+}
+
+@media (max-width: 650px) {
+  .itemTitle {
+    font-size: 22px;
+  }
 }
 </style>

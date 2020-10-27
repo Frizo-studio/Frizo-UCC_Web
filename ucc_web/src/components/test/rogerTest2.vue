@@ -81,29 +81,27 @@
                   <div class="description">{{ index.message }}</div>
                 </div>
                 <div class="maxJoinPeople">
-                  人{{ index.maxNumberOfPeople }}人
+                  <i class="el-icon-user-solid"></i
+                  >{{ index.maxNumberOfPeople }}人
                 </div>
-                <div class="place">地 {{ index.place }}</div>
-                <div class="activityDate">時{{ index.eventStartTime }}</div>
-                <div class="message">訊 30</div>
-                <div class="like">愛 {{ index.likes }}</div>
+                <div class="place">
+                  <i class="el-icon-location"></i> {{ index.place }}
+                </div>
+                <div class="activityDate">
+                  <i class="el-icon-time"></i>{{ index.eventStartTime }}
+                </div>
+                <div class="message"><i class="el-icon-chat-round"></i> 30</div>
+                <div class="like">
+                  <font-awesome-icon
+                    icon="heart"
+                    size="sm"
+                    style="color: #000"
+                  />
+                  {{ index.likes }}
+                </div>
               </div>
               <div class="divider"></div>
             </div>
-          </div>
-          <div class="itemIntroduction mb-4">
-            <div class="description">{{ index.message }}</div>
-          </div>
-          <div class="maxJoinPeople">
-            <i class="el-icon-user-solid"></i>{{ index.joinPeople }}人
-          </div>
-          <div class="place"><i class="el-icon-location"></i> 台北商業大學</div>
-          <div class="activityDate">
-            <i class="el-icon-time"></i>{{ index.deadline }}
-          </div>
-          <div class="message"><i class="el-icon-chat-round"></i> 30</div>
-          <div class="like">
-            <font-awesome-icon icon="heart" size="sm" style="color: #000" /> 15
           </div>
         </div>
         <!-- 資料顯示區塊 -->
@@ -435,7 +433,6 @@ export default {
             element.eventStartTime = element.eventStartTime.substr(0, 10);
             element.createdAt = element.createdAt.substr(0, 10);
           });
-          console.log(resp);
           if (resp.data.success) {
             // console.log(resp.data.result);
             this.comprehensiveList = resp.data.result;
@@ -576,7 +573,7 @@ export default {
   grid-row: 1/2;
   padding: 0px 15px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
 }
 
@@ -588,7 +585,7 @@ export default {
 }
 
 .activityCreatedDate {
-  grid-column: 2/4;
+  grid-column: 2/3;
   grid-row: 1/2;
   display: flex;
   align-items: center;
