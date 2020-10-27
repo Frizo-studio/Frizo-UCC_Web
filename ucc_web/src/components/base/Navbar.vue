@@ -200,7 +200,7 @@ export default {
         registrationDeadlineA: null,
         registrationDeadlineB: null,
         direction: "DESC",
-        sortBy: "createdAt",
+        sortBy: "likes",
       },
     };
   },

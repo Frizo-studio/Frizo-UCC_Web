@@ -51,10 +51,10 @@
 
           <li class="filter">排序依照</li>
           <li class="selector">
-            <select>
-              <option>熱門</option>
-              <option>最新</option>
-              <option>追蹤</option>
+            <select id="sortBy" @change="checkSortBy">
+              <option value="likes">熱門</option>
+              <option value="createdAt">最新</option>
+              <!-- <option>追蹤</option> -->
             </select>
           </li>
         </div>
@@ -81,29 +81,27 @@
                   <div class="description">{{ index.message }}</div>
                 </div>
                 <div class="maxJoinPeople">
-                  人{{ index.maxNumberOfPeople }}人
+                  <i class="el-icon-user-solid"></i
+                  >{{ index.maxNumberOfPeople }}人
                 </div>
-                <div class="place">地 {{ index.place }}</div>
-                <div class="activityDate">時{{ index.eventStartTime }}</div>
-                <div class="message">訊 30</div>
-                <div class="like">愛 {{ index.likes }}</div>
+                <div class="place">
+                  <i class="el-icon-location"></i> {{ index.place }}
+                </div>
+                <div class="activityDate">
+                  <i class="el-icon-time"></i>{{ index.eventStartTime }}
+                </div>
+                <div class="message"><i class="el-icon-chat-round"></i> 30</div>
+                <div class="like">
+                  <font-awesome-icon
+                    icon="heart"
+                    size="sm"
+                    style="color: #000"
+                  />
+                  {{ index.likes }}
+                </div>
               </div>
               <div class="divider"></div>
             </div>
-          </div>
-          <div class="itemIntroduction mb-4">
-            <div class="description">{{ index.message }}</div>
-          </div>
-          <div class="maxJoinPeople">
-            <i class="el-icon-user-solid"></i>{{ index.joinPeople }}人
-          </div>
-          <div class="place"><i class="el-icon-location"></i> 台北商業大學</div>
-          <div class="activityDate">
-            <i class="el-icon-time"></i>{{ index.deadline }}
-          </div>
-          <div class="message"><i class="el-icon-chat-round"></i> 30</div>
-          <div class="like">
-            <font-awesome-icon icon="heart" size="sm" style="color: #000" /> 15
           </div>
         </div>
         <!-- 資料顯示區塊 -->
@@ -298,6 +296,7 @@ import comprehensiveList from "@/components/searchResultListGroup/comprehensiveL
 import followList from "@/components/searchResultListGroup/followList";
 import activityList from "@/components/searchResultListGroup/activityList";
 import accountList from "@/components/searchResultListGroup/accountList";
+import { findEvent } from "@/api/event";
 
 export default {
   name: "SearchPage",
@@ -319,6 +318,24 @@ export default {
       },
       listPrint: "comprehensiveList",
       comprehensiveList: [],
+      selected: "likes",
+      selects: [
+        { value: "likes" },
+        { value: "createdAt" },
+        { value: "eventStartTime" },
+      ],
+      searchSpec: {
+        keywords: "",
+        pageNumber: 0,
+        createTimeA: null,
+        createTimeB: null,
+        startTimeA: null,
+        startTimeB: null,
+        registrationDeadlineA: null,
+        registrationDeadlineB: null,
+        direction: "DESC",
+        sortBy: "likes",
+      },
     };
   },
   methods: {
@@ -406,7 +423,26 @@ export default {
       const routerParams = this.$route.query.result;
       // 將資料放在當前元件的資料內
       this.comprehensiveList = routerParams;
-      console.log(routerParams);
+    },
+    checkSortBy() {
+      this.searchSpec.sortBy = document.getElementById("sortBy").value;
+      console.log(this.searchSpec);
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          resp.data.result.forEach((element) => {
+            element.eventStartTime = element.eventStartTime.substr(0, 10);
+            element.createdAt = element.createdAt.substr(0, 10);
+          });
+          if (resp.data.success) {
+            // console.log(resp.data.result);
+            this.comprehensiveList = resp.data.result;
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     },
   },
   created() {
@@ -537,7 +573,7 @@ export default {
   grid-row: 1/2;
   padding: 0px 15px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
 }
 
@@ -549,7 +585,7 @@ export default {
 }
 
 .activityCreatedDate {
-  grid-column: 2/4;
+  grid-column: 2/3;
   grid-row: 1/2;
   display: flex;
   align-items: center;

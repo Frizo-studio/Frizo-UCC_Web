@@ -132,3 +132,20 @@ export const userFollowedSetting = (isAllow) => {
   }
   return getRequest(actionUrl, params);
 };
+
+//清除消息
+//可接收參數有：CHAT、EVENT、FOLLOWING
+export const clearNotice = (noticeType) => {
+  let actionUrl = "/notice/clear/" + noticeType;
+  let params = {};
+
+  getRequest(actionUrl, params);
+}
+
+//使用者登入時接收notice
+export const loadNotice = (userId) => {
+  let actionUrl = "notice/all";
+  let params = { userId };
+
+  return getRequest(actionUrl, params);
+}
