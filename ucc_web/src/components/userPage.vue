@@ -9,9 +9,9 @@
             <el-avatar :size="150" :src="circleUrl"></el-avatar>
           </div>
           <div class="userName">
-            <b>{{userName}}</b>
+            <b>{{ userName }}</b>
           </div>
-          <div class="description">{{description}}</div>
+          <div class="description">{{ description }}</div>
           <div class="divider"></div>
         </div>
         <div class="userActivity">
@@ -39,11 +39,11 @@ export default {
       userName: "roger",
       description:
         "簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字簡介最長幾字",
-      radio: 1
+      radio: 1,
     };
   },
 
-  name: "userPage"
+  name: "userPage",
 };
 </script>
 
