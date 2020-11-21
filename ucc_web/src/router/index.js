@@ -43,6 +43,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/eventPage',
+            name: 'eventPage',
+            component: resolve => require(['@/pages/EventPage.vue'], resolve),
+        },
+
+        {
             path: '/searchResult',
             name: 'searchResult',
             component: resolve => require(['@/pages/SearchResult.vue'], resolve),

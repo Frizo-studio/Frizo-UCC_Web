@@ -4,21 +4,22 @@
     <div class="background"></div>
     <div class="container">
       <div class="eventDetails">
-        <div class="eventDesc" id="eventPic"></div>
+        <div class="eventDesc" id="eventPic">
+          <img :src="dataList.dmUrl" id="imgPic" />
+        </div>
         <div class="eventDesc" id="people">
-          人數 <span class="eventData">20人</span>
+          人數 <span class="eventData">{{ dataList.maxNumberOfPeople }}人</span>
         </div>
         <div class="eventDesc" id="place">
-          活動地點 <span class="eventData">台北商業大學</span>
+          活動地點 <span class="eventData">{{ dataList.place }}</span>
         </div>
         <div class="eventDesc" id="endDate">
-          報名截止日 <span class="eventData">2020年 12月 31 日 </span>
+          報名截止日
+          <span class="eventData">{{ dataList.registrationDeadline }} </span>
         </div>
         <div class="eventDesc" style="color: black">
           <font-awesome-icon icon="calendar-alt" size="med" />
-          <span id="eventPeriod"
-            >活動時間2020年6月24 12:00 PM 至 2020年6月24日 6:00 PM</span
-          >
+          <span id="eventPeriod">{{ dataList.eventStartTime }}</span>
         </div>
         <div class="signUp"><button>立即報名</button></div>
         <div class="divideLine"></div>
@@ -27,33 +28,26 @@
       <div class="eventContent">
         <div class="eventContentHeader">
           <div class="societiesImgFrame">
-            <img
-              class="societiesImg"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            />
+            <img class="societiesImg" :src="dataList.dmUrl" />
           </div>
           <span class="societiesName">社團名稱</span>
-          <span class="postDate">2020年 10月24號 20:25</span>
+          <span class="postDate">{{ dataList.createdAt }}</span>
         </div>
         <div class="eventTitle">
-          <h3>活動標題</h3>
+          <h3>{{ dataList.title }}</h3>
         </div>
         <div class="eventContentDesc">
-          <p>活動內文</p>
+          <p>{{ dataList.description }}</p>
         </div>
         <div class="eventTag">
           <ul>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
-            <li>熱舞社</li>
+            <li v-for="tag in dataList.labelNameSet" :key="tag">{{ tag }}</li>
           </ul>
         </div>
         <div class="likeAndComment">
           <button @click="likeEvent" id="heartBtn">
             <font-awesome-icon icon="heart" size="lg" id="heart" /></button
-          ><span>15</span>
+          ><span>{{ dataList.likes }}</span>
           <div class="eventComment">
             <i
               class="el-icon-chat-line-square"
@@ -132,7 +126,9 @@ export default {
     navbar,
   },
   data() {
-    return {};
+    return {
+      dataList: [],
+    };
   },
   methods: {
     likeEvent() {
@@ -143,6 +139,16 @@ export default {
         document.getElementById("heartBtn").style.color = "gray";
       }
     },
+    getParams() {
+      // 取到路由帶過來的引數
+      const routerParams = this.$route.query.result;
+      // 將資料放在當前元件的資料內
+      this.dataList = routerParams;
+      console.log(this.dataList);
+    },
+  },
+  created() {
+    this.getParams();
   },
 };
 </script>
@@ -178,6 +184,10 @@ export default {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   padding: 30px 40px;
+}
+#imgPic {
+  height: 100%;
+  width: 100%;
 }
 #eventPic {
   background-color: #000;
