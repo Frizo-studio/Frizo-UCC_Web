@@ -298,7 +298,7 @@ export default {
             this.searchResult = resp.data.result;
             //
             this.$router.push({
-              path: "/testForRoger2",
+              path: "/searchResult",
               // name: 'mallList',
               query: {
                 result: resp.data.result,
