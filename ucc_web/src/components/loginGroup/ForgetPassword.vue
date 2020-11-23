@@ -1,7 +1,11 @@
 <template>
   <div class="forgetPasswdDiv">
     <div class="goBack">
-      <img @click.prevent="goBack" class="imgGoBack" src="@/assets/loginGroup/left-arrow.png" />
+      <img
+        @click.prevent="goBack"
+        class="imgGoBack"
+        src="@/assets/loginGroup/left-arrow.png"
+      />
     </div>
     <div class="goClose">
       <img class="imgClose" src="@/assets/loginGroup/close.png" />
@@ -16,84 +20,42 @@
     </div>
     <div class="sendVerification">
       <!-- <el-button type="primary" round :loading="sendEmailIsClick===true" @click="sendVerifyEmail">送出</el-button> -->
-      <button class="sendVerifyBtn" @click.prevent="sendVerifyEmail">送出</button>
+      <button class="sendVerifyBtn" @click.prevent="sendVerifyEmail">
+        送出
+      </button>
     </div>
     <div class="verificationText titleText">請輸入驗證碼</div>
-    <div class="verification">
-      <input type="text" id="verifyCode" class="inputClass" v-model="verifyCode" />
-    </div>
-    <div class="passwordText titleText">新密碼</div>
-    <div class="password">
-      <input type="password" id="userPassword" class="inputClass" v-model="password" />
-    </div>
-    <div class="confirmPasswordText titleText">確認新密碼</div>
-    <div class="confirmPassword">
-      <input type="password" id="reUserPassword" class="inputClass" v-model="rePassword" />
-    </div>
-    <div class="alertDiv">{{alertText}}</div>
-    <div class="forgetPasswordBtn">
-      <!-- <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button> -->
-      <button class="resetBtn" @click="resetPwd">確認</button>
-    </div>
-    <!-- <div class="title">
-      <h4>忘記密碼</h4>
-    </div>
-
-    <div class="email">
-      <input
-        type="text"
-        id="email"
-        class="form-control textLetterSpacing"
-        placeholder="請輸入您的 E-mail 信箱"
-        aria-describedby="inputGroup-sizing-sm"
-        v-model="email"
-      />
-    </div>
-
-    <div class="sendVerification">
-      <el-button type="primary" round :loading="sendEmailIsClick===true" @click="sendVerifyEmail">送出</el-button>
-    </div>
-
     <div class="verification">
       <input
         type="text"
         id="verifyCode"
-        class="form-control textLetterSpacing"
-        placeholder="請輸入驗證碼"
-        aria-describedby="inputGroup-sizing-sm"
+        class="inputClass"
         v-model="verifyCode"
       />
     </div>
-
-    <div class="passwd">
+    <div class="passwordText titleText">新密碼</div>
+    <div class="password">
       <input
         type="password"
         id="userPassword"
-        class="form-control textLetterSpacing"
-        placeholder="請輸入您欲設定的密碼"
-        aria-describedby="inputGroup-sizing-sm"
+        class="inputClass"
         v-model="password"
       />
     </div>
-
-    <div class="confirmPasswd">
+    <div class="confirmPasswordText titleText">確認新密碼</div>
+    <div class="confirmPassword">
       <input
         type="password"
         id="reUserPassword"
-        class="form-control textLetterSpacing"
-        placeholder="請重複輸入您設定的密碼"
-        aria-describedby="inputGroup-sizing-sm"
+        class="inputClass"
         v-model="rePassword"
       />
     </div>
-
-    <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-
-    <div class="alertDiv">{{alertText}}</div>
-
-    <div class="forgetPasswdBtn">
-      <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button>
-    </div>-->
+    <div class="alertDiv">{{ alertText }}</div>
+    <div class="forgetPasswordBtn">
+      <!-- <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button> -->
+      <button class="resetBtn" @click="resetPwd">確認</button>
+    </div>
   </div>
 </template>
 
@@ -114,7 +76,7 @@ export default {
       resetIsClick: false,
       // 回上一頁
       viewValue: "Login",
-      closeValue: "close"
+      closeValue: "close",
     };
   },
 
@@ -140,11 +102,11 @@ export default {
         }
         // 如上述都無錯誤，送出Email驗證碼。
         sendForgotPasswordEmailVerify(this.email)
-          .then(resp => {
+          .then((resp) => {
             this.alertText = "已送出認證信";
             console.log(resp.data);
           })
-          .catch(error => {
+          .catch((error) => {
             this.alertText = "發生錯誤";
             console.log(error);
           });
@@ -167,11 +129,11 @@ export default {
       let request = {
         email: this.email,
         password: this.password,
-        verifyCode: this.verifyCode
+        verifyCode: this.verifyCode,
       };
 
       resetPassword(request)
-        .then(resp => {
+        .then((resp) => {
           if (resp.data.success) {
             this.alertText = "密碼重製成功";
             window.location.reload();
@@ -181,7 +143,7 @@ export default {
           }
           console.log(resp.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -190,14 +152,8 @@ export default {
       // viewValue是在父元件on監聽的方法
       // 第二個引數this.viewValue是需要傳的值
       this.$emit("viewValue", this.viewValue);
-    }
-
-    // goClose() {
-    //   // viewValue是在父元件on監聽的方法
-    //   // 第二個引數this.viewValue是需要傳的值
-    //   this.$emit("closeValue", this.closeValue);
-    // }
-  }
+    },
+  },
 };
 </script>
 

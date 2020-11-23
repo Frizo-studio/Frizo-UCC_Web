@@ -1,11 +1,5 @@
 <template>
   <div class="banner">
-    <!-- <el-carousel indicator-position="outside">
-      <el-carousel-item v-for="(item, index) in photoList" :key="index">
-        <img class="picture" :src="item.url" />
-      </el-carousel-item>
-    </el-carousel>-->
-
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="(item, index) in photoList" :key="index">
         <img class="picture" :src="item.url" />
@@ -21,17 +15,17 @@ export default {
     return {
       photoList: [
         {
-          url: require("@/assets/banner/1.jpg")
+          url: require("@/assets/banner/1.jpg"),
         },
         {
-          url: require("@/assets/banner/2.jpg")
+          url: require("@/assets/banner/2.jpg"),
         },
         {
-          url: require("@/assets/banner/3.jpg")
-        }
-      ]
+          url: require("@/assets/banner/3.jpg"),
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

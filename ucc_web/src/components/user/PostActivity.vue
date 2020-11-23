@@ -1,13 +1,15 @@
 <template>
   <div class="initiateActivity">
     <!-- Model 主體 -->
-    <div :class="isActivityPage?'ModelForActivity':'ModelForMessage'">
-      <div :class="isActivityPage?'stateLine':'stateLine2'"></div>
+    <div :class="isActivityPage ? 'ModelForActivity' : 'ModelForMessage'">
+      <div :class="isActivityPage ? 'stateLine' : 'stateLine2'"></div>
       <!-------------------------- 發起活動頁面 -------------------------->
       <div class="initialActivityPage" v-if="isActivityPage">
         <div class="switchPage">
           <li>
-            <div class="switchBtn" id="activityBtn" @click="gotoActivityPage">發布活動</div>
+            <div class="switchBtn" id="activityBtn" @click="gotoActivityPage">
+              發布活動
+            </div>
           </li>
           <li>
             <div class="switchBtn" @click="gotoMessagePage">發布消息</div>
@@ -26,23 +28,40 @@
         <textarea
           class="activityDescription"
           v-model="event.description"
-          style="width:97%;height:200px;"
+          style="width: 97%; height: 200px"
           placeholder="活動描述..."
         ></textarea>
         <!-- 上傳活動照片 -->
         <div class="dm">
-          <label :class="isAddPic ? 'havePic' : 'noPic' ">
-            <input type="file" style="display:none;" accept="image/*" @change="selectDM" />
+          <label :class="isAddPic ? 'havePic' : 'noPic'">
+            <input
+              type="file"
+              style="display: none"
+              accept="image/*"
+              @change="selectDM"
+            />
             <font-awesome-icon icon="file-image" size="lg" class="imageIcon" />
             <span>上傳照片</span>
           </label>
-          <img :src="this.picPreview" class="dmImg" :class="isAddPic ? 'noPic' : 'havePic'" />
+          <img
+            :src="this.picPreview"
+            class="dmImg"
+            :class="isAddPic ? 'noPic' : 'havePic'"
+          />
           <button
-            style="border:none;background-color:white;color:rgb(165, 101, 42);"
+            style="
+              border: none;
+              background-color: white;
+              color: rgb(165, 101, 42);
+            "
             @click="deleteDmImg"
             :class="isAddPic ? 'haveDeleteIcon' : 'noDeleteIcon'"
           >
-            <font-awesome-icon icon="times-circle" size="lg" class="closeIcon" />
+            <font-awesome-icon
+              icon="times-circle"
+              size="lg"
+              class="closeIcon"
+            />
           </button>
         </div>
         <!-- 活動人數 -->
@@ -59,7 +78,11 @@
         <!-- 活動地點 -->
         <div class="location">
           <label class="locationDescription">活動地點</label>
-          <input type="text" class="locationInput" placeholder="請輸入活動地點" />
+          <input
+            type="text"
+            class="locationInput"
+            placeholder="請輸入活動地點"
+          />
         </div>
         <!-- 報名截止日 -->
         <div class="deadline">
@@ -95,7 +118,8 @@
             closable
             :disable-transitions="false"
             @close="handleClose(tag)"
-          >{{tag}}</el-tag>
+            >{{ tag }}</el-tag
+          >
           <el-input
             class="input-new-tag"
             v-if="inputVisible"
@@ -111,11 +135,18 @@
             size="small"
             @click="newTag"
             :disabled="tagsNumber == 5"
-          >新增標籤</el-button>
+            >新增標籤</el-button
+          >
         </div>
         <!-- 提交活動至後端 -->
         <div class="activityPush">
-          <button class="pushActivityBtn" round @click.prevent="sendCreateRequest">發布</button>
+          <button
+            class="pushActivityBtn"
+            round
+            @click.prevent="sendCreateRequest"
+          >
+            發布
+          </button>
         </div>
       </div>
       <!-------------------------- 發起消息頁面 -------------------------->
@@ -129,8 +160,10 @@
               class="switchBtn"
               id="messageBtn"
               @click="gotoMessagePage"
-              style="font-weigth:700;"
-            >發布消息</div>
+              style="font-weigth: 700"
+            >
+              發布消息
+            </div>
           </li>
         </div>
         <div class="line"></div>
@@ -142,14 +175,23 @@
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             />
           </div>
-          <span class="userName">{{userInfo.name}}</span>
+          <span class="userName">{{ userInfo.name }}</span>
         </div>
         <!-- 消息描述 -->
-        <textarea class="messageDescription" style="width:97%;height:200px;" placeholder="有什麼消息..."></textarea>
+        <textarea
+          class="messageDescription"
+          style="width: 97%; height: 200px"
+          placeholder="有什麼消息..."
+        ></textarea>
         <!-- 上傳消息照片 -->
         <div class="msgPic">
-          <label :class="isAddMsgPic ? 'haveMsgPic' : 'noMsgPic' ">
-            <input type="file" style="display:none;" accept="image/*" @change="selectMsgPic" />
+          <label :class="isAddMsgPic ? 'haveMsgPic' : 'noMsgPic'">
+            <input
+              type="file"
+              style="display: none"
+              accept="image/*"
+              @change="selectMsgPic"
+            />
             <font-awesome-icon icon="file-image" size="lg" class="imageIcon" />
             <span>上傳照片</span>
           </label>
@@ -197,23 +239,23 @@ export default {
         eventStartTime: new Date().toISOString().substr(0, 10),
         place: "",
         fee: 0,
-        labelNameList: []
+        labelNameList: [],
       },
       // 標籤資料
       tagsNumber: 0,
       inputVisible: false,
-      inputValue: ""
+      inputValue: "",
     };
   },
   methods: {
     // 送出活動發起請求
     sendCreateRequest() {
       createEvent(this.event)
-        .then(resp => {
+        .then((resp) => {
           console.log(resp.data);
           alert("發佈成功");
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
     },
@@ -235,13 +277,14 @@ export default {
       if (!files.length) return;
       alert(files[0].name);
       this.dmPicture = files[0];
+      this.event.dmPicture = files[0];
       this.isAddPic = true;
 
       // 活動圖片預覽
       var input = event.target;
       if (input.files) {
         var reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           this.picPreview = e.target.result;
         };
         this.image = input.files[0];
@@ -265,7 +308,7 @@ export default {
       var input = event.target;
       if (input.files) {
         var reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           this.msgPicPreview = e.target.result;
         };
         this.image = input.files[0];
@@ -294,7 +337,7 @@ export default {
     newTag() {
       this.inputVisible = true;
       // eslint-disable-next-line no-unused-vars
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus();
       });
     },
@@ -307,13 +350,13 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = "";
-    }
+    },
   },
   computed: {
     ...mapGetters({
-      userInfo: "user/userInfo"
-    })
-  }
+      userInfo: "user/userInfo",
+    }),
+  },
 };
 </script>
 

@@ -2,7 +2,11 @@
   <!-- <div class="register"> -->
   <div class="registerDiv">
     <div class="goBack">
-      <img @click.prevent="goBack" class="imgGoBack" src="@/assets/loginGroup/left-arrow.png" />
+      <img
+        @click.prevent="goBack"
+        class="imgGoBack"
+        src="@/assets/loginGroup/left-arrow.png"
+      />
     </div>
     <div class="UCCLogo">
       <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
@@ -17,76 +21,36 @@
     </div>
     <div class="emailText titleText">E-mail信箱</div>
     <div class="email">
-      <input type="text" id="userEmail" class="inputClass" v-model="userEmail" />
+      <input
+        type="text"
+        id="userEmail"
+        class="inputClass"
+        v-model="userEmail"
+      />
     </div>
     <div class="passwordText titleText">密碼</div>
     <div class="password">
-      <input type="password" id="userPassword" class="inputClass" v-model="userPassword" />
+      <input
+        type="password"
+        id="userPassword"
+        class="inputClass"
+        v-model="userPassword"
+      />
     </div>
     <div class="confirmPasswordText titleText">確認密碼</div>
     <div class="confirmPassword">
-      <input type="password" id="reUserPassword" class="inputClass" v-model="reUserPassword" />
+      <input
+        type="password"
+        id="reUserPassword"
+        class="inputClass"
+        v-model="reUserPassword"
+      />
     </div>
-    <div class="alertDiv">{{alertText}}</div>
+    <div class="alertDiv">{{ alertText }}</div>
     <div class="registerBtn">
       <!-- <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button> -->
       <button class="buttonCSS" @click.prevent="register">註冊</button>
     </div>
-    <!-- <div class="title">
-      <h4>歡迎註冊UCC帳號</h4>
-    </div>
-
-    <div class="nickname">
-      <input
-        type="text"
-        id="name"
-        class="form-control textLetterSpacing"
-        placeholder="輸入您的稱謂"
-        aria-describedby="inputGroup-sizing-sm"
-        v-model="name"
-      />
-    </div>
-
-    <div class="email">
-      <input
-        type="text"
-        id="userEmail"
-        class="form-control textLetterSpacing"
-        placeholder="輸入您的 E-mail 信箱"
-        aria-describedby="inputGroup-sizing-sm"
-        v-model="userEmail"
-      />
-    </div>
-
-    <div class="passwd">
-      <input
-        type="password"
-        id="userPassword"
-        class="form-control textLetterSpacing"
-        placeholder="輸入您欲設定的密碼"
-        aria-describedby="inputGroup-sizing-sm"
-        v-model="userPassword"
-      />
-    </div>
-
-    <div class="confirmPasswd">
-      <input
-        type="password"
-        id="reUserPassword"
-        class="form-control textLetterSpacing"
-        placeholder="請重複輸入您設定的密碼"
-        aria-describedby="inputGroup-sizing-sm"
-        v-model="reUserPassword"
-      />
-    </div>
-
-    <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-
-    <div class="alertDiv">{{alertText}}</div>
-
-    <div class="registerBtn">
-      <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
-    </div>-->
   </div>
 </template>
 
@@ -104,7 +68,7 @@ export default {
       isClick: false,
       alertText: "",
       // 回上一頁
-      viewValue: "Login"
+      viewValue: "Login",
     };
   },
 
@@ -116,17 +80,17 @@ export default {
       let userInfo = {
         name: this.name,
         email: this.userEmail,
-        password: this.userPassword
+        password: this.userPassword,
       };
       this.signup(userInfo)
-        .then(resp => {
+        .then((resp) => {
           alert(resp.data.message);
           if (resp.data.success) {
             location.reload();
           }
           console.log(resp.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
       this.isClick = false;
@@ -153,8 +117,8 @@ export default {
       // viewValue是在父元件on監聽的方法
       // 第二個引數this.viewValue是需要傳的值
       this.$emit("viewValue", this.viewValue);
-    }
-  }
+    },
+  },
 };
 </script>
 
