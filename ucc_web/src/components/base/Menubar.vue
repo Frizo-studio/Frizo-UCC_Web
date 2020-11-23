@@ -10,7 +10,7 @@
         <div class="line3"></div>
       </div>
     </label>
-    <ul :class="scrollUpOrDown?'menu-show':'menu-hide'">
+    <ul :class="scrollUpOrDown ? 'menu-show' : 'menu-hide'">
       <li class="menuItem">
         <a href="https://google.com">
           <img
@@ -18,7 +18,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -30,7 +30,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -42,7 +42,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -54,7 +54,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -66,7 +66,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -78,7 +78,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -90,7 +90,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -102,7 +102,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -114,7 +114,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -126,7 +126,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -138,7 +138,7 @@
             src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
             width="50px"
             height="50px"
-            style="border-radius:50%;"
+            style="border-radius: 50%"
           />
         </a>
         <span slot="title">社團名稱</span>
@@ -153,25 +153,10 @@ export default {
     return {
       toggleIsFalse: false,
       i: "0",
-      scrollUpOrDown: true
+      scrollUpOrDown: true,
     };
   },
   methods: {
-    // animation() {
-    //   if (this.toggleIsFalse === false) {
-    //     this.toggleIsFalse = true;
-    //     //偵測在小於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
-    //     if (document.body.offsetWidth < "837") {
-    //       window.removeEventListener("scroll", this.handleScroll, true);
-    //     }
-    //   } else {
-    //     this.toggleIsFalse = false;
-    //     //偵測在大於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
-    //     if (document.body.offsetWidth > "837") {
-    //       window.addEventListener("scroll", this.handleScroll, true);
-    //     }
-    //   }
-    // },
     animation() {
       if (this.toggleIsFalse === false) {
         this.toggleIsFalse = true;
@@ -192,15 +177,8 @@ export default {
       } else {
         this.scrollUpOrDown = false;
       }
-    }
-  }
-  // mounted() {
-  //   if (document.body.offsetWidth > "837") {
-  //     window.addEventListener("scroll", this.handleScroll, true);
-  //   } else {
-  //     window.removeEventListener("scroll", this.handleScroll, true);
-  //   }
-  // }
+    },
+  },
 };
 </script>
 

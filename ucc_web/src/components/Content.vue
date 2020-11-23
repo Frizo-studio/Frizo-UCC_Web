@@ -5,26 +5,14 @@
     </div>
     <div class="activityList">
       <div class="selectList" ref="selectList4Event">
-        <!-- <el-radio-group v-model="radio" @change="changeList" style="display:none;">
-          <el-radio :label="1">
-            <b>熱門</b>
-          </el-radio>
-          <el-radio :label="2">
-            <b>最新</b>
-          </el-radio>
-          <el-radio :label="3">
-            <b>追蹤</b>
-          </el-radio>
-        </el-radio-group>-->
-        <!-- {{this.radio}} -->
         <div class="listBtnGroup">
-          <div class="listBtn" :class="{active:radio==1}">
+          <div class="listBtn" :class="{ active: radio == 1 }">
             <span @click.prevent="changeList(1)">熱門</span>
           </div>
-          <div class="listBtn" :class="{active:radio==2}">
+          <div class="listBtn" :class="{ active: radio == 2 }">
             <span @click.prevent="changeList(2)">最新</span>
           </div>
-          <div class="listBtn" :class="{active:radio==3}">
+          <div class="listBtn" :class="{ active: radio == 3 }">
             <span @click.prevent="changeList(3)">追蹤</span>
           </div>
         </div>
@@ -52,7 +40,7 @@ export default {
     Banner,
     hotList,
     newList,
-    followList
+    followList,
   },
 
   data() {
@@ -62,7 +50,7 @@ export default {
       selectListHeight: "",
       curHeight: "",
       Height: "",
-      changeHeight: ""
+      changeHeight: "",
     };
   },
 
@@ -87,7 +75,7 @@ export default {
       } else {
         this.selectList.classList.remove("selectFix");
       }
-    }
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.selectListFix, true);
@@ -99,15 +87,7 @@ export default {
     this.Height = this.selectListHeight - this.curHeight;
     // 計算要Fixed的高
     this.changeHeight = this.Height - 62;
-  }
-
-  // mounted() {
-  //   if (this.radio === 1) {
-  //     this.listPrint = hotList;
-  //   } else if (this.radio === 2) {
-  //     this.listPrint = newList;
-  //   }
-  // }
+  },
 };
 </script>
 
