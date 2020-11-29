@@ -14,9 +14,6 @@
           <!-- Menu -->
           <router-link to="/">
             <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
-            <!-- <span id="fl">
-              <h3>University Club Center</h3>
-            </span>-->
           </router-link>
         </el-menu-item>
         <el-menu-item id="inputArea">
@@ -322,16 +319,6 @@ export default {
     } else {
       this.loginState = false;
     }
-    // if (this.window.width > "837") {
-    //   window.addEventListener("scroll", this.handleScroll, true);
-    // } else {
-    //   window.removeEventListener("scroll", this.handleScroll, true);
-    // }
-
-    // window.addEventListener("resize", this.handleResize);
-    // this.handleResize();
-    //偵測卷軸滾動
-    // window.addEventListener("scroll", this.handleScroll, true);
   },
   created() {},
 };
