@@ -132,8 +132,15 @@ export const uploadOwnEvent = ({
 };
 
 // 刪除自身發佈 Event(活動) 的 API。
-
-export const deleteOwnEvent = ({ eventId }) => {
+export const deleteOwnEvent = (eventId) => {
   let actionUrl = "/event/delete/" + eventId;
   return deleteRequest(actionUrl);
 };
+
+export const searchEventById = (eventId) => {
+  console.log(eventId);
+  let actionUrl = "/event/get/" + eventId;
+  let params = {};
+
+  return getRequest(actionUrl, params);
+}

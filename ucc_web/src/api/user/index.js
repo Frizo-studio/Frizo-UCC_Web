@@ -87,12 +87,7 @@ export const findUser = (keywords, page) => {
   } else {
     params.keywords = keywords;
   }
-
-  if (page == null || page == "") {
-    params.page = 10;
-  } else {
     params.page = page;
-  }
 
   return getRequest(actionUrl, params);
 };

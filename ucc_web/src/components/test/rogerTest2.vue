@@ -70,7 +70,7 @@
                 <div class="activityOwnUser">● 社團名稱</div>
                 <div class="activityCreatedDate">{{ index.createdAt }}</div>
                 <div class="itemTitle">
-                  <b>{{ index.title }}</b>
+                  <b @click="getId(index.title)">{{ index.title }}</b>
                 </div>
                 <div class="tag">
                   <span v-for="tag in index.labelNameSet" :key="tag"
@@ -78,7 +78,7 @@
                   >
                 </div>
                 <div class="itemIntroduction mb-4">
-                  <div class="description">{{ index.message }}</div>
+                  <div class="description">{{ index.description }}</div>
                 </div>
                 <div class="maxJoinPeople">
                   <i class="el-icon-user-solid"></i
@@ -423,6 +423,7 @@ export default {
       const routerParams = this.$route.query.result;
       // 將資料放在當前元件的資料內
       this.comprehensiveList = routerParams;
+      console.log(routerParams);
     },
     checkSortBy() {
       this.searchSpec.sortBy = document.getElementById("sortBy").value;
@@ -439,6 +440,17 @@ export default {
           } else {
             console.log(resp.data.message);
           }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
+    getId(title) {
+      console.log(title);
+      this.searchSpec.keywords = title;
+      findEvent(this.searchSpec)
+        .then((resp) => {
+          console.log(resp.data);
         })
         .catch((error) => {
           console.log(error.response.data.message);

@@ -4,7 +4,7 @@ import {
 
 //寄送追蹤請求給某 user
 export const setFollowRequire = (fowllowingUserId) => {
-    let actionUrl = "/follwoing/send/request?fowllowingUserId=" + fowllowingUserId;
+    let actionUrl = "/following/send/request";
     let params = {};
 
     if (fowllowingUserId == null) {
