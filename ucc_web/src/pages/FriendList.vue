@@ -5,92 +5,26 @@
     <div class="container">
       <div class="title"><h3>朋友</h3></div>
       <div class="searchFriend">
-        <input type="text" placeholder="搜尋帳號" />
+        <input
+          type="text"
+          placeholder="搜尋帳號"
+          v-model="userSearchInput"
+          v-on:keydown="search"
+        />
       </div>
       <!------------- 朋友列表 ------------->
       <div class="friendList">
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
+        <div v-for="user in searchResult" :key="user">
+          <div class="friendInfo">
+            <img class="friendImg" :src="user.imageUrl" />
+            <div class="friendDesc">
+              <div id="friendName">{{ user.name }}</div>
+              <div id="major">{{ user.majorSubject }}</div>
+            </div>
+            <div class="follow">
+              <button @click="sendFollowingRequest(user.id)">追蹤</button>
+            </div>
           </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
         </div>
       </div>
     </div>
@@ -99,15 +33,20 @@
 
 <script>
 import navbar from "@/components/base/Navbar";
-// import { mapGetters } from "vuex";
+import { findUser } from "@/api/user";
+import { setFollowRequire } from "@/api/follow";
 
 export default {
   name: "FriendList",
+
   components: {
     navbar,
   },
   data() {
-    return {};
+    return {
+      userSearchInput: "",
+      searchResult: [],
+    };
   },
   methods: {
     // likeEvent() {
@@ -118,6 +57,32 @@ export default {
     //     document.getElementById("heartBtn").style.color = "gray";
     //   }
     // },
+    findUsersByKeyWords() {
+      var page = 0;
+      findUser(this.userSearchInput, page).then((resp) => {
+        var results = resp.data.result;
+        this.searchResult = results;
+        console.log("page: " + page);
+        console.log(results);
+      });
+    },
+
+    sendFollowingRequest(targetUserId) {
+      console.log("追蹤: " + targetUserId);
+      setFollowRequire(targetUserId).then((resp) => {
+        console.log(resp);
+      });
+    },
+
+    search() {
+      var page = 0;
+      findUser(this.userSearchInput, page).then((resp) => {
+        var results = resp.data.result;
+        this.searchResult = results;
+        console.log("page: " + page);
+        console.log(results);
+      });
+    },
   },
 };
 </script>
