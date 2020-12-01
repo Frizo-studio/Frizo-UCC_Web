@@ -71,9 +71,15 @@
               />
               <span id="followers" style="font-size: 16px">Followers</span>
             </template>
-            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn"
-              >追蹤者</el-menu-item
-            >
+            <router-link to="/user/find" style="text-decoration: none">
+              <el-menu-item
+                class="rightBtn"
+                index="5-1"
+                href="#"
+                id="dropDownBtn"
+                >追蹤者</el-menu-item
+              >
+            </router-link>
             <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn"
               >追蹤中的社團</el-menu-item
             >

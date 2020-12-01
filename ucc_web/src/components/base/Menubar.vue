@@ -15,133 +15,85 @@
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/guitar.jpeg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">吉他社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/hotBank.jpg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">熱音社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/hotMove.jpeg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">熱舞社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/f.jpg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">園藝社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/f2.jpg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">美術社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/s.jpg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">愛心社</span>
       </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
             class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            src="@/assets/memberGroup/w.jpg"
             width="50px"
             height="50px"
             style="border-radius: 50%"
           />
         </a>
-        <span slot="title">社團名稱</span>
-      </li>
-      <li class="menuItem">
-        <a href="https://google.com">
-          <img
-            class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            width="50px"
-            height="50px"
-            style="border-radius: 50%"
-          />
-        </a>
-        <span slot="title">社團名稱</span>
-      </li>
-      <li class="menuItem">
-        <a href="https://google.com">
-          <img
-            class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            width="50px"
-            height="50px"
-            style="border-radius: 50%"
-          />
-        </a>
-        <span slot="title">社團名稱</span>
-      </li>
-      <li class="menuItem">
-        <a href="https://google.com">
-          <img
-            class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            width="50px"
-            height="50px"
-            style="border-radius: 50%"
-          />
-        </a>
-        <span slot="title">社團名稱</span>
-      </li>
-      <li class="menuItem">
-        <a href="https://google.com">
-          <img
-            class="menuIcon"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-            width="50px"
-            height="50px"
-            style="border-radius: 50%"
-          />
-        </a>
-        <span slot="title">社團名稱</span>
+        <span slot="title">話劇社</span>
       </li>
     </ul>
   </div>
