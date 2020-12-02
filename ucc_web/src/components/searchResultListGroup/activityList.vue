@@ -6,10 +6,10 @@
           <img :src="index.img" class="itemImg" />
         </div>
         <div class="itemContent">
-          <div class="activityOwnUser">● 社團名稱</div>
+          <div class="activityOwnUser">● 國家推廣社</div>
           <div class="activityCreatedDate">6月10號 20:25</div>
           <div class="itemTitle">
-            <b>{{index.title}}</b>
+            <b>{{ index.title }}</b>
           </div>
           <div class="tag">
             <!-- <el-tag
@@ -18,17 +18,25 @@
               :type="tag.type"
               class="ml-2 mt-2"
             >{{ tag.label }}</el-tag>-->
-            <span v-for="tag in tags" :key="tag.label" :type="tag.type">#{{ tag.label }}</span>
+            <span v-for="tag in tags" :key="tag.label" :type="tag.type"
+              >#{{ tag.label }}</span
+            >
           </div>
           <div class="itemIntroduction mb-4">
-            <div class="description">{{index.message}}</div>
+            <div class="description">{{ index.message }}</div>
           </div>
           <!-- <div class="divider"></div> -->
-          <div class="maxJoinPeople">人{{index.joinPeople}}人</div>
-          <div class="place">地 台北商業大學</div>
-          <div class="activityDate">時{{index.deadline}}</div>
-          <div class="message">訊 30</div>
-          <div class="like">愛 15</div>
+          <div class="maxJoinPeople">
+            <i class="el-icon-user-solid"></i>{{ index.joinPeople }}人
+          </div>
+          <div class="place"><i class="el-icon-location"></i> 嘉義火車站</div>
+          <div class="activityDate">
+            <i class="el-icon-time"></i>{{ index.deadline }}
+          </div>
+          <div class="message"><i class="el-icon-chat-round"></i> 26</div>
+          <div class="like">
+            <font-awesome-icon icon="heart" size="sm" style="color: #bbb" /> 76
+          </div>
         </div>
         <div class="divider"></div>
       </div>
@@ -42,23 +50,23 @@ export default {
   data() {
     return {
       tags: [
-        { type: "info", label: "熱舞" },
-        { type: "info", label: "談得賽" },
-        { type: "info", label: "哇哈哈" },
-        { type: "info", label: "朵茉莉扣" },
-        { type: "info", label: "kn44" },
+        { type: "info", label: "政府" },
+        { type: "info", label: "嘉義" },
+        { type: "info", label: "財政" },
+        { type: "info", label: "稅務" },
+        { type: "info", label: "嘉義縣政府" },
       ],
       activityList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(activityList)",
+          title: "109年使用牌照稅網路有獎徵答",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/f5eac69d-0e16-46f9-b228-f75a15f77c3c_640x640.png",
+            "https://files.bountyhunter.co/contest/public/202004/9773bdd1-948f-4d66-9cde-0c1854f3a51f_640x640.png",
         },
         {
           index: 2,
@@ -169,19 +177,19 @@ export default {
   grid-row: 1/2;
   padding: 0px 15px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
   grid-template-rows: repeat(5, 1fr);
 }
 
 .activityOwnUser {
-  grid-column: 1/2;
+  grid-column: 1/3;
   grid-row: 1/2;
   display: flex;
   align-items: center;
 }
 
 .activityCreatedDate {
-  grid-column: 2/3;
+  grid-column: 3/5;
   grid-row: 1/2;
   display: flex;
   align-items: center;

@@ -1,96 +1,43 @@
 <template>
-  <div class="FriendList">
-    <navbar></navbar>
-    <div class="background"></div>
-    <div class="container">
-      <div class="title"><h3>朋友</h3></div>
-      <div class="searchFriend">
-        <input type="text" placeholder="搜尋帳號" />
-      </div>
-      <!------------- 朋友列表 ------------->
-      <div class="friendList">
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
+  <div class="userPage">
+    <!-- useCenter為固定水平置中，merge進user群組時，可調整刪除 -->
+    <div class="userIntroductionBg"></div>
+    <div class="useCenter">
+      <div class="userHome">
+        <div class="userIntroduction">
+          <div class="userBackgroundPhoto"></div>
+          <div class="userAvatar">
+            <el-avatar :size="150" :src="circleUrl"></el-avatar>
           </div>
-          <div class="follow"><button>追蹤</button></div>
+          <div class="userName">
+            <b>{{ userName }}</b>
+          </div>
+          <div class="description">{{ description }}</div>
+          <div class="divider"></div>
         </div>
+        <div class="userActivity">
+          <el-tabs
+            class="switchTag"
+            v-model="activeName"
+            @tab-click="handleClick"
+          >
+            <el-tab-pane class="contentPage" label="活動" name="first"
+              ><keep-alive>
+                <component
+                  class="searchLists"
+                  :is="listPrint"
+                ></component> </keep-alive
+            ></el-tab-pane>
+            <el-tab-pane class="contentPage" label="消息" name="second"
+              ><keep-alive>
+                <component
+                  class="searchLists"
+                  :is="listPrint"
+                ></component> </keep-alive
+            ></el-tab-pane>
+          </el-tabs>
 
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
-        </div>
-
-        <div class="friendInfo">
-          <img
-            class="friendImg"
-            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646002"
-          />
-          <div class="friendDesc">
-            <div id="friendName">莊鈞凱</div>
-            <div id="major">資訊管理系</div>
-          </div>
-          <div class="follow"><button>追蹤</button></div>
+          <div class="activityContent"></div>
         </div>
       </div>
     </div>
@@ -98,152 +45,118 @@
 </template>
 
 <script>
-import navbar from "@/components/base/Navbar";
-// import { mapGetters } from "vuex";
+import comprehensiveList from "@/components/searchResultListGroup/comprehensiveList";
+import activityList from "@/components/searchResultListGroup/activityList";
 
 export default {
-  name: "FriendList",
   components: {
-    navbar,
+    comprehensiveList,
+    activityList,
   },
   data() {
-    return {};
+    return {
+      userName: "roger",
+      description: "自我介紹",
+      radio: 1,
+      activeName: "first",
+      listPrint: "comprehensiveList",
+    };
   },
   methods: {
-    // likeEvent() {
-    //   //活動點讚事件，須加上傳送喜歡之API
-    //   if (document.getElementById("heartBtn").style.color == "gray") {
-    //     document.getElementById("heartBtn").style.color = "red";
-    //   } else {
-    //     document.getElementById("heartBtn").style.color = "gray";
-    //   }
-    // },
+    handleClick() {
+      if (this.listPrint == "comprehensiveList") {
+        this.listPrint = "activityList";
+      } else {
+        this.listPrint = "comprehensiveList";
+      }
+    },
   },
+
+  name: "userPage",
 };
 </script>
 
-<style>
+<style scoped>
 * {
-  padding: 0;
-  box-sizing: border-box;
   margin: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
-.background {
-  background-color: rgb(165, 101, 42);
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-}
-.container {
-  position: relative;
-  min-width: 400px;
-  height: 600px;
-  background-color: #fff;
-  margin-top: 80px;
-  margin-bottom: 30px;
-  width: 800px;
-  border-radius: 10px;
-  display: grid;
-  grid-template-rows: 50px 50px 1fr;
-  padding: 30px 80px 0 80px;
-}
-.title {
-  display: flex;
-  grid-row: 1/2;
-  justify-content: flex-start;
-}
-.title h3 {
-  font-weight: bold;
-}
-.searchFriend {
-  grid-row: 2/3;
-}
-.searchFriend input {
-  width: 100%;
-  border-radius: 15px;
-  background: lightgray;
-  border: 1.5px lightgray solid;
-  outline: none;
-  padding-left: 8px;
-  height: 30px;
-  font-size: 16px;
-  letter-spacing: 1px;
-}
-.searchFriend input:focus {
-  border: 1.5px rgb(165, 101, 42) solid;
-  transition: all 0.3s ease;
-}
-.friendList {
-  grid-row: 3/4;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(7, 70px);
-  overflow-y: hidden;
-}
-.friendList:hover {
-  overflow-y: scroll;
-}
-.friendInfo:nth-child(odd) {
-  height: 70px;
-  justify-content: flex-start;
-  display: flex;
-  align-items: center;
-  grid-column: 1/2;
-  position: relative;
-}
-.friendInfo:nth-child(even) {
-  height: 70px;
-  justify-content: flex-start;
-  display: flex;
-  align-items: center;
-  grid-column: 2/3;
-  position: relative;
-}
-.friendImg {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-.friendDesc {
-  text-align: left;
-  margin-left: 8px;
-}
-.follow {
-  position: absolute;
-  right: 0;
-  width: 100px;
-  border-left: 1px rgb(100, 100, 100) solid;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.follow button {
-  border: none;
-  height: 35px;
-  width: 70%;
-  background-color: rgb(165, 101, 42);
-  color: #fff;
-  border-radius: 15px;
-}
-.follow button:hover {
-  background-color: rgb(90, 56, 24);
-  transition: all 0.3s ease;
+.userPage {
+  /* 高度之後再做微調 */
+  height: 200vh;
 }
 
-/* scrollbar 樣式 */
-::-webkit-scrollbar {
-  width: 3px;
+.useCenter {
+  width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background-color: #f5f5f5;
+
+.userHome {
+  width: 750px;
+  /* 高度之後再做微調 */
+  height: 200vh;
+  background-color: #ffffff;
 }
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background: #bbb;
+
+.userIntroduction {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.userIntroductionBg {
+  position: absolute;
+  width: 100%;
+  /* background-color: #fff; */
+  height: 400px;
+}
+.userBackgroundPhoto {
+  grid-column: 1/9;
+  grid-row: 1/5;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: aqua;
+}
+
+.userAvatar {
+  grid-column: 1/9;
+  grid-row: 4/6;
+  height: 100%;
+  margin: auto;
+}
+
+.userName {
+  grid-column: 1/9;
+  grid-row: 7/8;
+  font-size: 28px;
+}
+
+.description {
+  position: relative;
+  grid-column: 1/9;
+  grid-row: 8/9;
+  font-size: 20px;
+}
+
+.userActivity {
+  position: relative;
+  height: 100vh;
+  /* top: 5px; */
+  background-color: #fff;
+  padding: 5px 25px 0 25px;
+}
+.switchTag {
+  /* margin-top: 5px; */
+  background-color: #fff;
+}
+.contentPage {
+  /* background-color: rgb(165, 101, 42); */
+  height: 700px;
 }
 </style>
