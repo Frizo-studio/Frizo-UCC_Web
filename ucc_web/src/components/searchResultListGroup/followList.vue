@@ -9,7 +9,7 @@
           <div class="activityOwnUser">● 社團名稱</div>
           <div class="activityCreatedDate">6月10號 20:25</div>
           <div class="itemTitle">
-            <b>{{index.title}}</b>
+            <b>{{ index.title }}</b>
           </div>
           <div class="tag">
             <!-- <el-tag
@@ -18,15 +18,17 @@
               :type="tag.type"
               class="ml-2 mt-2"
             >{{ tag.label }}</el-tag>-->
-            <span v-for="tag in tags" :key="tag.label" :type="tag.type">#{{ tag.label }}</span>
+            <span v-for="tag in tags" :key="tag.label" :type="tag.type"
+              >#{{ tag.label }}</span
+            >
           </div>
           <div class="itemIntroduction mb-4">
-            <div class="description">{{index.message}}</div>
+            <div class="description">{{ index.message }}</div>
           </div>
           <!-- <div class="divider"></div> -->
-          <div class="maxJoinPeople">人{{index.joinPeople}}人</div>
+          <div class="maxJoinPeople">人{{ index.joinPeople }}人</div>
           <div class="place">地 台北商業大學</div>
-          <div class="activityDate">時{{index.deadline}}</div>
+          <div class="activityDate">時{{ index.deadline }}</div>
           <div class="message">訊 30</div>
           <div class="like">愛 15</div>
         </div>
@@ -174,14 +176,14 @@ export default {
 }
 
 .activityOwnUser {
-  grid-column: 1/2;
+  grid-column: 1/3;
   grid-row: 1/2;
   display: flex;
   align-items: center;
 }
 
 .activityCreatedDate {
-  grid-column: 2/3;
+  grid-column: 3/5;
   grid-row: 1/2;
   display: flex;
   align-items: center;
