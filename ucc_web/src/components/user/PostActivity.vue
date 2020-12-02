@@ -82,6 +82,7 @@
             type="text"
             class="locationInput"
             placeholder="請輸入活動地點"
+            v-model="place"
           />
         </div>
         <!-- 報名截止日 -->
