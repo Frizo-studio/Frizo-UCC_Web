@@ -59,6 +59,12 @@ export default new VueRouter({
             name: 'follow',
             component: resolve => require(['@/pages/FriendList.vue'], resolve),
         },
+
+        {
+            path: '/userPage',
+            name: 'userPage',
+            component: resolve => require(['@/components/userPage.vue'], resolve)
+        },
         // test區塊
 
         {

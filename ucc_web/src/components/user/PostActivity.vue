@@ -255,6 +255,9 @@ export default {
         .then((resp) => {
           console.log(resp.data);
           alert("發佈成功");
+          this.$router.push({
+            path: "/home",
+          });
         })
         .catch((error) => {
           console.log(error.response);

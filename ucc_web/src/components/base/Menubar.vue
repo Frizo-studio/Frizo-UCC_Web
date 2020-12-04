@@ -12,15 +12,14 @@
     </label>
     <ul :class="scrollUpOrDown ? 'menu-show' : 'menu-hide'">
       <li class="menuItem">
-        <a href="https://google.com">
-          <img
-            class="menuIcon"
-            src="@/assets/memberGroup/guitar.jpeg"
-            width="50px"
-            height="50px"
-            style="border-radius: 50%"
-          />
-        </a>
+        <img
+          class="menuIcon"
+          src="@/assets/memberGroup/guitar.jpeg"
+          width="50px"
+          height="50px"
+          style="border-radius: 50%"
+          @click="goToUserPage(11)"
+        />
         <span slot="title">吉他社</span>
       </li>
       <li class="menuItem">
@@ -106,6 +105,7 @@ export default {
       toggleIsFalse: false,
       i: "0",
       scrollUpOrDown: true,
+      userId: 0,
     };
   },
   methods: {
@@ -129,6 +129,16 @@ export default {
       } else {
         this.scrollUpOrDown = false;
       }
+    },
+
+    goToUserPage(id) {
+      console.log(id);
+      this.$router.push({
+        path: "/userPage",
+        query: {
+          result: id,
+        },
+      });
     },
   },
 };
