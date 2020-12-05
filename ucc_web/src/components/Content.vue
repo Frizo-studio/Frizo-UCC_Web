@@ -17,6 +17,7 @@
           </div>
         </div>
       </div>
+      <button @click.prevent="getNoticeAll">test</button>
       <keep-alive>
         <component :is="listPrint"></component>
       </keep-alive>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import { getNoticeAll } from "@/api/notice";
 import Banner from "@/components/Banner";
 import hotList from "@/components/listGroup/hotList";
 import newList from "@/components/listGroup/newList";
@@ -75,6 +77,16 @@ export default {
       } else {
         this.selectList.classList.remove("selectFix");
       }
+    },
+    getNoticeAll() {
+      console.log("getNoticeAll");
+      getNoticeAll()
+        .then((r) => {
+          console.log(r);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {

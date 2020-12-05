@@ -17,6 +17,7 @@ export default {
 
   created() {
     this.setUserInfo();
+    this.setUserNoticeCount();
   },
 
   name: "App"

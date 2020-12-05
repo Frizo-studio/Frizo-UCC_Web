@@ -16,7 +16,7 @@ const mutations = {
 
     // noticeType 參數為 'followingNoticeCount', 'eventNoticeCount', 'chatNoticeCount'
     [types.CLEAR_NOTICE_COUNT](state, {noticeType}){
-        console.log("clear notice count: " + noticeType)
+        console.log("clear notice count in vuex: " + noticeType)
         if (noticeType.eq("followingNoticeCount")){
             state.followingNoticeCount = 0;
         }

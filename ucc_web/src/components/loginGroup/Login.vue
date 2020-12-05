@@ -13,24 +13,26 @@
       <div class="email">
         <input
           type="text"
-          :class="{inputError : inputIsError}"
+          :class="{ inputError: inputIsError }"
           class="inputClass"
           v-model="email"
           v-on:keyup.13="login"
         />
       </div>
-      <div class="emailAlertText alertText">{{alertDiv.emailAlertText}}</div>
+      <div class="emailAlertText alertText">{{ alertDiv.emailAlertText }}</div>
       <div class="passwordText titleText">密碼</div>
       <div class="passwd">
         <input
           type="password"
-          :class="{inputError : inputIsError}"
+          :class="{ inputError: inputIsError }"
           class="inputClass"
           v-model="password"
           v-on:keyup.13="login"
         />
       </div>
-      <div class="passwdAlertText alertText">{{alertDiv.passwdAlertText}}</div>
+      <div class="passwdAlertText alertText">
+        {{ alertDiv.passwdAlertText }}
+      </div>
       <div class="forgetPasswd">
         <span @click.prevent="goForgetPassword">忘記密碼</span>
       </div>
@@ -52,7 +54,10 @@
         <a
           href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
         >
-          <img class="otherWayLoginBtn" src="@/assets/loginGroup/facebook.png" />
+          <img
+            class="otherWayLoginBtn"
+            src="@/assets/loginGroup/facebook.png"
+          />
         </a>
       </div>
       <div class="googleBtn">
