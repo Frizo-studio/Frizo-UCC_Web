@@ -16,9 +16,11 @@ export default {
   name: "HomePage",
   components: {
     Content,
-    Navbar
+    Navbar,
     // Banner
-  }
+  },
+
+  methods: {},
 };
 </script>
 
