@@ -51,6 +51,13 @@
         </div>
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
+          <el-menu-item index="3" class="rightBtn" @click="myClearfucn">
+            <font-awesome-icon icon="user-plus" size="med" id="friendCheck" />
+            <div id="followedRequer">
+              <span>{{ followingNoticeCount }}</span>
+            </div>
+            <span class="navFont">追蹤請求</span>
+          </el-menu-item>
           <router-link to="/chat" style="text-decoration: none">
             <el-menu-item index="4" class="rightBtn">
               <i
@@ -152,7 +159,7 @@
   </div>
 </template>  
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import { findEvent } from "@/api/event";
 import $ from "jquery";
@@ -283,8 +290,14 @@ export default {
     //   this.window.width = window.innerWidth;
     // },
 
+    myClearfucn() {
+      let type = "FOLLOWING";
+      this.clearNotice({ type });
+    },
+
     ...mapActions({
       logout: "auth/logout",
+      clearNotice: "notice/clearUserNoticeCount",
     }),
 
     sendQuery() {
@@ -327,6 +340,12 @@ export default {
     }
   },
   created() {},
+
+  computed: {
+    ...mapGetters({
+      followingNoticeCount: "notice/followingNoticeCount",
+    }),
+  },
 };
 </script>
 
@@ -528,6 +547,27 @@ export default {
 }
 #check {
   display: none;
+}
+
+#friendCheck {
+  color: rgb(189, 189, 189);
+}
+
+#followedRequer {
+  position: absolute;
+  top: 35px;
+  left: 30px;
+  height: 20px;
+  width: 25px;
+  border-radius: 15px;
+  background-color: rgb(255, 81, 81);
+}
+
+#followedRequer > span {
+  position: absolute;
+  top: -20px;
+  left: 7px;
+  color: #fff;
 }
 
 .burger {
