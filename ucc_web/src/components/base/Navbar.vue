@@ -77,7 +77,7 @@
                 index="5-1"
                 href="#"
                 id="dropDownBtn"
-                >追蹤者</el-menu-item
+                >搜尋用戶</el-menu-item
               >
             </router-link>
             <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn"

@@ -3,7 +3,7 @@
     <navbar></navbar>
     <div class="background"></div>
     <div class="container">
-      <div class="title"><h3>朋友</h3></div>
+      <div class="title"><h3>搜尋用戶</h3></div>
       <div class="searchFriend">
         <input
           type="text"

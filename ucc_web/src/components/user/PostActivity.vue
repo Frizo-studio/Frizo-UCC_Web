@@ -82,6 +82,7 @@
             type="text"
             class="locationInput"
             placeholder="請輸入活動地點"
+            v-model="place"
           />
         </div>
         <!-- 報名截止日 -->
@@ -254,6 +255,9 @@ export default {
         .then((resp) => {
           console.log(resp.data);
           alert("發佈成功");
+          this.$router.push({
+            path: "/home",
+          });
         })
         .catch((error) => {
           console.log(error.response);
