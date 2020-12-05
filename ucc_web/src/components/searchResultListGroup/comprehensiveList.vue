@@ -6,8 +6,8 @@
           <img :src="index.img" class="itemImg" />
         </div>
         <div class="itemContent">
-          <div class="activityOwnUser">● 社團名稱</div>
-          <div class="activityCreatedDate">6月10號 20:25</div>
+          <div class="activityOwnUser">● 資研社</div>
+          <div class="activityCreatedDate">8月29號 20:25</div>
           <div class="itemTitle">
             <b>{{ index.title }}</b>
           </div>
@@ -44,20 +44,20 @@ export default {
   data() {
     return {
       tags: [
-        { type: "info", label: "熱舞" },
-        { type: "info", label: "談得賽" },
-        { type: "info", label: "哇哈哈" },
-        { type: "info", label: "朵茉莉扣" },
-        { type: "info", label: "kn44" },
+        { type: "info", label: "資訊" },
+        { type: "info", label: "技術" },
+        { type: "info", label: "JAVA" },
+        { type: "info", label: "C#" },
+        { type: "info", label: "程式設計" },
       ],
       comprehensiveList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(comprehensiveList)",
+          title: "聯網未來挑戰賽",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
-          deadline: "8月8號",
-          joinPeople: "12",
+          deadline: "1月12號",
+          joinPeople: "37",
           tag: "",
           img:
             "https://files.bountyhunter.co/contest/public/202004/f5eac69d-0e16-46f9-b228-f75a15f77c3c_640x640.png",
@@ -71,7 +71,7 @@ export default {
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/8ae04293-cd11-40d0-9040-d7578369dcd6_640x640.png",
+            "https://files.bountyhunter.co/contest/public/202004/91e55cfd-2414-4230-a830-9adf72a980a2_640x640.jpg",
         },
         {
           index: 3,
@@ -81,8 +81,7 @@ export default {
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
-          img:
-            "https://files.bountyhunter.co/contest/public/202004/91e55cfd-2414-4230-a830-9adf72a980a2_640x640.jpg",
+          img: "https://www.asia.edu.tw/upload/news/2016/04/22/1461316849.jpg",
         },
         {
           index: 4,
@@ -92,8 +91,7 @@ export default {
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
-          img:
-            "https://files.bountyhunter.co/contest/public/202004/7e4ebc1b-1ff2-4e8b-aa8d-7fc42cf045e4_640x640.png",
+          img: "https://www.asia.edu.tw/upload/news/2016/04/22/1461316849.jpg",
         },
         {
           index: 5,
@@ -165,14 +163,14 @@ export default {
 }
 
 .activityOwnUser {
-  grid-column: 1/2;
+  grid-column: 1/3;
   grid-row: 1/2;
   display: flex;
   align-items: center;
 }
 
 .activityCreatedDate {
-  grid-column: 2/4;
+  grid-column: 3/5;
   grid-row: 1/2;
   display: flex;
   align-items: center;

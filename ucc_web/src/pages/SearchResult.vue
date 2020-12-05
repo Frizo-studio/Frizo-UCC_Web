@@ -557,7 +557,7 @@ export default {
 .Page {
   display: grid;
   grid-template-rows: repeat(18, 1fr);
-  height: 770px;
+  height: 1100px;
 }
 .searchLists {
   margin-top: 10px;

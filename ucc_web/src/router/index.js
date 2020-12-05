@@ -53,6 +53,18 @@ export default new VueRouter({
             name: 'searchResult',
             component: resolve => require(['@/pages/SearchResult.vue'], resolve),
         },
+
+        {
+            path: '/user/find',
+            name: 'follow',
+            component: resolve => require(['@/pages/FriendList.vue'], resolve),
+        },
+
+        {
+            path: '/userPage',
+            name: 'userPage',
+            component: resolve => require(['@/components/userPage.vue'], resolve)
+        },
         // test區塊
 
         {
@@ -66,7 +78,7 @@ export default new VueRouter({
             name: 'following',
             component: resolve => require(['@/components/test/myFollowingList.vue'], resolve),
         },
-        
+
         {
             path: '/user/my/follower',
             name: 'follower',

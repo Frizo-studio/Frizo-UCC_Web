@@ -6,10 +6,10 @@
           <img :src="index.img" class="itemImg" />
         </div>
         <div class="itemContent">
-          <div class="activityOwnUser">● 社團名稱</div>
+          <div class="activityOwnUser">● {{ index.userName }}</div>
           <div class="activityCreatedDate">6月10號 20:25</div>
           <div class="itemTitle">
-            <b>{{index.title}}</b>
+            <b>{{ index.title }}</b>
           </div>
           <div class="tag">
             <!-- <el-tag
@@ -18,15 +18,17 @@
               :type="tag.type"
               class="ml-2 mt-2"
             >{{ tag.label }}</el-tag>-->
-            <span v-for="tag in tags" :key="tag.label" :type="tag.type">#{{ tag.label }}</span>
+            <span v-for="tag in tags" :key="tag.label" :type="tag.type"
+              >#{{ tag.label }}</span
+            >
           </div>
           <div class="itemIntroduction mb-4">
-            <div class="description">{{index.message}}</div>
+            <div class="description">{{ index.message }}</div>
           </div>
           <!-- <div class="divider"></div> -->
-          <div class="maxJoinPeople">人{{index.joinPeople}}人</div>
+          <div class="maxJoinPeople">人{{ index.joinPeople }}人</div>
           <div class="place">地 台北商業大學</div>
-          <div class="activityDate">時{{index.deadline}}</div>
+          <div class="activityDate">時{{ index.deadline }}</div>
           <div class="message">訊 30</div>
           <div class="like">愛 15</div>
         </div>
@@ -46,11 +48,12 @@ export default {
         { type: "info", label: "談得賽" },
         { type: "info", label: "哇哈哈" },
         { type: "info", label: "朵茉莉扣" },
-        { type: "info", label: "kn44" }
+        { type: "info", label: "kn44" },
       ],
       hotList: [
         {
           index: 1,
+          userName: "資訊社",
           title: "聯網未來挑戰賽(hotList)",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
@@ -58,10 +61,11 @@ export default {
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/f5eac69d-0e16-46f9-b228-f75a15f77c3c_640x640.png"
+            "https://files.bountyhunter.co/contest/public/202004/f5eac69d-0e16-46f9-b228-f75a15f77c3c_640x640.png",
         },
         {
           index: 2,
+          userName: "攝影社",
           title: "「舜間發現愛，興善攝光彩」廟會創意攝影與創",
           message:
             "木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人!",
@@ -69,10 +73,11 @@ export default {
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/8ae04293-cd11-40d0-9040-d7578369dcd6_640x640.png"
+            "https://files.bountyhunter.co/contest/public/202004/8ae04293-cd11-40d0-9040-d7578369dcd6_640x640.png",
         },
         {
           index: 3,
+          userName: "辯論社",
           title: "WHO需要你的關心？關懷譚先生大賽",
           message:
             "火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人火星人",
@@ -80,10 +85,11 @@ export default {
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/91e55cfd-2414-4230-a830-9adf72a980a2_640x640.jpg"
+            "https://files.bountyhunter.co/contest/public/202004/91e55cfd-2414-4230-a830-9adf72a980a2_640x640.jpg",
         },
         {
           index: 4,
+          userName: "藝術社",
           title: "藝術智能之「我眼中的抗疫英雄」創作繪畫比賽",
           message:
             "隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的",
@@ -91,30 +97,32 @@ export default {
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/7e4ebc1b-1ff2-4e8b-aa8d-7fc42cf045e4_640x640.png"
+            "https://files.bountyhunter.co/contest/public/202004/7e4ebc1b-1ff2-4e8b-aa8d-7fc42cf045e4_640x640.png",
         },
         {
           index: 5,
+          userName: "答辯社",
           title: "109年使用牌照稅網路有獎徵答",
           message: "快來參加!",
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
           img:
-            "https://files.bountyhunter.co/contest/public/202004/9773bdd1-948f-4d66-9cde-0c1854f3a51f_640x640.png"
+            "https://files.bountyhunter.co/contest/public/202004/9773bdd1-948f-4d66-9cde-0c1854f3a51f_640x640.png",
         },
         {
           index: 6,
+          userName: "熱舞社",
           title: "熱舞社期末展",
           message: "不見不散!",
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
-          img: "/def"
-        }
-      ]
+          img: "/def",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 
