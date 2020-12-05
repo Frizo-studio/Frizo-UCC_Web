@@ -10,7 +10,8 @@ import { mapActions } from "vuex";
 export default {
   methods: {
     ...mapActions({
-      setUserInfo: "user/setUserInfo"
+      setUserInfo: "user/setUserInfo",
+      setUserNoticeCount: "notice/setUserNoticeCount"
     })
   },
 
