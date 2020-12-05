@@ -15,15 +15,15 @@ const mutations = {
     },
 
     // noticeType 參數為 'followingNoticeCount', 'eventNoticeCount', 'chatNoticeCount'
-    [types.CLEAR_NOTICE_COUNT](state, {noticeType}){
-        console.log("clear notice count in vuex: " + noticeType)
-        if (noticeType.eq("followingNoticeCount")){
+    [types.CLEAR_NOTICE_COUNT](state, noticeType){
+        console.log("clear notice count in vuex: " + noticeType);
+        if (noticeType === "FOLLOWING"){
             state.followingNoticeCount = 0;
         }
-        if (noticeType.eq("eventNoticeCount")){
+        if (noticeType === "EVENT"){
             state.eventNoticeCount = 0;
         }
-        if (noticeType.eq("chatNoticeCount")){
+        if (noticeType === "CHAT"){
             state.chatNoticeCount = 0;
         }
     }

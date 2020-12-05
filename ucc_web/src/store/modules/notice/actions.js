@@ -33,10 +33,12 @@ const setUserNoticeCount = function ({commit}) {
     }
 };
 
-const clearUserNoticeCount = function ({ commit }, { noticeType }) {
+const clearUserNoticeCount = function ({ commit }, noticeType) {
+    console.log("into clearUserNoticeCount");
+    console.log("noticeType = " + noticeType);
     //---------------------------------------------------
     if (authenticated()) {
-        clearNotice(noticeType)
+        clearNotice({noticeType})
             .then(res => {
                 if (res.data.success) {
                     console.log("成功清除 notice count.")

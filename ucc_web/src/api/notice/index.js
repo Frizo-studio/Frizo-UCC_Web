@@ -12,7 +12,7 @@ export const getNoticeAll = () => {
 
 //清除指定notice
 export const clearNotice = ({ noticeType }) => {
-    let actionUrl = "/clear/" + noticeType;
+    let actionUrl = "notice/clear/" + noticeType;
     let params = {};
 
     return getRequest(actionUrl, params);

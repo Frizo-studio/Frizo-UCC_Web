@@ -291,8 +291,8 @@ export default {
     // },
 
     myClearfucn() {
-      let type = "FOLLOWING";
-      this.clearNotice({ type });
+      let noticeType = "FOLLOWING";
+      this.clearNotice(noticeType);
     },
 
     ...mapActions({
