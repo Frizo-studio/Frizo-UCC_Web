@@ -3,15 +3,15 @@
     <navbar></navbar>
     <div class="background"></div>
     <div class="container">
-      <div class="title"><h3>搜尋用戶</h3></div>
-      <div class="searchFriend">
+      <div class="title"><h3>追蹤請求</h3></div>
+      <!-- <div class="searchFriend">
         <input
           type="text"
-          placeholder="搜尋帳號"
+          placeholder="追蹤請求"
           v-model="userSearchInput"
           v-on:keydown="search"
         />
-      </div>
+      </div> -->
       <!------------- 朋友列表 ------------->
       <div class="friendList">
         <div v-for="user in searchResult" :key="user">
@@ -22,7 +22,7 @@
               <div id="major">{{ user.majorSubject }}</div>
             </div>
             <div class="follow">
-              <button @click="sendFollowingRequest(user.id)">追蹤</button>
+              <button @click="sendFollowingRequest(user.id)">確認</button>
             </div>
           </div>
         </div>
@@ -33,8 +33,7 @@
 
 <script>
 import navbar from "@/components/base/Navbar";
-import { findUser } from "@/api/user";
-import { setFollowRequire } from "@/api/follow";
+import { searchUserFollowing } from "@/api/follow";
 
 export default {
   name: "FriendList",
@@ -49,41 +48,16 @@ export default {
     };
   },
   methods: {
-    // likeEvent() {
-    //   //活動點讚事件，須加上傳送喜歡之API
-    //   if (document.getElementById("heartBtn").style.color == "gray") {
-    //     document.getElementById("heartBtn").style.color = "red";
-    //   } else {
-    //     document.getElementById("heartBtn").style.color = "gray";
-    //   }
-    // },
-    findUsersByKeyWords() {
-      var page = 0;
-      findUser(this.userSearchInput, page).then((resp) => {
-        var results = resp.data.result;
-        this.searchResult = results;
-        console.log("page: " + page);
-        console.log(results);
+    searchUserFollowing() {
+      searchUserFollowing(false).then((r) => {
+        console.log(r.data.result);
+        this.searchResult = r.data.result;
       });
     },
+  },
 
-    sendFollowingRequest(targetUserId) {
-      console.log("追蹤: " + targetUserId);
-      setFollowRequire(targetUserId).then((resp) => {
-        console.log(resp);
-        alert("已寄送請求");
-      });
-    },
-
-    search() {
-      var page = 0;
-      findUser(this.userSearchInput, page).then((resp) => {
-        var results = resp.data.result;
-        this.searchResult = results;
-        console.log("page: " + page);
-        console.log(results);
-      });
-    },
+  mounted() {
+    this.searchUserFollowing();
   },
 };
 </script>
