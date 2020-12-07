@@ -61,6 +61,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/user/followRequest',
+            name: 'followRequest',
+            component: resolve => require(['@/pages/FriendRequestList.vue'], resolve),
+        },
+
+        {
             path: '/userPage',
             name: 'userPage',
             component: resolve => require(['@/components/userPage.vue'], resolve)

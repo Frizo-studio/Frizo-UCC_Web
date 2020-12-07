@@ -51,13 +51,15 @@
         </div>
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
-          <el-menu-item index="3" class="rightBtn" @click="myClearfucn">
-            <font-awesome-icon icon="user-plus" size="med" id="friendCheck" />
-            <div id="followedRequer">
-              <span>{{ followingNoticeCount }}</span>
-            </div>
-            <span class="navFont">追蹤請求</span>
-          </el-menu-item>
+          <router-link to="/user/followRequest" style="text-decoration: none">
+            <el-menu-item index="3" class="rightBtn" @click="myClearfucn">
+              <font-awesome-icon icon="user-plus" size="med" id="friendCheck" />
+              <div id="followedRequer">
+                <span>{{ followingNoticeCount }}</span>
+              </div>
+              <span class="navFont">追蹤請求</span>
+            </el-menu-item>
+          </router-link>
           <router-link to="/chat" style="text-decoration: none">
             <el-menu-item index="4" class="rightBtn">
               <i
