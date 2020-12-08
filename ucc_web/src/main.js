@@ -9,7 +9,7 @@ import jquery from "jquery"
 
 // fontawesomeIcon
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart, faCalendarAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart, faCalendarAlt, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 //ElementUI
@@ -26,7 +26,7 @@ Vue.use(BootstrapVue);
 Vue.use(jquery);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-library.add(faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart, faCalendarAlt, faUserPlus)
+library.add(faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart, faCalendarAlt, faUserPlus, faBell)
 
 Vue.config.productionTip = false;
 

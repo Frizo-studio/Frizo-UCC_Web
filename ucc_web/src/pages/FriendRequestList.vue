@@ -22,7 +22,7 @@
               <div id="major">{{ user.majorSubject }}</div>
             </div>
             <div class="follow">
-              <button @click="sendFollowingRequest(user.id)">確認</button>
+              <button @click="acceptFollowRequire(user.id)">確認</button>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
 
 <script>
 import navbar from "@/components/base/Navbar";
-import { searchUserFollowing } from "@/api/follow";
+import { searchUserFollowing, acceptFollowRequire } from "@/api/follow";
 
 export default {
   name: "FriendList",
@@ -52,6 +52,14 @@ export default {
       searchUserFollowing(false).then((r) => {
         console.log(r.data.result);
         this.searchResult = r.data.result;
+      });
+    },
+
+    acceptFollowRequire(id) {
+      console.log(id);
+      acceptFollowRequire(id).then((r) => {
+        console.log(r);
+        alert(r.data.message);
       });
     },
   },
