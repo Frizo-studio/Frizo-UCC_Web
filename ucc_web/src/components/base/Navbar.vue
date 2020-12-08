@@ -52,6 +52,15 @@
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
           <router-link to="/user/followRequest" style="text-decoration: none">
+            <el-menu-item index="2" class="rightBtn">
+              <font-awesome-icon icon="bell" size="med" id="eventCheck" />
+              <div id="eventCount">
+                <span>{{ eventNoticeCount }}</span>
+              </div>
+              <span class="navFont">最新活動</span>
+            </el-menu-item>
+          </router-link>
+          <router-link to="/user/followRequest" style="text-decoration: none">
             <el-menu-item index="3" class="rightBtn" @click="myClearfucn">
               <font-awesome-icon icon="user-plus" size="med" id="friendCheck" />
               <div id="followedRequer">
@@ -346,6 +355,7 @@ export default {
   computed: {
     ...mapGetters({
       followingNoticeCount: "notice/followingNoticeCount",
+      eventNoticeCount: "notice/eventNoticeCount",
     }),
   },
 };
@@ -555,6 +565,10 @@ export default {
   color: rgb(189, 189, 189);
 }
 
+#eventCheck {
+  color: rgb(189, 189, 189);
+}
+
 #followedRequer {
   position: absolute;
   top: 35px;
@@ -566,6 +580,23 @@ export default {
 }
 
 #followedRequer > span {
+  position: absolute;
+  top: -20px;
+  left: 7px;
+  color: #fff;
+}
+
+#eventCount {
+  position: absolute;
+  top: 35px;
+  left: 30px;
+  height: 20px;
+  width: 25px;
+  border-radius: 15px;
+  background-color: rgb(255, 81, 81);
+}
+
+#eventCount > span {
   position: absolute;
   top: -20px;
   left: 7px;
