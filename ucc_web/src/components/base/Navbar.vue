@@ -177,7 +177,9 @@
           height="50px"
           style="border-radius: 50%"
         />
-        <span>吉他社剛剛發布了新的消息!</span>
+        <span
+          ><span style="color: #ea7807">吉他社</span>剛剛發布了新的消息!</span
+        >
       </div>
       <div class="eventNotice">
         <img
@@ -187,7 +189,9 @@
           height="50px"
           style="border-radius: 50%"
         />
-        <span>熱音社剛剛發布了新的消息!</span>
+        <span
+          ><span style="color: #ea7807">熱音社</span>剛剛發布了新的消息!</span
+        >
       </div>
       <div class="eventNotice">
         <img
@@ -197,7 +201,9 @@
           height="50px"
           style="border-radius: 50%"
         />
-        <span>熱舞社剛剛發布了新的消息!</span>
+        <span
+          ><span style="color: #ea7807">熱舞社</span>剛剛發布了新的消息!</span
+        >
       </div>
     </div>
   </div>
