@@ -51,15 +51,13 @@
         </div>
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
-          <router-link to="/user/followRequest" style="text-decoration: none">
-            <el-menu-item index="2" class="rightBtn" @click="OpenEventNotice">
-              <font-awesome-icon icon="bell" size="med" id="eventCheck" />
-              <div id="eventCount">
-                <span>{{ eventNoticeCount }}</span>
-              </div>
-              <span class="navFont">最新活動</span>
-            </el-menu-item>
-          </router-link>
+          <el-menu-item index="2" class="rightBtn" @click="OpenEventNotice">
+            <font-awesome-icon icon="bell" size="med" id="eventCheck" />
+            <div id="eventCount">
+              <span>{{ eventNoticeCount }}</span>
+            </div>
+            <span class="navFont">最新活動</span>
+          </el-menu-item>
           <router-link to="/user/followRequest" style="text-decoration: none">
             <el-menu-item index="3" class="rightBtn" @click="myClearfucn">
               <font-awesome-icon icon="user-plus" size="med" id="friendCheck" />
@@ -169,7 +167,12 @@
     </div>
     <!-- 活動通知欄 -->
     <div id="eventNoticeBox">
-      <div class="eventNotice">
+      <div
+        class="eventNotice"
+        v-for="key in eventNoticeCount"
+        :key="key"
+        @click="checkEvent"
+      >
         <img
           class="eventNoticeIcon"
           src="@/assets/memberGroup/guitar.jpeg"
@@ -181,7 +184,7 @@
           ><span style="color: #ea7807">吉他社</span>剛剛發布了新的消息!</span
         >
       </div>
-      <div class="eventNotice">
+      <!-- <div class="eventNotice">
         <img
           class="eventNoticeIcon"
           src="@/assets/memberGroup/hotBank.jpg"
@@ -204,7 +207,7 @@
         <span
           ><span style="color: #ea7807">熱舞社</span>剛剛發布了新的消息!</span
         >
-      </div>
+      </div> -->
     </div>
   </div>
 </template>  
@@ -212,6 +215,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import { findEvent } from "@/api/event";
+import { clearEventOne, findEventNotice, clearAllNotice } from "@/api/notice";
 import $ from "jquery";
 
 // 採用測試檔案
@@ -239,7 +243,7 @@ export default {
       loginState: "",
       i: "0",
       scrollUpOrDown: true,
-      eventNoticeIsOpen: true,
+      eventNoticeIsOpen: false,
       // window: {
       //   width: "0"
       // }
@@ -354,6 +358,29 @@ export default {
       this.clearNotice(noticeType);
     },
 
+    checkEvent() {
+      clearAllNotice().then((r) => {
+        console.log(r);
+      });
+    },
+
+    test() {
+      clearEventOne(1).then((r) => {
+        console.log(r);
+        alert("test");
+      });
+
+      findEventNotice().then((r) => {
+        console.log(r);
+      });
+    },
+
+    // checkCount() {
+    //   window.setInterval(() => {
+    //     setTimeout(console.log("r"), 0);
+    //   }, 3000);
+    // },
+
     ...mapActions({
       logout: "auth/logout",
       clearNotice: "notice/clearUserNoticeCount",
@@ -397,8 +424,8 @@ export default {
     } else {
       this.loginState = false;
     }
+    // this.checkCount();
   },
-  created() {},
 
   computed: {
     ...mapGetters({
@@ -716,6 +743,7 @@ export default {
   border-radius: 5px;
   overflow-x: scroll;
   overflow-y: hidden;
+  opacity: 0;
 }
 .eventNotice {
   width: 298px;
@@ -724,6 +752,7 @@ export default {
   border-bottom: 1px black solid;
   padding-top: 7px;
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 .eventNotice span {
   margin-left: 5px;
