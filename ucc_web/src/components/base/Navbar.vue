@@ -52,7 +52,7 @@
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
           <router-link to="/user/followRequest" style="text-decoration: none">
-            <el-menu-item index="2" class="rightBtn">
+            <el-menu-item index="2" class="rightBtn" @click="OpenEventNotice">
               <font-awesome-icon icon="bell" size="med" id="eventCheck" />
               <div id="eventCount">
                 <span>{{ eventNoticeCount }}</span>
@@ -167,6 +167,45 @@
       </div>
       <!-- modal區塊結束 -->
     </div>
+    <!-- 活動通知欄 -->
+    <div id="eventNoticeBox">
+      <div class="eventNotice">
+        <img
+          class="eventNoticeIcon"
+          src="@/assets/memberGroup/guitar.jpeg"
+          width="50px"
+          height="50px"
+          style="border-radius: 50%"
+        />
+        <span
+          ><span style="color: #ea7807">吉他社</span>剛剛發布了新的消息!</span
+        >
+      </div>
+      <div class="eventNotice">
+        <img
+          class="eventNoticeIcon"
+          src="@/assets/memberGroup/hotBank.jpg"
+          width="50px"
+          height="50px"
+          style="border-radius: 50%"
+        />
+        <span
+          ><span style="color: #ea7807">熱音社</span>剛剛發布了新的消息!</span
+        >
+      </div>
+      <div class="eventNotice">
+        <img
+          class="eventNoticeIcon"
+          src="@/assets/memberGroup/hotMove.jpeg"
+          width="50px"
+          height="50px"
+          style="border-radius: 50%"
+        />
+        <span
+          ><span style="color: #ea7807">熱舞社</span>剛剛發布了新的消息!</span
+        >
+      </div>
+    </div>
   </div>
 </template>  
 <script>
@@ -200,6 +239,7 @@ export default {
       loginState: "",
       i: "0",
       scrollUpOrDown: true,
+      eventNoticeIsOpen: true,
       // window: {
       //   width: "0"
       // }
@@ -252,6 +292,14 @@ export default {
       // 打開login 模組 鎖定scrollbar
       var html = $("html");
       html.css("overflow", "hidden");
+    },
+    OpenEventNotice() {
+      if (this.eventNoticeIsOpen) {
+        document.getElementById("eventNoticeBox").style.opacity = "0";
+      } else {
+        document.getElementById("eventNoticeBox").style.opacity = "1";
+      }
+      this.eventNoticeIsOpen = !this.eventNoticeIsOpen;
     },
     closeModal() {
       this.isGoToLogin = false;
@@ -654,6 +702,34 @@ export default {
 }
 .el-input--suffix .el-input__inner {
   height: 40px;
+}
+/* 活動通知欄 */
+#eventNoticeBox {
+  position: fixed;
+  top: 56px;
+  right: 29px;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  transition: opacity 0.2s ease-out;
+  border: 1px #4f3f2f solid;
+  border-radius: 5px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.eventNotice {
+  width: 298px;
+  height: 68px;
+  background-color: white;
+  border-bottom: 1px black solid;
+  padding-top: 7px;
+  transition: background-color 0.2s ease;
+}
+.eventNotice span {
+  margin-left: 5px;
+}
+.eventNotice:hover {
+  background-color: lightgray;
 }
 
 @media screen and (max-width: 980px) {
