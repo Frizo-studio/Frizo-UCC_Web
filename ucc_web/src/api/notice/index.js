@@ -28,8 +28,8 @@ export const clearEventOne = (eventNoticeId) => {
 }
 
 export const findEventNotice = (page) => {
-    let actionUrl = "notice/find/my/event/notice/message"
-    let params = {}
+    let actionUrl = "notice/find/my/event/notice/message";
+    let params = {};
 
     if (page == null) {
         params.page = 0

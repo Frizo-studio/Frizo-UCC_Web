@@ -38,7 +38,13 @@ const setUserInfo = function ({ commit, dispatch }) {
                 connectToUserNoticeTopic((data) => {
                     console.log("data in user actions: " + data);
                     let userNotice = JSON.parse(data);
-                    dispatch("notice/updateUserNoticeCount", userNotice, { root: true })
+                    let userNoticeCount = {
+                        followingNoticeCount: userNotice.followingNoticeCount,
+                        eventNoticeCount: userNotice.eventNotiveCount,
+                        chatNoticeCount: userNotice.chatNoticeCount
+                    };
+                    console.log("userNotice in user Action 剛拆: "+ userNotice.eventNotiveCount)
+                    dispatch("notice/updateUserNoticeCount", userNoticeCount, { root: true })
                 });
             })
             .catch(error => {

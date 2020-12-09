@@ -16,7 +16,8 @@
             },
 
             ...mapActions({
-                login: 'auth/login'
+                login: 'auth/login',
+                setUserNoticeCount: "notice/setUserNoticeCount"
             })
         },
 
@@ -29,6 +30,7 @@
                 const tokenType = this.$route.query.tokenType;
                 const accessToken = this.$route.query.accessToken;
                 this.login({tokenType, accessToken});
+                this.setUserNoticeCount();
                 this.timer = setTimeout(this.redirectToHome, 1000);
             }
         },
