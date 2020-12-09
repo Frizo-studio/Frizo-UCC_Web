@@ -71,8 +71,8 @@ export default {
       console.log("追蹤: " + targetUserId);
       setFollowRequire(targetUserId).then((resp) => {
         console.log(resp);
-        alert("已寄送請求");
       });
+      alert("已寄送請求");
     },
 
     search() {

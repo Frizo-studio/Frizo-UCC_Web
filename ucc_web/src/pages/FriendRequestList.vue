@@ -33,7 +33,11 @@
 
 <script>
 import navbar from "@/components/base/Navbar";
-import { searchUserFollowing, acceptFollowRequire } from "@/api/follow";
+import {
+  searchUserFollowing,
+  acceptFollowRequire,
+  setFollowRequire,
+} from "@/api/follow";
 
 export default {
   name: "FriendList",
@@ -59,7 +63,13 @@ export default {
       console.log(id);
       acceptFollowRequire(id).then((r) => {
         console.log(r);
-        alert(r.data.message);
+        if (confirm("已確認追蹤，請問是否要回追對方?") == true) {
+          setFollowRequire(id).then((r) => {
+            console.log(r);
+          });
+          alert("已成功回追對方!");
+        }
+        this.searchUserFollowing();
       });
     },
   },
