@@ -169,52 +169,30 @@
     <div id="eventNoticeBox">
       <div
         class="eventNotice"
-        v-for="key in eventNoticeCount"
-        :key="key"
-        @click="checkEvent"
+        v-for="index in eventList"
+        :key="index"
+        @click="clickEventBtn(index.eventId)"
+        :class="{ test: index.readed }"
       >
         <img
           class="eventNoticeIcon"
-          src="@/assets/memberGroup/guitar.jpeg"
+          :src="index.posterAvaterUrl"
           width="50px"
           height="50px"
           style="border-radius: 50%"
         />
         <span
-          ><span style="color: #ea7807">吉他社</span>剛剛發布了新的消息!</span
+          ><span style="color: #ea7807">{{ index.posterName }}</span
+          >剛剛發布了新的消息!</span
         >
       </div>
-      <!-- <div class="eventNotice">
-        <img
-          class="eventNoticeIcon"
-          src="@/assets/memberGroup/hotBank.jpg"
-          width="50px"
-          height="50px"
-          style="border-radius: 50%"
-        />
-        <span
-          ><span style="color: #ea7807">熱音社</span>剛剛發布了新的消息!</span
-        >
-      </div>
-      <div class="eventNotice">
-        <img
-          class="eventNoticeIcon"
-          src="@/assets/memberGroup/hotMove.jpeg"
-          width="50px"
-          height="50px"
-          style="border-radius: 50%"
-        />
-        <span
-          ><span style="color: #ea7807">熱舞社</span>剛剛發布了新的消息!</span
-        >
-      </div> -->
     </div>
   </div>
 </template>  
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
-import { findEvent } from "@/api/event";
+import { findEvent, searchEventById } from "@/api/event";
 import { clearEventOne, findEventNotice, clearAllNotice } from "@/api/notice";
 import $ from "jquery";
 
@@ -244,6 +222,7 @@ export default {
       i: "0",
       scrollUpOrDown: true,
       eventNoticeIsOpen: false,
+      eventList: [],
       // window: {
       //   width: "0"
       // }
@@ -349,29 +328,64 @@ export default {
         this.scrollUpOrDown = false;
       }
     },
-    // handleResize() {
-    //   this.window.width = window.innerWidth;
-    // },
 
     myClearfucn() {
       let noticeType = "FOLLOWING";
       this.clearNotice(noticeType);
     },
 
+    clickEventBtn(id) {
+      console.log(id);
+      clearEventOne(id).then((r) => {
+        console.log(r.data.success);
+        if (r.data.success) {
+          searchEventById(id)
+            .then((r) => {
+              this.eventNoticeCount--;
+              if (r.data.success) {
+                r.data.result.eventStartTime = r.data.result.eventStartTime.substr(
+                  0,
+                  10
+                );
+                r.data.result.createdAt = r.data.result.createdAt.substr(0, 10);
+                r.data.result.registrationDeadline = r.data.result.registrationDeadline.substr(
+                  0,
+                  10
+                );
+                this.$router.push({
+                  path: "/eventPage",
+                  // name: 'mallList',
+                  query: {
+                    result: r.data.result,
+                  },
+                });
+                //
+              } else {
+                console.log(r.data.message);
+              }
+            })
+            .catch((error) => {
+              console.log(error.response.data.message);
+            });
+        }
+      });
+    },
+
     checkEvent() {
       findEventNotice().then((r) => {
-        console.log(r);
+        console.log(r.data.result);
+        this.eventList = r.data.result;
       });
     },
 
     test() {
-      clearEventOne(1).then((r) => {
-        console.log(r);
-        alert("test");
-      });
-
       clearAllNotice().then((r) => {
         console.log(r);
+      });
+
+      findEventNotice().then((r) => {
+        console.log(r.data.result);
+        this.eventList = r.data.result;
       });
     },
 
@@ -424,7 +438,8 @@ export default {
     } else {
       this.loginState = false;
     }
-    // this.checkCount();
+
+    this.checkEvent();
   },
 
   computed: {
@@ -748,11 +763,14 @@ export default {
 .eventNotice {
   width: 298px;
   height: 68px;
-  background-color: white;
+  background-color: rgb(241, 241, 241);
   border-bottom: 1px black solid;
   padding-top: 7px;
   transition: background-color 0.2s ease;
   cursor: pointer;
+}
+.test {
+  background-color: rgb(255, 255, 255);
 }
 .eventNotice span {
   margin-left: 5px;
