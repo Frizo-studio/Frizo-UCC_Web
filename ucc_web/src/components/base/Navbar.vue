@@ -359,7 +359,7 @@ export default {
     },
 
     checkEvent() {
-      clearAllNotice().then((r) => {
+      findEventNotice().then((r) => {
         console.log(r);
       });
     },
@@ -370,7 +370,7 @@ export default {
         alert("test");
       });
 
-      findEventNotice().then((r) => {
+      clearAllNotice().then((r) => {
         console.log(r);
       });
     },

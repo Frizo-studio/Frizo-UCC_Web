@@ -3,6 +3,11 @@ import * as types from './mutation-types'
 const mutations = {
     [types.UPDATE_NOTICE_COUNT](state, {followingNoticeCount, eventNoticeCount, chatNoticeCount}){
         console.log("update user notice count");
+        console.log("-------------------------------------------------");
+        console.log("followingNoticeCount: " + followingNoticeCount);
+        console.log("eventNoticeCount: " + eventNoticeCount);
+        console.log("chatNoticeCount: " + chatNoticeCount);
+        console.log("-------------------------------------------------");
         if (followingNoticeCount != null){
             state.followingNoticeCount = followingNoticeCount;
         }

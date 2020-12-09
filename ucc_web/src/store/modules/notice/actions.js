@@ -3,6 +3,11 @@ import { authenticated} from "@/utils/AuthStore";
 import {getNoticeAll, clearNotice} from '@/api/notice'
 
 const updateUserNoticeCount = function ({ commit }, { followingNoticeCount, eventNoticeCount, chatNoticeCount }) {
+    console.log("----------------in notice/action-------------------");
+    console.log("followingNoticeCount: " + followingNoticeCount);
+    console.log("eventNoticeCount: " + eventNoticeCount);
+    console.log("chatNoticeCount: " + chatNoticeCount);
+    console.log("-------------------------------------------------");
     let userNoticeCount = {
         followingNoticeCount: followingNoticeCount,
         eventNoticeCount: eventNoticeCount,
