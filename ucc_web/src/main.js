@@ -11,7 +11,6 @@ import jquery from "jquery"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faComment, faUserCircle, faUserFriends, faUser, faBars, faSearch, faPaperclip, faImage, faPlusSquare, faFileImage, faInfoCircle, faTimesCircle, faMapMarker, faClock, faHeart, faCalendarAlt, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 //ElementUI
 import ElementUI from 'element-ui';
 import '../theme/index.css';

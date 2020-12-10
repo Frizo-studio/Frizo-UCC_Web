@@ -51,6 +51,9 @@
         </div>
         <!-- 已登入 -->
         <div class="rightBtnGroup" v-if="loginState === true">
+          <el-menu-item index="1" class="rightBtn" @click="cleanAllNotice">
+            <font-awesome-icon icon="times-circle" size="med" id="eventCheck" />
+          </el-menu-item>
           <el-menu-item index="2" class="rightBtn" @click="OpenEventNotice">
             <font-awesome-icon icon="bell" size="med" id="eventCheck" />
             <div id="eventCount">
@@ -179,12 +182,12 @@
           :src="index.posterAvaterUrl"
           width="50px"
           height="50px"
-          style="border-radius: 50%;margin-left:5px"
+          style="border-radius: 50%; margin-left: 5px"
         />
         <span>
           <span style="color: #ea7807">{{ index.posterName }}</span>
-          剛剛發布了新的消息!<br>
-          <span class="eventNoticeTime">{{index.posterTime}} 前</span>
+          剛剛發布了新的消息!<br />
+          <span class="eventNoticeTime">{{ index.createdAt }}</span>
         </span>
       </div>
     </div>
@@ -223,8 +226,7 @@ export default {
       i: "0",
       scrollUpOrDown: true,
       eventNoticeIsOpen: false,
-      eventList: [
-      ],
+      eventList: [],
       // window: {
       //   width: "0"
       // }
@@ -378,18 +380,17 @@ export default {
     checkEvent() {
       findEventNotice().then((r) => {
         console.log(r.data.result);
+        r.data.result.forEach((element) => {
+          element.createdAt = element.createdAt.substr(0, 10);
+        });
+        // console.log(r.data.result.createdAt);
         this.eventList = r.data.result;
       });
     },
 
-    test() {
+    cleanAllNotice() {
       clearAllNotice().then((r) => {
         console.log(r);
-      });
-
-      findEventNotice().then((r) => {
-        console.log(r.data.result);
-        this.eventList = r.data.result;
       });
     },
 
@@ -763,7 +764,6 @@ export default {
   overflow-x: scroll;
   overflow-y: hidden;
   opacity: 0;
-  
 }
 .eventNotice {
   width: 298px;
@@ -785,7 +785,7 @@ export default {
 .eventNotice:hover {
   background-color: lightgray;
 }
-.eventNoticeTime{
+.eventNoticeTime {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
