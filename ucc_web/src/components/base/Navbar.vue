@@ -179,12 +179,13 @@
           :src="index.posterAvaterUrl"
           width="50px"
           height="50px"
-          style="border-radius: 50%"
+          style="border-radius: 50%;margin-left:5px"
         />
-        <span
-          ><span style="color: #ea7807">{{ index.posterName }}</span
-          >剛剛發布了新的消息!</span
-        >
+        <span>
+          <span style="color: #ea7807">{{ index.posterName }}</span>
+          剛剛發布了新的消息!<br>
+          <span class="eventNoticeTime">{{index.posterTime}} 前</span>
+        </span>
       </div>
     </div>
   </div>
@@ -222,7 +223,8 @@ export default {
       i: "0",
       scrollUpOrDown: true,
       eventNoticeIsOpen: false,
-      eventList: [],
+      eventList: [
+      ],
       // window: {
       //   width: "0"
       // }
@@ -279,8 +281,10 @@ export default {
     OpenEventNotice() {
       if (this.eventNoticeIsOpen) {
         document.getElementById("eventNoticeBox").style.opacity = "0";
+        document.getElementById("eventNoticeBox").style.top = "-400px";
       } else {
         document.getElementById("eventNoticeBox").style.opacity = "1";
+        document.getElementById("eventNoticeBox").style.top = "56px";
       }
       this.eventNoticeIsOpen = !this.eventNoticeIsOpen;
     },
@@ -759,6 +763,7 @@ export default {
   overflow-x: scroll;
   overflow-y: hidden;
   opacity: 0;
+  
 }
 .eventNotice {
   width: 298px;
@@ -768,15 +773,23 @@ export default {
   padding-top: 7px;
   transition: background-color 0.2s ease;
   cursor: pointer;
+  display: grid;
+  grid-template-columns: 60px 238px;
 }
 .test {
   background-color: rgb(255, 255, 255);
 }
 .eventNotice span {
-  margin-left: 5px;
+  padding-right: 8px;
 }
 .eventNotice:hover {
   background-color: lightgray;
+}
+.eventNoticeTime{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 @media screen and (max-width: 980px) {
