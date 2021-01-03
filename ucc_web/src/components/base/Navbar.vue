@@ -174,7 +174,7 @@
         class="eventNotice"
         v-for="index in eventList"
         :key="index"
-        @click="clickEventBtn(index.eventId)"
+        @click="clickEventBtn(index.eventId, index.eventNoticeId)"
         :class="{ test: index.readed }"
       >
         <img
@@ -340,12 +340,12 @@ export default {
       this.clearNotice(noticeType);
     },
 
-    clickEventBtn(id) {
-      console.log(id);
-      clearEventOne(id).then((r) => {
+    clickEventBtn(eventId, eventNoticeId) {
+      console.log(eventId);
+      clearEventOne(eventNoticeId).then((r) => {
         console.log(r.data.success);
         if (r.data.success) {
-          searchEventById(id)
+          searchEventById(eventId)
             .then((r) => {
               this.eventNoticeCount--;
               if (r.data.success) {
@@ -391,6 +391,13 @@ export default {
     cleanAllNotice() {
       clearAllNotice().then((r) => {
         console.log(r);
+        let eventNoticeCount =  {
+          followingNoticeCount: 0,
+          eventNoticeCount: 0,
+          chatNoticeCount: 0
+        };
+        this.updateUserNoticeCount(eventNoticeCount)
+        this.eventList = [];
       });
     },
 
@@ -403,6 +410,7 @@ export default {
     ...mapActions({
       logout: "auth/logout",
       clearNotice: "notice/clearUserNoticeCount",
+      updateUserNoticeCount: "notice/updateUserNoticeCount"
     }),
 
     sendQuery() {
@@ -755,20 +763,20 @@ export default {
   position: fixed;
   top: 56px;
   right: 29px;
-  width: 300px;
-  height: 400px;
+  width: 315px;
+  height: 450px;
   background-color: white;
   transition: opacity 0.2s ease-out;
   border: 1px #4f3f2f solid;
   border-radius: 5px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   opacity: 0;
 }
 .eventNotice {
   width: 298px;
   height: 68px;
-  background-color: rgb(241, 241, 241);
+  background-color: #bbb;
   border-bottom: 1px black solid;
   padding-top: 7px;
   transition: background-color 0.2s ease;

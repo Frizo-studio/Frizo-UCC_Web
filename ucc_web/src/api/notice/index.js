@@ -22,6 +22,7 @@ export const clearEventOne = (eventNoticeId) => {
     let actionUrl = "notice/read/event/message"
     let params = {}
 
+    console.log("in api:" + eventNoticeId)
     params.eventNoticeId = eventNoticeId;
 
     return getRequest(actionUrl, params);
@@ -40,7 +41,7 @@ export const findEventNotice = (page) => {
 }
 
 export const clearAllNotice = () => {
-    let actionUrl = "event/clear/all/my/event/message"
+    let actionUrl = "notice/clear/all/my/event/message"
     let params = {}
 
     return getRequest(actionUrl, params);
